@@ -1,7 +1,3 @@
-//
-// Created by Artem Novikov on 09.03.2022.
-//
-
 #ifndef SHIPS_MORSKOY_BOY_GAMEMASTER_GAMEMASTER_H_
 #define SHIPS_MORSKOY_BOY_GAMEMASTER_GAMEMASTER_H_
 
