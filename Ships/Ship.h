@@ -13,25 +13,39 @@ class Ship {
     BoundaryBox(const BoundaryBox&) = default;
     BoundaryBox(const Coords&, const Coords&);
     BoundaryBox& operator=(const BoundaryBox&) = default;
-    std::pair<Coords, Coords> GetCoords() const;
-    bool IsHit(const Coords&) const;
-    size_t WhereHit(const Coords&) const;
-    bool IsIntersect(const BoundaryBox&) const;
-    void RotateAround(const Coords&);
-    void MoveForward(size_t);
+    [[nodiscard]] std::pair<Coords, Coords> GetCoords() const;
+    [[nodiscard]] bool IsHit(const Coords&) const;
+    [[nodiscard]] size_t WhereHit(const Coords&) const;
+    [[nodiscard]] bool IsIntersect(const BoundaryBox&) const;
+    void RotateAround(const Coords&, bool);
+    void Move(size_t, bool);
     ~BoundaryBox() = default;
    private:
+    enum class FacingDirection {
+      kUp,
+      kDown,
+      kLeft,
+      kRight,
+    };
+
+    [[nodiscard]] FacingDirection GetFacingDirection() const;
+
     Coords left_corner_;
     Coords right_corner_;
   };
 
   Ship() = delete;
   Ship(const Coords&);
-  BoundaryBox GetPosition() const;
+  [[nodiscard]] BoundaryBox GetPosition() const;
+  [[nodiscard]] bool IsReadyFire() const;
   std::shared_ptr<Projectile> Fire(const Coords&);
-  bool IsHit(const Coords&);
-  void ReceiveDamage(const Coords&);
-  bool IsDead() const;
+  void Move(size_t, bool);
+  void Rotate(const Coords&, bool);
+  [[nodiscard]] bool IsHit(const Coords&) const;
+  [[nodiscard]] bool IsIntersect(const BoundaryBox&) const;
+  void ReceiveDamage(const Coords&, size_t);
+  void Reload();
+  [[nodiscard]] bool IsDead() const;
   ~Ship() = default;
  private:
   class Hull {
@@ -39,8 +53,8 @@ class Ship {
     Hull() = delete;
     Hull(const Hull&) = default;
     Hull& operator=(const Hull&) = default;
-    Hull(size_t);
-    bool IsDead() const;
+    explicit Hull(size_t);
+    [[nodiscard]] bool IsDead() const;
     void GetHit(size_t);
     ~Hull() = default;
    private:

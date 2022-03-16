@@ -14,8 +14,9 @@ using std::string;
 using std::cout;
 using std::cin;
 
-class Ship;
+enum class Error;
 class Weapon;
+class Ship;
 class Field;
 class Player;
 class Action;
@@ -28,8 +29,8 @@ struct Coords{
 
 #include "Error.h"
 #include "Weapons/Projectile.h"
-#include "Ships/Ship.h"
 #include "Weapons/Weapon.h"
+#include "Ships/Ship.h"
 #include "Field/Field.h"
 #include "Player/Player.h"
 #include "Action/Action.h"

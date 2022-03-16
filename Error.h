@@ -5,11 +5,13 @@
 
 enum class Error{
   kNoError,
-  kInvalidId,
+  kInvalidShip,
   kInvalidTarget,
+  kShipIsDead,
   kIntersectsFieldBoundary,
   kIntersectsShip,
   kWeaponOnCooldown,
+  kOutOfActions,
 };
 
 #endif //SHIPS_MORSKOY_BOY_ERROR_H_
