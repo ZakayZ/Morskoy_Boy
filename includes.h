@@ -10,29 +10,29 @@
 #define SHIPS_MORSKOY_BOY_INCLUDES_
 
 using std::vector;
+using std::string;
 using std::cout;
 using std::cin;
 
 class Ship;
 class Weapon;
+class Field;
 class Player;
 class Action;
 class GameMaster;
-class Field;
-class Bullet;
 
 struct Coords{
   size_t x;
   size_t y;
 };
 
+#include "Error.h"
 #include "Weapons/Projectile.h"
 #include "Ships/Ship.h"
 #include "Weapons/Weapon.h"
-#include "Action/Action.h"
-#include "Player/Player.h"
-#include "GameMaster/GameMaster.h"
 #include "Field/Field.h"
-#include "Bullet/Bullet.h"
+#include "Player/Player.h"
+#include "Action/Action.h"
+#include "GameMaster/GameMaster.h"
 
 #endif //SHIPS_MORSKOY_BOY_INCLUDES_

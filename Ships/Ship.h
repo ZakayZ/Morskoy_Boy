@@ -28,7 +28,7 @@ class Ship {
   Ship() = delete;
   Ship(const Coords&);
   BoundaryBox GetPosition() const;
-  Bullet& Fire(const Coords&);
+  std::shared_ptr<Projectile> Fire(const Coords&);
   bool IsHit(const Coords&);
   void ReceiveDamage(const Coords&);
   bool IsDead() const;
@@ -49,7 +49,7 @@ class Ship {
 
   BoundaryBox ship_box_;
   vector<Hull> hull_;
-  std::unique_ptr<Weapon> weapon_;
+  Weapon weapon_;
   bool is_dead_;
 };
 

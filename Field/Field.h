@@ -9,7 +9,7 @@ class Field {
  public:
   Field() = delete;
   Field(size_t, size_t);
-  bool IsValid(const Ship::BoundaryBox&) const;
+  bool IsValidBox(const Ship::BoundaryBox&) const;
   ~Field() = default;
  private:
   size_t x_size_;
