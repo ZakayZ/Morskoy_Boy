@@ -7,13 +7,11 @@
 
 class Weapon {
  public:
-  virtual Fire();
-  virtual Reload();
-  virtual
+  Fire();
+  Reload();
  private:
   size_t reload_counter_;
-  vector<vector<uint64_t>> damage_kernel_;
-  size_t time_;
+  static const size_t kTimeToReload;
 };
 
 #endif //SHIPS_MORSKOY_BOY_WEAPONS_WEAPON_H_

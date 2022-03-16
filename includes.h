@@ -4,6 +4,7 @@
 #include <cmath>
 #include <vector>
 #include <iostream>
+#include <memory>
 
 #ifndef SHIPS_MORSKOY_BOY_INCLUDES_
 #define SHIPS_MORSKOY_BOY_INCLUDES_
@@ -25,6 +26,7 @@ struct Coords{
   size_t y;
 };
 
+#include "Weapons/Projectile.h"
 #include "Ships/Ship.h"
 #include "Weapons/Weapon.h"
 #include "Action/Action.h"
