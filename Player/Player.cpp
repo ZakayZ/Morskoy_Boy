@@ -112,5 +112,27 @@ void Player::EndTurn() {
       ship.Reload();
     }
   }
-    ///TODO
+
+  for (auto& projectile : hit_by_) {
+    projectile->DecreaseTimeToFly();
+    if (projectile->IsReadyToLand()) {
+      auto projectile_type = projectile->GetType();
+      switch (projectile_type) {
+        case ProjectileTypes::kDefault: {
+          break;
+        }
+        case ProjectileTypes::kGun: {
+          HandleGun(std::dynamic_pointer_cast<GunProjectile>(projectile));
+          break;
+        }
+        case ProjectileTypes::kMortar: {
+          HandleMortar(std::dynamic_pointer_cast<MortarProjectile>(projectile));
+          break;
+        }
+        case ProjectileTypes::kFlare: {
+          break;
+        }
+      }
+    }
+  }
 }

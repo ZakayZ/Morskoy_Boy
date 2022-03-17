@@ -22,6 +22,9 @@ class Player {
   void EndTurn();
   ~Player() = default;
  private:
+  void HandleMortar(const std::shared_ptr<MortarProjectile>&); // TODO
+  void HandleGun(const std::shared_ptr<GunProjectile>&); // TODO
+  //void HandleFlare(const std::shared_ptr<FlareProjectile>&); // TODO
   size_t actions_left_;
   Field my_field_;
   vector<Ship> fleet_;

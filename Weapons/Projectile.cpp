@@ -1,15 +1,12 @@
 #include "Projectile.h"
 
-Projectile::Projectile(Coords cord, size_t Time_to_fly) {
-  landing_cords_ = cord;
-  current_time_to_fly_ = Time_to_fly;
-}
+Projectile::Projectile(Coords cord, size_t time_to_fly) : landing_cords_(cord), current_time_to_fly_(time_to_fly) {}
 
 void Projectile::DecreaseTimeToFly() {
   --current_time_to_fly_;
 }
 
-bool Projectile::IsReadyToLand() {
+bool Projectile::IsReadyToLand() const {
   return current_time_to_fly_ == 0;
 }
 

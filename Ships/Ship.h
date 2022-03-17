@@ -63,7 +63,7 @@ class Ship {
 
   BoundaryBox ship_box_;
   vector<Hull> hull_;
-  Weapon weapon_;
+  std::unique_ptr<Weapon> weapon_;
   bool is_dead_;
 };
 

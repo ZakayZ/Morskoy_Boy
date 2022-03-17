@@ -40,18 +40,17 @@ bool Ship::BoundaryBox::IsIntersect(const Ship::BoundaryBox& other) const {
 
 void Ship::BoundaryBox::RotateAround(const Coords& pivot, bool clockwise) {
   FacingDirection facing = GetFacingDirection();
-  Coords copy;
   switch (facing) {
     case FacingDirection::kUp: {
       if (clockwise) {
-        copy = left_corner_;
+        Coords copy = left_corner_;
         left_corner_.x = pivot.x - (pivot.y - copy.y);
         left_corner_.y = pivot.y - (copy.x - pivot.x);
         copy = right_corner_;
         right_corner_.x = pivot.x + (copy.y - pivot.y);
         right_corner_.y = pivot.y + (pivot.x - copy.x);
       } else {
-        copy = left_corner_;
+        Coords copy  = left_corner_;
         left_corner_.x = pivot.x + (pivot.y - copy.y);
         left_corner_.y = pivot.y + (copy.x - pivot.x);
         copy = right_corner_;
@@ -62,14 +61,14 @@ void Ship::BoundaryBox::RotateAround(const Coords& pivot, bool clockwise) {
     }
     case FacingDirection::kDown: {
       if (clockwise) {
-        copy = left_corner_;
+        Coords copy  = left_corner_;
         left_corner_.x = pivot.x + (copy.y - pivot.y);
         left_corner_.y = pivot.y + (pivot.x - copy.x);
         copy = right_corner_;
         right_corner_.x = pivot.x - (pivot.y - copy.y);
         right_corner_.y = pivot.y - (copy.x - pivot.x);
       } else {
-        copy = left_corner_;
+        Coords copy  = left_corner_;
         left_corner_.x = pivot.x - (copy.y - pivot.y);
         left_corner_.y = pivot.y - (pivot.x - copy.x);
         copy = right_corner_;
@@ -80,14 +79,14 @@ void Ship::BoundaryBox::RotateAround(const Coords& pivot, bool clockwise) {
     }
     case FacingDirection::kLeft: {
       if (clockwise) {
-        copy = left_corner_;
+        Coords copy  = left_corner_;
         left_corner_.x = pivot.x - (copy.y - pivot.y);
         left_corner_.y = pivot.y - (copy.x - pivot.x);
         copy = right_corner_;
         right_corner_.x = pivot.x + (pivot.y - copy.y);
         right_corner_.y = pivot.y + (pivot.x - copy.x);
       } else {
-        copy = left_corner_;
+        Coords copy  = left_corner_;
         left_corner_.x = pivot.x + (copy.y - pivot.y);
         left_corner_.y = pivot.y + (copy.x - pivot.x);
         copy = right_corner_;
@@ -98,14 +97,14 @@ void Ship::BoundaryBox::RotateAround(const Coords& pivot, bool clockwise) {
     }
     case FacingDirection::kRight: {
       if (clockwise) {
-        copy = left_corner_;
+        Coords copy  = left_corner_;
         left_corner_.x = pivot.x + (pivot.y - copy.y);
         left_corner_.y = pivot.y + (pivot.x - copy.x);
         copy = right_corner_;
         right_corner_.x = pivot.x - (copy.y - pivot.y);
         right_corner_.y = pivot.y - (copy.x - pivot.x);
       } else {
-        copy = left_corner_;
+        Coords copy  = left_corner_;
         left_corner_.x = pivot.x - (pivot.y - copy.y);
         left_corner_.y = pivot.y - (pivot.x - copy.x);
         copy = right_corner_;
@@ -186,11 +185,11 @@ Ship::BoundaryBox Ship::GetPosition() const {
 }
 
 bool Ship::IsReadyFire() const {
-  return weapon_.IsReadyToFire();
+  return weapon_->IsReadyToFire();
 }
 
 std::shared_ptr<Projectile> Ship::Fire(const Coords& where) {
-  return weapon_.Fire(where);
+  return weapon_->Fire(where);
 }
 
 void Ship::Move(size_t delta, bool forward) {
@@ -218,8 +217,8 @@ void Ship::ReceiveDamage(const Coords& coords, size_t damage) {
 }
 
 void Ship::Reload() {
-  if (!weapon_.IsReadyToFire()) {
-    weapon_.Reload();
+  if (!weapon_->IsReadyToFire()) {
+    weapon_->Reload();
   }
 }
 

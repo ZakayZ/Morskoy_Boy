@@ -7,6 +7,8 @@
 
 enum class ProjectileTypes {
   kDefault,
+  kGun,
+  kMortar,
   kFlare,
 };
 
@@ -15,7 +17,7 @@ class Projectile {
   Projectile(Coords cord, size_t time_to_fly);
   virtual ProjectileTypes GetType() = 0;
   void DecreaseTimeToFly();
-  bool IsReadyToLand();
+  bool IsReadyToLand() const;
   Coords GetLandingCords();
  private:
   size_t current_time_to_fly_;
