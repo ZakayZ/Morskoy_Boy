@@ -15,6 +15,7 @@ using std::cout;
 using std::cin;
 
 enum class Error;
+class Projectile;
 class Weapon;
 class Ship;
 class Field;
