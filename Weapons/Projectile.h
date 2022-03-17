@@ -46,9 +46,13 @@ class MortarProjectile : public DefaultProjectile {
   static const std::vector<vector<uint64_t>> kDamageKernel_;
 };
 
-//class Flare : Projectile {
-//  static const std::vector<vector<bool>> kShowKernel_;
-//};
+class Flare : Projectile {
+ public:
+  Flare(Coords cords, size_t time_to_fly);
+  const std::vector<std::vector<bool>>& GetShowKernel();
+ private:
+  static const std::vector<vector<bool>> kShowKernel_;
+};
 
 
 #endif //MORSKOY_BOY_WEAPONS_PROJECTILE_H_

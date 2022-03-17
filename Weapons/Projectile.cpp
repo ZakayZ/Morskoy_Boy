@@ -2,6 +2,10 @@
 
 Projectile::Projectile(Coords cord, size_t time_to_fly) : landing_cords_(cord), current_time_to_fly_(time_to_fly) {}
 
+Coords Projectile::GetLandingCords() {
+  return landing_cords_;
+}
+
 void Projectile::DecreaseTimeToFly() {
   --current_time_to_fly_;
 }
@@ -38,9 +42,15 @@ const vector<std::vector<uint64_t>>& MortarProjectile::GetDamageKernel() {
   return kDamageKernel_;
 }
 
-//const std::vector<vector<bool>> kShowKernel_ = {{0, 0, 1, 0, 0},
-//                                                {0, 1, 1, 1, 0},
-//                                                {1, 1, 1, 1, 1},
-//                                                {0, 1, 1, 1, 0},
-//                                                {0, 0, 1, 0, 0}};
+Flare::Flare(Coords cords, size_t time_to_fly) : Projectile(cords, time_to_fly) {};
+
+const std::vector<std::vector<bool>>& Flare::GetShowKernel() {
+  return kShowKernel_;
+}
+
+const std::vector<vector<bool>> Flare::kShowKernel_ = {{0, 0, 1, 0, 0},
+                                                       {0, 1, 1, 1, 0},
+                                                       {1, 1, 1, 1, 1},
+                                                       {0, 1, 1, 1, 0},
+                                                       {0, 0, 1, 0, 0}};
 
