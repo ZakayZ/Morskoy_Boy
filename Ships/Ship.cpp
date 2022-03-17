@@ -68,3 +68,14 @@ void Ship::Reload() {
     weapon_->Reload();
   }
 }
+
+void Ship::Translate(const Coords& delta) {
+  ship_box_.Translate(delta);
+}
+
+Ship::Ship(const BoundaryBox& box, const vector<size_t>& hull_health, const std::shared_ptr<Weapon>&& weapon)
+    : ship_box_(box), hull_(), weapon_(weapon), marked_for_(0), is_dead_(false) {
+  for(auto health: hull_health){
+    hull_.emplace_back(Hull(health));
+  }
+}

@@ -1,4 +1,5 @@
 #include "includes.h"
+#include "BoundaryBox.h"
 
 BoundaryBox::BoundaryBox(const Coords& left_corner, const Coords& right_corner)
     : left_corner_(left_corner), right_corner_(right_corner) {}
@@ -176,4 +177,11 @@ BoundaryBox::FacingDirection BoundaryBox::GetFacingDirection() const {
   } else {
     return FacingDirection::kUp;
   }
+}
+
+void BoundaryBox::Translate(const Coords& delta) {
+  left_corner_.x += delta.x;
+  left_corner_.y += delta.y;
+  right_corner_.x += delta.x;
+  right_corner_.y += delta.y;
 }

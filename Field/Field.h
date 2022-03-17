@@ -13,8 +13,13 @@ class Field {
   [[nodiscard]] bool IsValidBox(const BoundaryBox&) const;
   ~Field() = default;
  private:
+  struct Cell {
+
+  }
+
   size_t x_size_;
   size_t y_size_;
+  vector<vector<>>
 };
 
 #endif //SHIPS_MORSKOY_BOY_FIELD_FIELD_H_

@@ -4,7 +4,7 @@ void Weapon::Reload() {
   --reload_counter_;
 }
 
-bool Weapon::IsReadyToFire() {
+bool Weapon::IsReadyToFire() const {
   return reload_counter_ == 0;
 }
 
