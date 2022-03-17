@@ -30,12 +30,12 @@ class Mortar : public Weapon {
   static const size_t kTimeToReload;
 };
 
-//class FlareGun : Weapon {
-// public:
-//  std::shared_ptr<Projectile> Fire(Coords cord) override;
-// private:
-//  static const size_t kTimeTyFly_;
-//  static const size_t kTimeToReload;
-//};
+class FlareGun : public Weapon {
+ public:
+  std::shared_ptr<Projectile> Fire(Coords cord) override;
+ private:
+  static const size_t kTimeToFly_;
+  static const size_t kTimeToReload_;
+};
 
 #endif //SHIPS_MORSKOY_BOY_WEAPONS_WEAPON_H_

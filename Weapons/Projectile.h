@@ -17,7 +17,7 @@ class Projectile {
   void DecreaseTimeToFly();
   bool IsReadyToLand() const;
   Coords GetLandingCords();
- private:
+ protected:
   size_t current_time_to_fly_;
   Coords landing_cords_;
 };
@@ -46,11 +46,12 @@ class MortarProjectile : public DefaultProjectile {
   static const std::vector<vector<uint64_t>> kDamageKernel_;
 };
 
-class Flare : Projectile {
+class Flare : public Projectile {
  public:
   Flare(Coords cords, size_t time_to_fly);
   const std::vector<std::vector<bool>>& GetShowKernel();
  private:
+  static const size_t show_time_;
   static const std::vector<vector<bool>> kShowKernel_;
 };
 

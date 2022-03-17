@@ -48,6 +48,8 @@ const std::vector<std::vector<bool>>& Flare::GetShowKernel() {
   return kShowKernel_;
 }
 
+const size_t Flare::show_time_ = 1;
+
 const std::vector<vector<bool>> Flare::kShowKernel_ = {{0, 0, 1, 0, 0},
                                                        {0, 1, 1, 1, 0},
                                                        {1, 1, 1, 1, 1},
