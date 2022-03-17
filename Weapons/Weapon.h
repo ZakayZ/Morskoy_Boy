@@ -10,7 +10,7 @@ class Weapon {
   virtual std::shared_ptr<Projectile> Fire(Coords cord) = 0;
   void Reload();
   bool IsReadyToFire();
- private:
+ protected:
   size_t reload_counter_ = 0;
 };
 
