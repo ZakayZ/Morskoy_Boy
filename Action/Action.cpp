@@ -9,9 +9,7 @@ uint8_t Action::GetPlayerNum() {
   return player_;
 }
 
-FireAction::FireAction(Coords firing_ship,
-                       Coords landing_cords,
-                       uint8_t player) {
+FireAction::FireAction(Coords firing_ship, Coords landing_cords, uint8_t player) {
   player_ = player;
   firing_ship_cords_ = firing_ship;
   landing_cords_ = landing_cords;
