@@ -1,5 +1,12 @@
-//
-// Created by Artem Novikov on 09.03.2022.
-//
+#include "includes.h"
 
-#include "GameMaster.h"
+GameMaster::GameMaster() {
+
+}
+
+Error GameMaster::CheckAction(const Action&) const {
+  return Error::kIntersectsFieldBoundary;
+}
+void GameMaster::MakeAction(const Action&) {
+
+}

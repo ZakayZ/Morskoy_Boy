@@ -1,4 +1,4 @@
-#include "Projectile.h"
+#include "includes.h"
 
 Projectile::Projectile(Coords cord, size_t time_to_fly) : landing_cords_(cord), current_time_to_fly_(time_to_fly) {}
 

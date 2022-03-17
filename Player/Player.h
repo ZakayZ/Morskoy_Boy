@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../includes.h"
-
 #ifndef SHIPS_MORSKOY_BOY_PLAYER_PLAYER_H_
 #define SHIPS_MORSKOY_BOY_PLAYER_PLAYER_H_
 
+#include "../includes.h"
+
 class Player {
  public:
-  Player() = delete;
+  Player();
   Player(const Player&) = delete;
   Player& operator=(const Player&) = delete;
   [[nodiscard]] size_t GetShipId(const Coords&) const;
@@ -22,8 +22,7 @@ class Player {
   void EndTurn();
   ~Player() = default;
  private:
-  void HandleMortar(const std::shared_ptr<MortarProjectile>&); // TODO
-  void HandleGun(const std::shared_ptr<GunProjectile>&); // TODO
+  void HandleDefault(const std::shared_ptr<Projectile>&); // TODO
   //void HandleFlare(const std::shared_ptr<FlareProjectile>&); // TODO
   size_t actions_left_;
   Field my_field_;

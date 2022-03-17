@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../includes.h"
-
 #ifndef SHIPS_MORSKOY_BOY_GAMEMASTER_GAMEMASTER_H_
 #define SHIPS_MORSKOY_BOY_GAMEMASTER_GAMEMASTER_H_
+
+#include "../includes.h"
 
 class GameMaster {
  public:
   GameMaster();
-  Error CheckAction(const Action&) const;
+  [[nodiscard]] Error CheckAction(const Action&) const;
   void MakeAction(const Action&);
   ~GameMaster() = default;
  private:

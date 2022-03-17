@@ -17,6 +17,7 @@ using std::cin;
 enum class Error;
 class Projectile;
 class Weapon;
+class BoundaryBox;
 class Ship;
 class Field;
 class Player;
@@ -31,6 +32,7 @@ struct Coords{
 #include "Error.h"
 #include "Weapons/Projectile.h"
 #include "Weapons/Weapon.h"
+#include "Ships/BoundaryBox.h"
 #include "Ships/Ship.h"
 #include "Field/Field.h"
 #include "Player/Player.h"

@@ -1,41 +1,14 @@
 #pragma once
 
-#include "../includes.h"
-
 #ifndef SHIPS_MORSKOY_BOY_SHIP_H_
 #define SHIPS_MORSKOY_BOY_SHIP_H_
 
+#include "../includes.h"
+
 class Ship {
  public:
-  class BoundaryBox {
-   public:
-    BoundaryBox() = delete;
-    BoundaryBox(const BoundaryBox&) = default;
-    BoundaryBox(const Coords&, const Coords&);
-    BoundaryBox& operator=(const BoundaryBox&) = default;
-    [[nodiscard]] std::pair<Coords, Coords> GetCoords() const;
-    [[nodiscard]] bool IsHit(const Coords&) const;
-    [[nodiscard]] size_t WhereHit(const Coords&) const;
-    [[nodiscard]] bool IsIntersect(const BoundaryBox&) const;
-    void RotateAround(const Coords&, bool);
-    void Move(size_t, bool);
-    ~BoundaryBox() = default;
-   private:
-    enum class FacingDirection {
-      kUp,
-      kDown,
-      kLeft,
-      kRight,
-    };
-
-    [[nodiscard]] FacingDirection GetFacingDirection() const;
-
-    Coords left_corner_;
-    Coords right_corner_;
-  };
-
-  Ship() = delete;
-  Ship(const Coords&);
+  Ship() = default;
+  //Ship(const Coords&);
   [[nodiscard]] BoundaryBox GetPosition() const;
   [[nodiscard]] bool IsReadyFire() const;
   std::shared_ptr<Projectile> Fire(const Coords&);

@@ -7,8 +7,6 @@
 
 enum class ProjectileTypes {
   kDefault,
-  kGun,
-  kMortar,
   kFlare,
 };
 

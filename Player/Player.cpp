@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "includes.h"
 
 size_t Player::GetShipId(const Coords& coords) const {
   for (size_t i = 0; i < fleet_.size(); ++i) {
@@ -119,14 +119,7 @@ void Player::EndTurn() {
       auto projectile_type = projectile->GetType();
       switch (projectile_type) {
         case ProjectileTypes::kDefault: {
-          break;
-        }
-        case ProjectileTypes::kGun: {
-          HandleGun(std::dynamic_pointer_cast<GunProjectile>(projectile));
-          break;
-        }
-        case ProjectileTypes::kMortar: {
-          HandleMortar(std::dynamic_pointer_cast<MortarProjectile>(projectile));
+          HandleDefault(projectile);
           break;
         }
         case ProjectileTypes::kFlare: {
@@ -135,4 +128,8 @@ void Player::EndTurn() {
       }
     }
   }
+}
+
+void Player::HandleDefault(const std::shared_ptr<Projectile>& projectile) {
+
 }
