@@ -1,4 +1,5 @@
 #include "includes.h"
+#include "Ship.h"
 
 bool Ship::IsReadyFire() const {
   return weapon_->IsReadyToFire();
@@ -14,6 +15,10 @@ void Ship::Move(size_t delta, bool forward) {
 
 void Ship::Rotate(const Coords& pivot, bool clockwise) {
   ship_box_.RotateAround(pivot, clockwise);
+}
+
+void Ship::Mark(size_t marked_for) {
+  marked_for_ = marked_for;
 }
 
 bool Ship::IsHit(const Coords& coords) const {
@@ -32,10 +37,9 @@ void Ship::ReceiveDamage(const Coords& coords, size_t damage) {
   }
 }
 
-void Ship::Reload() {
-  if (!weapon_->IsReadyToFire()) {
-    weapon_->Reload();
-  }
+void Ship::TickEffects() {
+  --marked_for_;
+  weapon_->Reload();
 }
 
 bool Ship::IsDead() const {
@@ -57,4 +61,10 @@ void Ship::Hull::GetHit(size_t damage) {
 
 BoundaryBox Ship::GetPosition() const {
   return ship_box_;
+}
+
+void Ship::Reload() {
+  if (!weapon_->IsReadyToFire()) {
+    weapon_->Reload();
+  }
 }

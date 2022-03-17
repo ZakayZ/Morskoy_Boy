@@ -11,13 +11,14 @@ class Ship {
   //Ship(const Coords&);
   [[nodiscard]] BoundaryBox GetPosition() const;
   [[nodiscard]] bool IsReadyFire() const;
-  std::shared_ptr<Projectile> Fire(const Coords&);
-  void Move(size_t, bool);
-  void Rotate(const Coords&, bool);
   [[nodiscard]] bool IsHit(const Coords&) const;
   [[nodiscard]] bool IsIntersect(const BoundaryBox&) const;
+  [[nodiscard]] std::shared_ptr<Projectile> Fire(const Coords&);
+  void Move(size_t, bool);
+  void Rotate(const Coords&, bool);
+  void Mark(size_t);
   void ReceiveDamage(const Coords&, size_t);
-  void Reload();
+  void TickEffects();
   [[nodiscard]] bool IsDead() const;
   ~Ship() = default;
  private:
@@ -34,9 +35,12 @@ class Ship {
     size_t hit_points_;
   };
 
+  void Reload();
+
   BoundaryBox ship_box_;
   vector<Hull> hull_;
   std::unique_ptr<Weapon> weapon_;
+  size_t marked_for_;
   bool is_dead_;
 };
 

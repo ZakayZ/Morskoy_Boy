@@ -1,6 +1,5 @@
 #include "includes.h"
 
-
 BoundaryBox::BoundaryBox(const Coords& left_corner, const Coords& right_corner)
     : left_corner_(left_corner), right_corner_(right_corner) {}
 
@@ -51,7 +50,7 @@ void BoundaryBox::RotateAround(const Coords& pivot, bool clockwise) {
         right_corner_.x = pivot.x + (copy.y - pivot.y);
         right_corner_.y = pivot.y + (pivot.x - copy.x);
       } else {
-        Coords copy  = left_corner_;
+        Coords copy = left_corner_;
         left_corner_.x = pivot.x + (pivot.y - copy.y);
         left_corner_.y = pivot.y + (copy.x - pivot.x);
         copy = right_corner_;
@@ -62,14 +61,14 @@ void BoundaryBox::RotateAround(const Coords& pivot, bool clockwise) {
     }
     case FacingDirection::kDown: {
       if (clockwise) {
-        Coords copy  = left_corner_;
+        Coords copy = left_corner_;
         left_corner_.x = pivot.x + (copy.y - pivot.y);
         left_corner_.y = pivot.y + (pivot.x - copy.x);
         copy = right_corner_;
         right_corner_.x = pivot.x - (pivot.y - copy.y);
         right_corner_.y = pivot.y - (copy.x - pivot.x);
       } else {
-        Coords copy  = left_corner_;
+        Coords copy = left_corner_;
         left_corner_.x = pivot.x - (copy.y - pivot.y);
         left_corner_.y = pivot.y - (pivot.x - copy.x);
         copy = right_corner_;
@@ -80,14 +79,14 @@ void BoundaryBox::RotateAround(const Coords& pivot, bool clockwise) {
     }
     case FacingDirection::kLeft: {
       if (clockwise) {
-        Coords copy  = left_corner_;
+        Coords copy = left_corner_;
         left_corner_.x = pivot.x - (copy.y - pivot.y);
         left_corner_.y = pivot.y - (copy.x - pivot.x);
         copy = right_corner_;
         right_corner_.x = pivot.x + (pivot.y - copy.y);
         right_corner_.y = pivot.y + (pivot.x - copy.x);
       } else {
-        Coords copy  = left_corner_;
+        Coords copy = left_corner_;
         left_corner_.x = pivot.x + (copy.y - pivot.y);
         left_corner_.y = pivot.y + (copy.x - pivot.x);
         copy = right_corner_;
@@ -98,14 +97,14 @@ void BoundaryBox::RotateAround(const Coords& pivot, bool clockwise) {
     }
     case FacingDirection::kRight: {
       if (clockwise) {
-        Coords copy  = left_corner_;
+        Coords copy = left_corner_;
         left_corner_.x = pivot.x + (pivot.y - copy.y);
         left_corner_.y = pivot.y + (pivot.x - copy.x);
         copy = right_corner_;
         right_corner_.x = pivot.x - (copy.y - pivot.y);
         right_corner_.y = pivot.y - (copy.x - pivot.x);
       } else {
-        Coords copy  = left_corner_;
+        Coords copy = left_corner_;
         left_corner_.x = pivot.x - (pivot.y - copy.y);
         left_corner_.y = pivot.y - (pivot.x - copy.x);
         copy = right_corner_;
@@ -174,9 +173,7 @@ BoundaryBox::FacingDirection BoundaryBox::GetFacingDirection() const {
 
   if (left_corner_.x <= right_corner_.x && left_corner_.y >= right_corner_.y) {
     return FacingDirection::kDown;
-  }
-
-  if (left_corner_.x >= right_corner_.x && left_corner_.y <= right_corner_.y) {
+  } else {
     return FacingDirection::kUp;
   }
 }
