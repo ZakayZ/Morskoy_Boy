@@ -8,6 +8,33 @@ std::pair<Coords, Coords> BoundaryBox::GetCoords() const {
   return {left_corner_, right_corner_};
 }
 
+Coords BoundaryBox::GetLeftUpperCorner() const {
+  switch (GetFacingDirection()) {
+    case FacingDirection::kUp: { return right_corner_; }
+    case FacingDirection::kDown: { return left_corner_; }
+    case FacingDirection::kLeft: { return {right_corner_.x, left_corner_.y}; }
+    case FacingDirection::kRight: { return {left_corner_.x, right_corner_.y}; }
+  }
+}
+
+size_t BoundaryBox::GetLength() const {
+  switch (GetFacingDirection()) {
+    case FacingDirection::kUp: { return right_corner_.y - left_corner_.y; }
+    case FacingDirection::kDown: { return left_corner_.y - right_corner_.y; }
+    case FacingDirection::kLeft: { return left_corner_.x - right_corner_.x; }
+    case FacingDirection::kRight: { return right_corner_.x - left_corner_.x; }
+  }
+}
+
+size_t BoundaryBox::GetWidth() const {
+  switch (GetFacingDirection()) {
+    case FacingDirection::kUp: { return left_corner_.x - right_corner_.x; }
+    case FacingDirection::kDown: { return right_corner_.x - left_corner_.x; }
+    case FacingDirection::kLeft: { return left_corner_.y - right_corner_.y; }
+    case FacingDirection::kRight: { return right_corner_.y - left_corner_.y; }
+  }
+}
+
 bool BoundaryBox::IsHit(const Coords& coords) const {
   return coords.x >= std::min(left_corner_.x, right_corner_.x) && coords.x <= std::max(left_corner_.x, right_corner_.x)
       && coords.y >= std::min(left_corner_.y, right_corner_.y) && coords.y <= std::max(left_corner_.y, right_corner_.y);

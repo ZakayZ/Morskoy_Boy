@@ -74,6 +74,13 @@ Error Player::IsValidMove(const Coords& coords, size_t delta, bool forward) cons
   return Error::kNoError;
 }
 
+void Player::Display(sf::RenderWindow& window, const Coords& offset, bool my_view) const {
+  my_field_.Display(window, offset, my_view);
+  for(auto& ship: fleet_){
+    ship.Display(window, offset, my_view);
+  }
+}
+
 void Player::Move(const Coords& coords, size_t delta, bool forward) {
   size_t index = GetShipId(coords);
   fleet_[index].Move(delta, forward);

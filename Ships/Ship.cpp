@@ -42,6 +42,51 @@ void Ship::TickEffects() {
   weapon_->Reload();
 }
 
+void Ship::Display(sf::RenderWindow& window, const Coords& offset, bool my_view) const {
+  if (my_view || marked_for_ > 0) {
+    auto corners = ship_box_.GetCoords();
+    auto width = ship_box_.GetWidth();
+    auto position = ship_box_.GetLeftUpperCorner();
+    sf::RectangleShape rect;
+    rect.setFillColor(sf::Color::Cyan);
+    rect.setPosition(offset.x + position.x, offset.y + position.y);
+    switch (ship_box_.GetFacingDirection()) {
+      case BoundaryBox::FacingDirection::kUp: {
+        rect.setSize(sf::Vector2f(temporary::kTileSide, temporary::kTileSide * width));
+        for (auto tile : hull_) {
+          window.draw(rect);
+          rect.move(0, temporary::kTileSide);
+        }
+        break;
+      }
+      case BoundaryBox::FacingDirection::kDown: {
+        rect.setSize(sf::Vector2f(temporary::kTileSide * width, temporary::kTileSide));
+        for (auto tile : hull_) {
+          window.draw(rect);
+          rect.move(0, temporary::kTileSide);
+        }
+        break;
+      }
+      case BoundaryBox::FacingDirection::kLeft: {
+        rect.setSize(sf::Vector2f(temporary::kTileSide, temporary::kTileSide * width));
+        for (auto tile : hull_) {
+          window.draw(rect);
+          rect.move(temporary::kTileSide, 0);
+        }
+        break;
+      }
+      case BoundaryBox::FacingDirection::kRight: {
+        rect.setSize(sf::Vector2f(temporary::kTileSide, temporary::kTileSide * width));
+        for (auto tile : hull_) {
+          window.draw(rect);
+          rect.move(temporary::kTileSide, 0);
+        }
+        break;
+      }
+    }
+  }
+}
+
 bool Ship::IsDead() const {
   return is_dead_;
 }
@@ -75,7 +120,7 @@ void Ship::Translate(const Coords& delta) {
 
 Ship::Ship(const BoundaryBox& box, const vector<size_t>& hull_health, const std::shared_ptr<Weapon>&& weapon)
     : ship_box_(box), hull_(), weapon_(weapon), marked_for_(0), is_dead_(false) {
-  for(auto health: hull_health){
+  for (auto health : hull_health) {
     hull_.emplace_back(Hull(health));
   }
 }

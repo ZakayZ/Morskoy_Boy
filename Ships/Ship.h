@@ -20,6 +20,7 @@ class Ship {
   void Mark(size_t);
   void ReceiveDamage(const Coords&, size_t);
   void TickEffects();
+  void Display(sf::RenderWindow&, const Coords&, bool) const;
   [[nodiscard]] bool IsDead() const;
   ~Ship() = default;
  private:

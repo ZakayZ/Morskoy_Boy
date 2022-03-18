@@ -5,9 +5,14 @@
 #include <vector>
 #include <iostream>
 #include <memory>
+#include <SFML/Graphics.hpp>
 
 #ifndef SHIPS_MORSKOY_BOY_INCLUDES_
 #define SHIPS_MORSKOY_BOY_INCLUDES_
+
+namespace temporary{
+static const size_t kTileSide = 20;
+}
 
 using std::vector;
 using std::string;

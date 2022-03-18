@@ -7,11 +7,22 @@
 
 class BoundaryBox {
  public:
+  enum class FacingDirection {
+    kUp,
+    kDown,
+    kLeft,
+    kRight,
+  };
+
   BoundaryBox() = default;
   BoundaryBox(const BoundaryBox&) = default;
   BoundaryBox(const Coords&, const Coords&);
   BoundaryBox& operator=(const BoundaryBox&) = default;
   [[nodiscard]] std::pair<Coords, Coords> GetCoords() const;
+  [[nodiscard()]] Coords GetLeftUpperCorner()const;
+  [[nodiscard]] size_t GetLength() const;
+  [[nodiscard]] size_t GetWidth() const;
+  [[nodiscard]] FacingDirection GetFacingDirection() const;
   [[nodiscard]] bool IsHit(const Coords&) const;
   [[nodiscard]] size_t WhereHit(const Coords&) const;
   [[nodiscard]] bool IsIntersect(const BoundaryBox&) const;
@@ -20,18 +31,8 @@ class BoundaryBox {
   void Move(size_t, bool);
   ~BoundaryBox() = default;
  private:
-  enum class FacingDirection {
-    kUp,
-    kDown,
-    kLeft,
-    kRight,
-  };
-
-  [[nodiscard]] FacingDirection GetFacingDirection() const;
-
   Coords left_corner_;
   Coords right_corner_;
 };
-
 
 #endif //MORSKOY_BOY_MORSKOY_BOY_SHIPS_BOUNDARYBOX_H_

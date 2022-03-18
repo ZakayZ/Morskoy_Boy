@@ -15,7 +15,7 @@ class Projectile {
   Projectile(Coords cord, size_t time_to_fly);
   virtual ProjectileTypes GetType() = 0;
   void DecreaseTimeToFly();
-  bool IsReadyToLand() const;
+  [[nodiscard]] bool IsReadyToLand() const;
   Coords GetLandingCords();
  protected:
   size_t current_time_to_fly_;
