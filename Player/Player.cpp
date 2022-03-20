@@ -1,6 +1,9 @@
 #include "includes.h"
 #include "Player.h"
 
+Player::Player(size_t actions, const Coords& field_size, const vector<Ship>& fleet)
+    : actions_left_(actions), my_field_(field_size.x, field_size.y), fleet_(fleet) {}
+
 size_t Player::GetShipId(const Coords& coords) const {
   for (size_t i = 0; i < fleet_.size(); ++i) {
     if (fleet_[i].IsHit(coords)) {
@@ -45,6 +48,7 @@ Error Player::IsValidFire(const Coords& coords, const Coords& where) const {
 
 std::shared_ptr<Projectile> Player::Fire(const Coords& coords, const Coords& where) {
   size_t index = GetShipId(coords);
+  --actions_left_;
   return fleet_[index].Fire(where);
 }
 
@@ -76,7 +80,7 @@ Error Player::IsValidMove(const Coords& coords, size_t delta, bool forward) cons
 
 void Player::Display(sf::RenderWindow& window, const Coords& offset, bool my_view) const {
   my_field_.Display(window, offset, my_view);
-  for(auto& ship: fleet_){
+  for (auto& ship : fleet_) {
     ship.Display(window, offset, my_view);
   }
 }
@@ -84,6 +88,7 @@ void Player::Display(sf::RenderWindow& window, const Coords& offset, bool my_vie
 void Player::Move(const Coords& coords, size_t delta, bool forward) {
   size_t index = GetShipId(coords);
   fleet_[index].Move(delta, forward);
+  --actions_left_;
 }
 
 Error Player::IsValidRotate(const Coords& coords, const Coords& pivot, bool clockwise) const {
@@ -115,6 +120,7 @@ Error Player::IsValidRotate(const Coords& coords, const Coords& pivot, bool cloc
 void Player::Rotate(const Coords& coords, const Coords& pivot, bool clockwise) {
   size_t index = GetShipId(coords);
   fleet_[index].Rotate(pivot, clockwise);
+  --actions_left_;
 }
 
 void Player::GetHit(std::shared_ptr<Projectile>& projectile) {
@@ -146,6 +152,7 @@ void Player::EndTurn() {
       --projectile;
     }
   }
+  actions_left_ = 2; /// Temporary
 }
 
 void Player::HandleDefaultProjectile(const std::shared_ptr<DefaultProjectile>& projectile) {

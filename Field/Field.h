@@ -14,7 +14,7 @@ class Field {
   ~Field() = default;
  private:
   struct Cell {
-    bool is_on_fire = false;
+    bool placeholder = false;
   };
 
   size_t x_size_;

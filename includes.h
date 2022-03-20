@@ -29,6 +29,7 @@ class Shipyard;
 class Field;
 class Player;
 class Action;
+class ActionGenerator;
 class GameMaster;
 
 struct Coords{
@@ -46,6 +47,7 @@ struct Coords{
 #include "Field/Field.h"
 #include "Player/Player.h"
 #include "Action/Action.h"
+#include "Action/ActionGenerator.h"
 #include "GameMaster/GameMaster.h"
 
 #endif //SHIPS_MORSKOY_BOY_INCLUDES_
