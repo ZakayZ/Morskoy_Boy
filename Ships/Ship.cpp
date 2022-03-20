@@ -52,34 +52,34 @@ void Ship::Display(sf::RenderWindow& window, const Coords& offset, bool my_view)
     rect.setPosition(offset.x + position.x, offset.y + position.y);
     switch (ship_box_.GetFacingDirection()) {
       case BoundaryBox::FacingDirection::kUp: {
-        rect.setSize(sf::Vector2f(temporary::kTileSide, temporary::kTileSide * width));
+        rect.setSize(sf::Vector2f(constants::kTileSide, constants::kTileSide * width));
         for (auto tile : hull_) {
           window.draw(rect);
-          rect.move(0, temporary::kTileSide);
+          rect.move(0, constants::kTileSide);
         }
         break;
       }
       case BoundaryBox::FacingDirection::kDown: {
-        rect.setSize(sf::Vector2f(temporary::kTileSide * width, temporary::kTileSide));
+        rect.setSize(sf::Vector2f(constants::kTileSide * width, constants::kTileSide));
         for (auto tile : hull_) {
           window.draw(rect);
-          rect.move(0, temporary::kTileSide);
+          rect.move(0, constants::kTileSide);
         }
         break;
       }
       case BoundaryBox::FacingDirection::kLeft: {
-        rect.setSize(sf::Vector2f(temporary::kTileSide, temporary::kTileSide * width));
+        rect.setSize(sf::Vector2f(constants::kTileSide, constants::kTileSide * width));
         for (auto tile : hull_) {
           window.draw(rect);
-          rect.move(temporary::kTileSide, 0);
+          rect.move(constants::kTileSide, 0);
         }
         break;
       }
       case BoundaryBox::FacingDirection::kRight: {
-        rect.setSize(sf::Vector2f(temporary::kTileSide, temporary::kTileSide * width));
+        rect.setSize(sf::Vector2f(constants::kTileSide, constants::kTileSide * width));
         for (auto tile : hull_) {
           window.draw(rect);
-          rect.move(temporary::kTileSide, 0);
+          rect.move(constants::kTileSide, 0);
         }
         break;
       }

@@ -10,7 +10,7 @@
 #ifndef SHIPS_MORSKOY_BOY_INCLUDES_
 #define SHIPS_MORSKOY_BOY_INCLUDES_
 
-namespace temporary{
+namespace constants {
 static const size_t kTileSide = 20;
 }
 

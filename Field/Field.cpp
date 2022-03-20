@@ -17,10 +17,10 @@ void Field::Display(sf::RenderWindow& window, const Coords& offset, bool my_view
   sf::RectangleShape rect;
   rect.setFillColor(sf::Color::Magenta);
   for (size_t i = 0; i < grid_.size(); ++i) {
-    rect.setPosition(offset.x, offset.y + i * temporary::kTileSide);
+    rect.setPosition(offset.x, offset.y + i * constants::kTileSide);
     for (size_t j = 0; j < grid_[i].size(); ++j) {
       window.draw(rect);
-      rect.move(temporary::kTileSide, 0);
+      rect.move(constants::kTileSide, 0);
     }
   }
 }
