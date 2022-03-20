@@ -7,7 +7,7 @@
 
 class Player {
  public:
-  Player() = delete;
+  Player() = default;
   Player(size_t, const Coords&, const vector<Ship>&);
   Player& operator=(const Player&) = delete;
   [[nodiscard]] Error IsValidCoords(const Coords&) const;

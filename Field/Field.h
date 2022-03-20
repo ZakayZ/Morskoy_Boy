@@ -7,6 +7,7 @@
 
 class Field {
  public:
+  Field() = default;
   Field(size_t, size_t);
   [[nodiscard]] bool IsValidCoord(const Coords&) const;
   [[nodiscard]] bool IsValidBox(const BoundaryBox&) const;
