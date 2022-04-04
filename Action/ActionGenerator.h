@@ -2,9 +2,6 @@
 
 #include "../includes.h"
 
-#ifndef MORSKOY_BOY_MORSKOY_BOY_INTERFACE_ACTIONGENERATOR_H_
-#define MORSKOY_BOY_MORSKOY_BOY_INTERFACE_ACTIONGENERATOR_H_
-
 class ActionGenerator {
  public:
   [[nodiscard]] bool IsValidValidString(const string&) const;
@@ -12,5 +9,3 @@ class ActionGenerator {
  private:
   [[nodiscard]] vector<string> SplitIntoWords(const string&) const;
 };
-
-#endif //MORSKOY_BOY_MORSKOY_BOY_INTERFACE_ACTIONGENERATOR_H_

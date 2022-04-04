@@ -2,9 +2,6 @@
 
 #include "../includes.h"
 
-#ifndef SHIPS_MORSKOY_BOY_ACTION_ACTION_H_
-#define SHIPS_MORSKOY_BOY_ACTION_ACTION_H_
-
 enum class ActionType {
   Move,
   Fire,
@@ -58,4 +55,3 @@ class EndTurnAction : public Action {
  private:
 };
 
-#endif //SHIPS_MORSKOY_BOY_ACTION_ACTION_H_

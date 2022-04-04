@@ -2,9 +2,6 @@
 
 #include "../includes.h"
 
-#ifndef MORSKOY_BOY_WEAPONS_PROJECTILE_H_
-#define MORSKOY_BOY_WEAPONS_PROJECTILE_H_
-
 enum class ProjectileTypes {
   kDefault,
   kFlare,
@@ -54,6 +51,3 @@ class Flare : public Projectile {
   static const size_t show_time_;
   static const std::vector<vector<bool>> kShowKernel_;
 };
-
-
-#endif //MORSKOY_BOY_WEAPONS_PROJECTILE_H_

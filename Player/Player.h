@@ -2,9 +2,6 @@
 
 #include "../includes.h"
 
-#ifndef SHIPS_MORSKOY_BOY_PLAYER_PLAYER_H_
-#define SHIPS_MORSKOY_BOY_PLAYER_PLAYER_H_
-
 class Player {
  public:
   Player() = default;
@@ -30,5 +27,3 @@ class Player {
   vector<Ship> fleet_;
   vector<std::shared_ptr<Projectile>> hit_by_;
 };
-
-#endif //SHIPS_MORSKOY_BOY_PLAYER_PLAYER_H_

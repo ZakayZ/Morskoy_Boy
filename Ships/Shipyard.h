@@ -2,9 +2,6 @@
 
 #include "../includes.h"
 
-#ifndef MORSKOY_BOY_MORSKOY_BOY_SHIPS_SHIPYARD_H_
-#define MORSKOY_BOY_MORSKOY_BOY_SHIPS_SHIPYARD_H_
-
 class Shipyard {
  public:
   [[nodiscard]] Ship Make(ShipType) const;
@@ -16,4 +13,3 @@ class Shipyard {
  private:
 };
 
-#endif //MORSKOY_BOY_MORSKOY_BOY_SHIPS_SHIPYARD_H_

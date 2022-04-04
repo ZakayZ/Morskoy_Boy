@@ -2,9 +2,6 @@
 
 #include "../includes.h"
 
-#ifndef SHIPS_MORSKOY_BOY_SHIP_H_
-#define SHIPS_MORSKOY_BOY_SHIP_H_
-
 class Ship {
  public:
   Ship() = delete;
@@ -45,5 +42,3 @@ class Ship {
   size_t marked_for_;
   bool is_dead_;
 };
-
-#endif //SHIPS_MORSKOY_BOY_SHIP_H_

@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef SHIPS_MORSKOY_BOY_FIELD_FIELD_H_
-#define SHIPS_MORSKOY_BOY_FIELD_FIELD_H_
-
 #include "../includes.h"
 
 class Field {
@@ -22,5 +19,3 @@ class Field {
   size_t y_size_;
   vector<vector<Cell>> grid_;
 };
-
-#endif //SHIPS_MORSKOY_BOY_FIELD_FIELD_H_

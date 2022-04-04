@@ -2,9 +2,6 @@
 
 #include "../includes.h"
 
-#ifndef SHIPS_MORSKOY_BOY_WEAPONS_WEAPON_H_
-#define SHIPS_MORSKOY_BOY_WEAPONS_WEAPON_H_
-
 class Weapon {
  public:
   virtual std::shared_ptr<Projectile> Fire(Coords cord) = 0;
@@ -41,5 +38,3 @@ class FlareGun : public Weapon {
   static const size_t kTimeToFly_;
   static const size_t kTimeToReload_;
 };
-
-#endif //SHIPS_MORSKOY_BOY_WEAPONS_WEAPON_H_

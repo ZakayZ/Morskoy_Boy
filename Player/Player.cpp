@@ -182,7 +182,7 @@ void Player::HandleFlareProjectile(const std::shared_ptr<Flare>& flare) {
       Coords hit{i, j};
       for (auto& ship : fleet_) {
         if (ship.IsHit(hit)) {
-          ship.ReceiveDamage(hit, kernel[i][j]);
+          ship.Mark(kernel[i][j]);
         }
       }
     }

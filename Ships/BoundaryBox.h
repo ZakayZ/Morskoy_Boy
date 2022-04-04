@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef MORSKOY_BOY_MORSKOY_BOY_SHIPS_BOUNDARYBOX_H_
-#define MORSKOY_BOY_MORSKOY_BOY_SHIPS_BOUNDARYBOX_H_
-
 #include "../includes.h"
 
 class BoundaryBox {
@@ -19,7 +16,7 @@ class BoundaryBox {
   BoundaryBox(const Coords&, const Coords&);
   BoundaryBox& operator=(const BoundaryBox&) = default;
   [[nodiscard]] std::pair<Coords, Coords> GetCoords() const;
-  [[nodiscard]] Coords GetLeftUpperCorner()const;
+  [[nodiscard]] Coords GetLeftUpperCorner() const;
   [[nodiscard]] size_t GetLength() const;
   [[nodiscard]] size_t GetWidth() const;
   [[nodiscard]] FacingDirection GetFacingDirection() const;
@@ -34,5 +31,3 @@ class BoundaryBox {
   Coords left_corner_;
   Coords right_corner_;
 };
-
-#endif //MORSKOY_BOY_MORSKOY_BOY_SHIPS_BOUNDARYBOX_H_
