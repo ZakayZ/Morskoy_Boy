@@ -14,7 +14,7 @@ class Ship {
   void Translate(const Coords&);
   void Move(size_t, bool);
   void Rotate(const Coords&, bool);
-  void Mark(size_t);
+  void Mark(const Coords&, size_t);
   void ReceiveDamage(const Coords&, size_t);
   void TickEffects();
   void Display(sf::RenderWindow&, const Coords&, bool) const;

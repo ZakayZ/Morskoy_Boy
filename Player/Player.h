@@ -19,7 +19,12 @@ class Player {
   void EndTurn();
   ~Player() = default;
  private:
+  struct ProjectileHandler;
+  struct DefaultHandler;
+  struct FlareHandler;
   [[nodiscard]] size_t GetShipId(const Coords&) const;
+  template <class Handler, typename T>
+  void ApplyHandler(const Coords&, const vector<vector<T>>&);
   void HandleDefaultProjectile(const std::shared_ptr<DefaultProjectile>&);
   void HandleFlareProjectile(const std::shared_ptr<Flare>&);
   size_t actions_left_;
@@ -27,3 +32,15 @@ class Player {
   vector<Ship> fleet_;
   vector<std::shared_ptr<Projectile>> hit_by_;
 };
+
+struct Player::ProjectileHandler {
+  virtual void operator()(Ship&, const Coords&, size_t) = 0;
+};
+
+struct Player::DefaultHandler: ProjectileHandler {
+  void operator()(Ship&, const Coords&, size_t) override;
+};
+
+struct Player::FlareHandler: ProjectileHandler {
+  void operator()(Ship&, const Coords&, size_t) override;
+}

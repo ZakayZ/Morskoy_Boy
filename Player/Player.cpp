@@ -155,9 +155,9 @@ void Player::EndTurn() {
   actions_left_ = 2; /// Temporary
 }
 
-void Player::HandleDefaultProjectile(const std::shared_ptr<DefaultProjectile>& projectile) {
-  Coords epicenter = projectile->GetLandingCords();
-  auto kernel = projectile->GetDamageKernel();
+template <class Handler, typename T>
+void Player::ApplyHandler(const Coords& epicenter, const vector<vector<T>>& kernel) {
+  Handler handler;
   for (size_t i = epicenter.x < kernel.size() / 2 ? 0 : epicenter.x - kernel.size() / 2;
        i <= epicenter.x + kernel.size() / 2; ++i) {
     for (size_t j = epicenter.y < kernel.size() / 2 ? 0 : epicenter.y - kernel.size() / 2;
@@ -165,26 +165,29 @@ void Player::HandleDefaultProjectile(const std::shared_ptr<DefaultProjectile>& p
       Coords hit{i, j};
       for (auto& ship : fleet_) {
         if (ship.IsHit(hit)) {
-          ship.ReceiveDamage(hit, kernel[i][j]);
+          handler(ship, hit, kernel[i][j]);
         }
       }
     }
   }
 }
 
+void Player::HandleDefaultProjectile(const std::shared_ptr<DefaultProjectile>& projectile) {
+  Coords epicenter = projectile->GetLandingCords();
+  auto kernel = projectile->GetDamageKernel();
+  ApplyHandler<DefaultHandler, uint64_t>(epicenter, kernel);
+}
+
 void Player::HandleFlareProjectile(const std::shared_ptr<Flare>& flare) {
   Coords epicenter = flare->GetLandingCords();
   auto kernel = flare->GetShowKernel();
-  for (size_t i = epicenter.x < kernel.size() / 2 ? 0 : epicenter.x - kernel.size() / 2;
-       i <= epicenter.x + kernel.size() / 2; ++i) {
-    for (size_t j = epicenter.y < kernel.size() / 2 ? 0 : epicenter.y - kernel.size() / 2;
-         j <= epicenter.y + kernel.size() / 2; ++j) {
-      Coords hit{i, j};
-      for (auto& ship : fleet_) {
-        if (ship.IsHit(hit)) {
-          ship.Mark(kernel[i][j]);
-        }
-      }
-    }
-  }
+  ApplyHandler<FlareHandler, bool>(epicenter, kernel);
+}
+
+void Player::DefaultHandler::operator()(Ship& ship, const Coords& hit, size_t damage) {
+  ship.ReceiveDamage(hit, damage);
+}
+
+void Player::FlareHandler::operator()(Ship& ship, const Coords& hit, size_t duration) {
+  ship.Mark(hit, duration);
 }
