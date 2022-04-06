@@ -13,10 +13,14 @@ set(INCLUDES
         Weapons/Weapon.cpp
         Ships/BoundaryBox.cpp
         Ships/Ship.cpp
+        Ships/Shipyard.cpp
         Field/Field.cpp
         Player/Player.cpp
         GameMaster/GameMaster.cpp
         Action/Action.cpp
+        Action/ActionGenerator.cpp
+        Renderer/ConsoleWindow.cpp
+        Renderer/Renderer.cpp
         main.cpp)
 
 add_executable(main.exe ${INCLUDES})

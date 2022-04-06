@@ -7,13 +7,6 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 
-#ifndef SHIPS_MORSKOY_BOY_INCLUDES_
-#define SHIPS_MORSKOY_BOY_INCLUDES_
-
-namespace constants {
-static const size_t kTileSide = 20;
-}
-
 using std::vector;
 using std::string;
 using std::cout;
@@ -31,8 +24,9 @@ class Player;
 class Action;
 class ActionGenerator;
 class GameMaster;
+class Renderer;
 
-struct Coords{
+struct Coords {
   size_t x;
   size_t y;
 };
@@ -49,5 +43,4 @@ struct Coords{
 #include "Action/Action.h"
 #include "Action/ActionGenerator.h"
 #include "GameMaster/GameMaster.h"
-
-#endif //SHIPS_MORSKOY_BOY_INCLUDES_
+#include "Renderer/Renderer.h"

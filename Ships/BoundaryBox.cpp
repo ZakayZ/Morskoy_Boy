@@ -30,8 +30,8 @@ size_t BoundaryBox::GetWidth() const {
   switch (GetFacingDirection()) {
     case FacingDirection::kUp: { return left_corner_.x - right_corner_.x; }
     case FacingDirection::kDown: { return right_corner_.x - left_corner_.x; }
-    case FacingDirection::kLeft: { return left_corner_.y - right_corner_.y; }
-    case FacingDirection::kRight: { return right_corner_.y - left_corner_.y; }
+    case FacingDirection::kLeft: { return right_corner_.y - left_corner_.y; }
+    case FacingDirection::kRight: { return left_corner_.y - right_corner_.y; }
   }
 }
 
@@ -72,72 +72,72 @@ void BoundaryBox::RotateAround(const Coords& pivot, bool clockwise) {
     case FacingDirection::kUp: {
       if (clockwise) {
         Coords copy = left_corner_;
-        left_corner_.x = pivot.x - (pivot.y - copy.y);
-        left_corner_.y = pivot.y - (copy.x - pivot.x);
-        copy = right_corner_;
-        right_corner_.x = pivot.x + (copy.y - pivot.y);
-        right_corner_.y = pivot.y + (pivot.x - copy.x);
-      } else {
-        Coords copy = left_corner_;
-        left_corner_.x = pivot.x + (pivot.y - copy.y);
+        left_corner_.x = pivot.x + 1 - (copy.y - pivot.y);
         left_corner_.y = pivot.y + (copy.x - pivot.x);
         copy = right_corner_;
-        right_corner_.x = pivot.x - (copy.y - pivot.y);
+        right_corner_.x = pivot.x + 1 + (pivot.y - copy.y);
         right_corner_.y = pivot.y - (pivot.x - copy.x);
+      } else {
+        Coords copy = left_corner_;
+        left_corner_.x = pivot.x + (copy.y - pivot.y);
+        left_corner_.y = pivot.y + 1 - (copy.x - pivot.x);
+        copy = right_corner_;
+        right_corner_.x = pivot.x - (pivot.y - copy.y);
+        right_corner_.y = pivot.y + 1 + (pivot.x - copy.x);
       }
       break;
     }
     case FacingDirection::kDown: {
       if (clockwise) {
         Coords copy = left_corner_;
-        left_corner_.x = pivot.x + (copy.y - pivot.y);
-        left_corner_.y = pivot.y + (pivot.x - copy.x);
-        copy = right_corner_;
-        right_corner_.x = pivot.x - (pivot.y - copy.y);
-        right_corner_.y = pivot.y - (copy.x - pivot.x);
-      } else {
-        Coords copy = left_corner_;
-        left_corner_.x = pivot.x - (copy.y - pivot.y);
+        left_corner_.x = pivot.x + 1 + (pivot.y - copy.y);
         left_corner_.y = pivot.y - (pivot.x - copy.x);
         copy = right_corner_;
-        right_corner_.x = pivot.x + (pivot.y - copy.y);
+        right_corner_.x = pivot.x + 1 - (copy.y - pivot.y);
         right_corner_.y = pivot.y + (copy.x - pivot.x);
+      } else {
+        Coords copy = left_corner_;
+        left_corner_.x = pivot.x - (pivot.y - copy.y);
+        left_corner_.y = pivot.y + 1 + (pivot.x - copy.x);
+        copy = right_corner_;
+        right_corner_.x = pivot.x + (copy.y - pivot.y);
+        right_corner_.y = pivot.y + 1 - (copy.x - pivot.x);
       }
       break;
     }
     case FacingDirection::kLeft: {
       if (clockwise) {
         Coords copy = left_corner_;
-        left_corner_.x = pivot.x - (copy.y - pivot.y);
-        left_corner_.y = pivot.y - (copy.x - pivot.x);
-        copy = right_corner_;
-        right_corner_.x = pivot.x + (pivot.y - copy.y);
-        right_corner_.y = pivot.y + (pivot.x - copy.x);
-      } else {
-        Coords copy = left_corner_;
-        left_corner_.x = pivot.x + (copy.y - pivot.y);
+        left_corner_.x = pivot.x + 1 + (pivot.y - copy.y);
         left_corner_.y = pivot.y + (copy.x - pivot.x);
         copy = right_corner_;
-        right_corner_.x = pivot.x - (pivot.y - copy.y);
+        right_corner_.x = pivot.x + 1 - (copy.y - pivot.y);
         right_corner_.y = pivot.y - (pivot.x - copy.x);
+      } else {
+        Coords copy = left_corner_;
+        left_corner_.x = pivot.x - (pivot.y - copy.y);
+        left_corner_.y = pivot.y + 1 - (copy.x - pivot.x);
+        copy = right_corner_;
+        right_corner_.x = pivot.x + (copy.y - pivot.y);
+        right_corner_.y = pivot.y + 1 + (pivot.x - copy.x);
       }
       break;
     }
     case FacingDirection::kRight: {
       if (clockwise) {
         Coords copy = left_corner_;
-        left_corner_.x = pivot.x + (pivot.y - copy.y);
-        left_corner_.y = pivot.y + (pivot.x - copy.x);
-        copy = right_corner_;
-        right_corner_.x = pivot.x - (copy.y - pivot.y);
-        right_corner_.y = pivot.y - (copy.x - pivot.x);
-      } else {
-        Coords copy = left_corner_;
-        left_corner_.x = pivot.x - (pivot.y - copy.y);
+        left_corner_.x = pivot.x + 1 - (copy.y - pivot.y);
         left_corner_.y = pivot.y - (pivot.x - copy.x);
         copy = right_corner_;
-        right_corner_.x = pivot.x + (copy.y - pivot.y);
+        right_corner_.x = pivot.x + 1 + (pivot.y - copy.y);
         right_corner_.y = pivot.y + (copy.x - pivot.x);
+      } else {
+        Coords copy = left_corner_;
+        left_corner_.x = pivot.x + (copy.y - pivot.y);
+        left_corner_.y = pivot.y + 1 + (pivot.x - copy.x);
+        copy = right_corner_;
+        right_corner_.x = pivot.x - (pivot.y - copy.y);
+        right_corner_.y = pivot.y + 1 - (copy.x - pivot.x);
       }
       break;
     }
@@ -191,15 +191,15 @@ void BoundaryBox::Move(size_t delta, bool forward) {
 }
 
 BoundaryBox::FacingDirection BoundaryBox::GetFacingDirection() const {
-  if (left_corner_.x <= right_corner_.x && left_corner_.y <= right_corner_.y) {
+  if (left_corner_.x <= right_corner_.x && left_corner_.y >= right_corner_.y) {
     return FacingDirection::kRight;
   }
 
-  if (left_corner_.x >= right_corner_.x && left_corner_.y >= right_corner_.y) {
+  if (left_corner_.x >= right_corner_.x && left_corner_.y <= right_corner_.y) {
     return FacingDirection::kLeft;
   }
 
-  if (left_corner_.x <= right_corner_.x && left_corner_.y >= right_corner_.y) {
+  if (left_corner_.x <= right_corner_.x && left_corner_.y <= right_corner_.y) {
     return FacingDirection::kDown;
   } else {
     return FacingDirection::kUp;

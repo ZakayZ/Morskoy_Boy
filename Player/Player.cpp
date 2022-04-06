@@ -4,6 +4,10 @@
 Player::Player(size_t actions, const Coords& field_size, const vector<Ship>& fleet)
     : actions_left_(actions), my_field_(field_size.x, field_size.y), fleet_(fleet) {}
 
+const vector<Ship>& Player::GetFleet() const {
+  return fleet_;
+}
+
 size_t Player::GetShipId(const Coords& coords) const {
   for (size_t i = 0; i < fleet_.size(); ++i) {
     if (fleet_[i].IsHit(coords)) {
@@ -78,13 +82,6 @@ Error Player::IsValidMove(const Coords& coords, size_t delta, bool forward) cons
   return Error::kNoError;
 }
 
-void Player::Display(sf::RenderWindow& window, const Coords& offset, bool my_view) const {
-  my_field_.Display(window, offset, my_view);
-  for (auto& ship : fleet_) {
-    ship.Display(window, offset, my_view);
-  }
-}
-
 void Player::Move(const Coords& coords, size_t delta, bool forward) {
   size_t index = GetShipId(coords);
   fleet_[index].Move(delta, forward);
@@ -155,9 +152,9 @@ void Player::EndTurn() {
   actions_left_ = 2; /// Temporary
 }
 
-void Player::HandleDefaultProjectile(const std::shared_ptr<DefaultProjectile>& projectile) {
-  Coords epicenter = projectile->GetLandingCords();
-  auto kernel = projectile->GetDamageKernel();
+template <class Handler, typename T>
+void Player::ApplyHandler(const Coords& epicenter, const vector<vector<T>>& kernel) {
+  Handler handler;
   for (size_t i = epicenter.x < kernel.size() / 2 ? 0 : epicenter.x - kernel.size() / 2;
        i <= epicenter.x + kernel.size() / 2; ++i) {
     for (size_t j = epicenter.y < kernel.size() / 2 ? 0 : epicenter.y - kernel.size() / 2;
@@ -165,26 +162,33 @@ void Player::HandleDefaultProjectile(const std::shared_ptr<DefaultProjectile>& p
       Coords hit{i, j};
       for (auto& ship : fleet_) {
         if (ship.IsHit(hit)) {
-          ship.ReceiveDamage(hit, kernel[i][j]);
+          handler(ship, hit, kernel[i][j]);
         }
       }
     }
   }
 }
 
+void Player::HandleDefaultProjectile(const std::shared_ptr<DefaultProjectile>& projectile) {
+  Coords epicenter = projectile->GetLandingCords();
+  auto kernel = projectile->GetDamageKernel();
+  ApplyHandler<DefaultHandler, uint64_t>(epicenter, kernel);
+}
+
 void Player::HandleFlareProjectile(const std::shared_ptr<Flare>& flare) {
   Coords epicenter = flare->GetLandingCords();
   auto kernel = flare->GetShowKernel();
-  for (size_t i = epicenter.x < kernel.size() / 2 ? 0 : epicenter.x - kernel.size() / 2;
-       i <= epicenter.x + kernel.size() / 2; ++i) {
-    for (size_t j = epicenter.y < kernel.size() / 2 ? 0 : epicenter.y - kernel.size() / 2;
-         j <= epicenter.y + kernel.size() / 2; ++j) {
-      Coords hit{i, j};
-      for (auto& ship : fleet_) {
-        if (ship.IsHit(hit)) {
-          ship.ReceiveDamage(hit, kernel[i][j]);
-        }
-      }
-    }
-  }
+  ApplyHandler<FlareHandler, bool>(epicenter, kernel);
+}
+
+const Field& Player::GetField() const {
+  return my_field_;
+}
+
+void Player::DefaultHandler::operator()(Ship& ship, const Coords& hit, size_t damage) {
+  ship.ReceiveDamage(hit, damage);
+}
+
+void Player::FlareHandler::operator()(Ship& ship, const Coords& hit, size_t duration) {
+  ship.Mark(hit, duration);
 }
