@@ -1,4 +1,3 @@
-#include "includes.h"
 #include "Ship.h"
 
 Ship::Ship(const BoundaryBox& box, const vector<size_t>& hull_health, const std::shared_ptr<Weapon>&& weapon)

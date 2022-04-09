@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../includes.h"
+#include "../Coords/Coords.h"
 
 #ifndef SHIPS_MORSKOY_BOY_ACTION_ACTION_H_
 #define SHIPS_MORSKOY_BOY_ACTION_ACTION_H_
@@ -40,14 +40,14 @@ class MoveAction : public Action {
 
 class RotateClockwiseAction : public Action {
  public:
-  RotateClockwiseAction(Coords rotating_pivot);
+  explicit RotateClockwiseAction(Coords rotating_pivot);
  private:
   Coords pivot_;
 };
 
 class RotateCounterClockwiseAction : public Action {
  public:
-  RotateCounterClockwiseAction(Coords rotating_pivot);
+  explicit RotateCounterClockwiseAction(Coords rotating_pivot);
  private:
   Coords pivot_;
 };

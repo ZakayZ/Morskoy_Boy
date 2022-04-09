@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../includes.h"
+#include "Projectile.h"
 
 #ifndef SHIPS_MORSKOY_BOY_WEAPONS_WEAPON_H_
 #define SHIPS_MORSKOY_BOY_WEAPONS_WEAPON_H_

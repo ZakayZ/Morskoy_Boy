@@ -1,4 +1,3 @@
-#include "includes.h"
 #include "Field.h"
 
 Field::Field(size_t horizontal_size, size_t vertical_size)

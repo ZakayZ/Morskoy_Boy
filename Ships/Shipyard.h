@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../includes.h"
+#include "Ship.h"
+#include "ShipType.h"
 
 #ifndef MORSKOY_BOY_MORSKOY_BOY_SHIPS_SHIPYARD_H_
 #define MORSKOY_BOY_MORSKOY_BOY_SHIPS_SHIPYARD_H_

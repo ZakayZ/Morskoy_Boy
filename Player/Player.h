@@ -1,6 +1,13 @@
 #pragma once
 
-#include "../includes.h"
+#include "../Ships/Ship.h"
+#include "../Coords/Coords.h"
+#include "../Error.h"
+#include "../Weapons/Projectile.h"
+#include "../Field//Field.h"
+#include <vector>
+
+using std::vector;
 
 class Player {
  public:

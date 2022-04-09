@@ -1,4 +1,4 @@
-#include "includes.h"
+
 
 int main() {
   auto window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1000, 1000), "Morskoy Boy");

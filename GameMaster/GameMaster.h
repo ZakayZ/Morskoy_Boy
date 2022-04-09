@@ -1,9 +1,11 @@
 #pragma once
 
-#ifndef SHIPS_MORSKOY_BOY_GAMEMASTER_GAMEMASTER_H_
-#define SHIPS_MORSKOY_BOY_GAMEMASTER_GAMEMASTER_H_
+#include "../Error.h"
+#include "../Action/Action.h"
+#include "../Player/Player.h"
+#include <vector>
 
-#include "../includes.h"
+using std::vector;
 
 class GameMaster {
  public:
@@ -11,7 +13,6 @@ class GameMaster {
   void MakeNewGame(std::string name1, std::string name2);
   [[nodiscard]] Error CheckAction(const Action&) const;
   void ManageAction(const Action&);
-  void Display(sf::RenderWindow&, const Coords& field1, const Coords& field2, uint8_t player) const;
   void EndTurn();
   ~GameMaster() = default;
  private:
@@ -27,5 +28,3 @@ class GameMaster {
   Player player2_;
   size_t turns_passed_;
 };
-
-#endif //SHIPS_MORSKOY_BOY_GAMEMASTER_GAMEMASTER_H_

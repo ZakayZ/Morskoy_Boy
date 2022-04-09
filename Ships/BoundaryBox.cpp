@@ -1,10 +1,9 @@
-#include "includes.h"
 #include "BoundaryBox.h"
 
 BoundaryBox::BoundaryBox(const Coords& left_corner, const Coords& right_corner)
     : left_corner_(left_corner), right_corner_(right_corner) {}
 
-std::pair<Coords, Coords> BoundaryBox::GetCoords() const {
+pair<Coords, Coords> BoundaryBox::GetCoords() const {
   return {left_corner_, right_corner_};
 }
 

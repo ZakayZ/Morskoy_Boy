@@ -1,4 +1,4 @@
-#include "includes.h"
+#include "Weapon.h"
 
 void Weapon::Reload() {
   --reload_counter_;

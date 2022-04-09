@@ -1,9 +1,9 @@
 #pragma once
 
-#ifndef MORSKOY_BOY_MORSKOY_BOY_SHIPS_BOUNDARYBOX_H_
-#define MORSKOY_BOY_MORSKOY_BOY_SHIPS_BOUNDARYBOX_H_
+#include "../Coords/Coords.h"
+#include <algorithm>
 
-#include "../includes.h"
+using std::pair;
 
 class BoundaryBox {
  public:
@@ -34,5 +34,3 @@ class BoundaryBox {
   Coords left_corner_;
   Coords right_corner_;
 };
-
-#endif //MORSKOY_BOY_MORSKOY_BOY_SHIPS_BOUNDARYBOX_H_

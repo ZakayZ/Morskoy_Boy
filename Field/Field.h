@@ -1,6 +1,11 @@
 #pragma once
 
-#include "../includes.h"
+#include "../Coords//Coords.h"
+#include "../Ships/BoundaryBox.h"
+#include "Field.h"
+#include <vector>
+
+using std::vector;
 
 class Field {
  public:

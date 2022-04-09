@@ -1,6 +1,11 @@
 #pragma once
 
-#include "../includes.h"
+#include "BoundaryBox.h"
+#include "../Weapons/Weapon.h"
+#include "../Weapons/Projectile.h"
+#include <vector>
+
+using std::vector;
 
 class Ship {
  public:
