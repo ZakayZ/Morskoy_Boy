@@ -1,6 +1,13 @@
 #pragma once
 
-#include "../includes.h"
+#include "../Ships/Ship.h"
+#include "../Coords/Coords.h"
+#include "../Error.h"
+#include "../Weapons/Projectile.h"
+#include "../Field//Field.h"
+#include <vector>
+
+using std::vector;
 
 class Player {
  public:
@@ -12,7 +19,6 @@ class Player {
   [[nodiscard]] std::shared_ptr<Projectile> Fire(const Coords&, const Coords&);
   [[nodiscard]] Error IsValidMove(const Coords&, size_t, bool) const;
   [[nodiscard]] Error IsValidRotate(const Coords&, const Coords&, bool) const;
-  void Display(sf::RenderWindow&, const Coords&, bool) const;
   void Move(const Coords&, size_t, bool);
   void Rotate(const Coords&, const Coords&, bool);
   void GetHit(std::shared_ptr<Projectile>&);
@@ -43,4 +49,4 @@ struct Player::DefaultHandler: ProjectileHandler {
 
 struct Player::FlareHandler: ProjectileHandler {
   void operator()(Ship&, const Coords&, size_t) override;
-}
+};

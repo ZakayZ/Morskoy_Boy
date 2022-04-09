@@ -1,4 +1,3 @@
-#include "includes.h"
 #include "Weapon.h"
 
 void Weapon::Reload() {
@@ -14,13 +13,6 @@ std::shared_ptr<Projectile> Gun::Fire(Coords cord) {
   return ptr;
 }
 
-void Gun::Display(sf::RenderWindow& window, const Coords& placement) const {
-  sf::RectangleShape rect;
-  rect.setFillColor(sf::Color::Blue);
-  rect.setPosition(placement.x, placement.y);
-  window.draw(rect);
-}
-
 const size_t Gun::kTimeToFly_ = 1;
 
 const size_t Gun::kTimeToReload_ = 1;
@@ -29,26 +21,12 @@ std::shared_ptr<Projectile> Mortar::Fire(Coords cord) {
   return std::make_shared<MortarProjectile>(cord, kTimeToFly_);
 }
 
-void Mortar::Display(sf::RenderWindow& window, const Coords& placement) const {
-  sf::RectangleShape rect;
-  rect.setFillColor(sf::Color::Blue);
-  rect.setPosition(placement.x, placement.y);
-  window.draw(rect);
-}
-
 const size_t Mortar::kTimeToFly_ = 2;
 
 const size_t Mortar::kTimeToReload = 2;
 
 std::shared_ptr<Projectile> FlareGun::Fire(Coords cord) {
   return std::make_shared<MortarProjectile>(cord, kTimeToFly_);
-}
-
-void FlareGun::Display(sf::RenderWindow& window, const Coords& placement) const {
-  sf::RectangleShape rect;
-  rect.setFillColor(sf::Color::Blue);
-  rect.setPosition(placement.x, placement.y);
-  window.draw(rect);
 }
 
 const size_t FlareGun::kTimeToFly_ = 3;

@@ -1,6 +1,11 @@
 #pragma once
 
-#include "../includes.h"
+#include "../Coords//Coords.h"
+#include "../Ships/BoundaryBox.h"
+#include "Field.h"
+#include <vector>
+
+using std::vector;
 
 class Field {
  public:
@@ -8,7 +13,6 @@ class Field {
   Field(size_t, size_t);
   [[nodiscard]] bool IsValidCoord(const Coords&) const;
   [[nodiscard]] bool IsValidBox(const BoundaryBox&) const;
-  void Display(sf::RenderWindow&, const Coords&, bool) const;
   ~Field() = default;
  private:
   struct Cell {

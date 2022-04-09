@@ -1,11 +1,10 @@
 #pragma once
 
-#include "../includes.h"
+#include "Projectile.h"
 
 class Weapon {
  public:
   virtual std::shared_ptr<Projectile> Fire(Coords cord) = 0;
-  virtual void Display(sf::RenderWindow&, const Coords&) const = 0;
   void Reload();
   [[nodiscard]] bool IsReadyToFire() const;
  protected:
@@ -15,7 +14,6 @@ class Weapon {
 class Gun : public Weapon {
  public:
   std::shared_ptr<Projectile> Fire(Coords cord) override;
-  void Display(sf::RenderWindow&, const Coords&) const override;
  private:
   static const size_t kTimeToFly_;
   static const size_t kTimeToReload_;
@@ -24,7 +22,6 @@ class Gun : public Weapon {
 class Mortar : public Weapon {
  public:
   std::shared_ptr<Projectile> Fire(Coords cord) override;
-  void Display(sf::RenderWindow&, const Coords&) const override;
  private:
   static const size_t kTimeToFly_;
   static const size_t kTimeToReload;
@@ -33,7 +30,6 @@ class Mortar : public Weapon {
 class FlareGun : public Weapon {
  public:
   std::shared_ptr<Projectile> Fire(Coords cord) override;
-  void Display(sf::RenderWindow&, const Coords&) const override;
  private:
   static const size_t kTimeToFly_;
   static const size_t kTimeToReload_;

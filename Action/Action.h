@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../includes.h"
+#include "../Coords/Coords.h"
 
 enum class ActionType {
   Move,
@@ -37,14 +37,14 @@ class MoveAction : public Action {
 
 class RotateClockwiseAction : public Action {
  public:
-  RotateClockwiseAction(Coords rotating_pivot);
+  explicit RotateClockwiseAction(Coords rotating_pivot);
  private:
   Coords pivot_;
 };
 
 class RotateCounterClockwiseAction : public Action {
  public:
-  RotateCounterClockwiseAction(Coords rotating_pivot);
+  explicit RotateCounterClockwiseAction(Coords rotating_pivot);
  private:
   Coords pivot_;
 };

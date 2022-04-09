@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../includes.h"
+#include "Ship.h"
+#include "ShipType.h"
 
 class Shipyard {
  public:

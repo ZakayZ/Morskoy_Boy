@@ -1,6 +1,9 @@
 #pragma once
 
-#include "../includes.h"
+#include "../Coords/Coords.h"
+#include <vector>
+
+using std::vector;
 
 enum class ProjectileTypes {
   kDefault,

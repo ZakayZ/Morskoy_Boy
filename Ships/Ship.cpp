@@ -1,4 +1,3 @@
-#include "includes.h"
 #include "Ship.h"
 
 bool Ship::IsReadyFire() const {
@@ -40,51 +39,6 @@ void Ship::ReceiveDamage(const Coords& coords, size_t damage) {
 void Ship::TickEffects() {
   --marked_for_;
   weapon_->Reload();
-}
-
-void Ship::Display(sf::RenderWindow& window, const Coords& offset, bool my_view) const {
-  if (my_view || marked_for_ > 0) {
-    auto corners = ship_box_.GetCoords();
-    auto width = ship_box_.GetWidth();
-    auto position = ship_box_.GetLeftUpperCorner();
-    sf::RectangleShape rect;
-    rect.setFillColor(sf::Color::Cyan);
-    rect.setPosition(offset.x + position.x, offset.y + position.y);
-    switch (ship_box_.GetFacingDirection()) {
-      case BoundaryBox::FacingDirection::kUp: {
-        rect.setSize(sf::Vector2f(constants::kTileSide, constants::kTileSide * width));
-        for (auto tile : hull_) {
-          window.draw(rect);
-          rect.move(0, constants::kTileSide);
-        }
-        break;
-      }
-      case BoundaryBox::FacingDirection::kDown: {
-        rect.setSize(sf::Vector2f(constants::kTileSide * width, constants::kTileSide));
-        for (auto tile : hull_) {
-          window.draw(rect);
-          rect.move(0, constants::kTileSide);
-        }
-        break;
-      }
-      case BoundaryBox::FacingDirection::kLeft: {
-        rect.setSize(sf::Vector2f(constants::kTileSide, constants::kTileSide * width));
-        for (auto tile : hull_) {
-          window.draw(rect);
-          rect.move(constants::kTileSide, 0);
-        }
-        break;
-      }
-      case BoundaryBox::FacingDirection::kRight: {
-        rect.setSize(sf::Vector2f(constants::kTileSide, constants::kTileSide * width));
-        for (auto tile : hull_) {
-          window.draw(rect);
-          rect.move(constants::kTileSide, 0);
-        }
-        break;
-      }
-    }
-  }
 }
 
 bool Ship::IsDead() const {

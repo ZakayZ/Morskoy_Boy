@@ -1,4 +1,3 @@
-#include "includes.h"
 #include "Field.h"
 
 Field::Field(size_t horizontal_size, size_t vertical_size)
@@ -11,16 +10,4 @@ bool Field::IsValidCoord(const Coords& coords) const {
 bool Field::IsValidBox(const BoundaryBox& box) const {
   auto borders = box.GetCoords();
   return IsValidCoord(borders.first) && IsValidCoord(borders.second);
-}
-
-void Field::Display(sf::RenderWindow& window, const Coords& offset, bool my_view) const {
-  sf::RectangleShape rect;
-  rect.setFillColor(sf::Color::Magenta);
-  for (size_t i = 0; i < grid_.size(); ++i) {
-    rect.setPosition(offset.x, offset.y + i * constants::kTileSide);
-    for (size_t j = 0; j < grid_[i].size(); ++j) {
-      window.draw(rect);
-      rect.move(constants::kTileSide, 0);
-    }
-  }
 }
