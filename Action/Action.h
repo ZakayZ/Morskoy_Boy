@@ -1,9 +1,7 @@
 #pragma once
 
 #include "../Coords/Coords.h"
-
-#ifndef SHIPS_MORSKOY_BOY_ACTION_ACTION_H_
-#define SHIPS_MORSKOY_BOY_ACTION_ACTION_H_
+#include <cstdint>
 
 enum class ActionType {
   Move,
@@ -11,12 +9,14 @@ enum class ActionType {
   RotateClockwise,
   RotateCounterClockwise,
   EndTurn,
+  ConstructShip,
 };
 
 class Action {
  public:
-  ActionType GetActionType();
-  uint8_t GetPlayerNum();
+  ActionType GetActionType() const;
+  uint8_t GetPlayerNum() const;
+  virtual ~Action() = default;
  protected:
   ActionType action_type_;
   uint8_t player_;
@@ -25,6 +25,8 @@ class Action {
 class FireAction : public Action {
  public:
   FireAction(Coords firing_ship, Coords landing_cords, uint8_t player_);
+  const Coords& GetFiringShipCords() const;
+  const Coords& GetLandingCords() const;
  private:
   Coords firing_ship_cords_;
   Coords landing_cords_;
@@ -33,14 +35,17 @@ class FireAction : public Action {
 class MoveAction : public Action {
  public:
   MoveAction(Coords moving_ship, size_t distance);
+  const Coords& GetMovingShipCords() const;
+  int GetDistance() const;
  private:
   Coords moving_ship_cords_;
-  size_t distance_;
+  int distance_;
 };
 
 class RotateClockwiseAction : public Action {
  public:
   explicit RotateClockwiseAction(Coords rotating_pivot);
+  const Coords& GetPivot() const;
  private:
   Coords pivot_;
 };
@@ -48,6 +53,7 @@ class RotateClockwiseAction : public Action {
 class RotateCounterClockwiseAction : public Action {
  public:
   explicit RotateCounterClockwiseAction(Coords rotating_pivot);
+  const Coords& GetPivot() const;
  private:
   Coords pivot_;
 };
@@ -57,5 +63,3 @@ class EndTurnAction : public Action {
   EndTurnAction() = default;
  private:
 };
-
-#endif //SHIPS_MORSKOY_BOY_ACTION_ACTION_H_

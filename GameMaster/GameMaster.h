@@ -11,19 +11,22 @@ class GameMaster {
  public:
   GameMaster() = default;
   void MakeNewGame(std::string name1, std::string name2);
-  [[nodiscard]] Error CheckAction(const Action&) const;
-  void ManageAction(const Action&);
-  void EndTurn();
+  [[nodiscard]] Error CheckAction(const Action& action) const;
+  void ManageAction(const Action& action);
   ~GameMaster() = default;
  private:
-  void Fire(const Action&);
-  void Move(const Action&);
-  void RotateClock(const Action&);
-  void RotateCounterClock(const Action&);
-  Error CheckFire(const Action&) const;
-  Error CheckMove(const Action&) const;
-  Error CheckRotateClock(const Action&) const;
-  Error CheckRotateCounterClock(const Action&) const;
+  Player& GetPlayer(size_t num);
+  const Player& GetPlayer(size_t num) const;
+  void Fire(const Action& action);
+  void Move(const Action& action);
+  void RotateClock(const Action& action);
+  void RotateCounterClock(const Action& action);
+  void EndTurn(const Action& action);
+  void ConstructShip(const Action& action);
+  Error CheckFire(const Action& action) const;
+  Error CheckMove(const Action& action) const;
+  Error CheckRotateClock(const Action& action) const;
+  Error CheckRotateCounterClock(const Action& action) const;
   Player player1_;
   Player player2_;
   size_t turns_passed_;
