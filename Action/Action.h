@@ -67,8 +67,10 @@ class EndTurnAction : public Action {
 
 class ConstructShipAction : public Action {
  public:
-  ConstructShipAction(ShipType ship_type, uint8_t player);
+  ConstructShipAction(ShipType ship_type, uint8_t player, Coords cords = {0, 0});
   ShipType GetShipType() const;
+  const Coords& GetTopCords() const;
  private:
   ShipType ship_type_;
+  Coords top_cords_;
 };

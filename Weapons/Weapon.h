@@ -1,9 +1,7 @@
 #pragma once
 
 #include "Projectile.h"
-
-#ifndef SHIPS_MORSKOY_BOY_WEAPONS_WEAPON_H_
-#define SHIPS_MORSKOY_BOY_WEAPONS_WEAPON_H_
+#include <memory>
 
 class Weapon {
  public:
@@ -37,5 +35,3 @@ class FlareGun : public Weapon {
   static const size_t kTimeToFly_;
   static const size_t kTimeToReload_;
 };
-
-#endif //SHIPS_MORSKOY_BOY_WEAPONS_WEAPON_H_

@@ -165,7 +165,7 @@ Error GameMaster::CheckConstructShip(const Action& action) const {
 
 void GameMaster::ConstructShip(const Action& action) {
   auto construct_action = dynamic_cast<const ConstructShipAction&>(action);
-  Ship new_ship = Shipyard().Make(construct_action.GetShipType());
+  Ship new_ship = Shipyard().Make(construct_action.GetShipType(), construct_action.GetTopCords());
   GetPlayer(action.GetPlayerNum()).AddShip(new_ship);
   GetMoney(action.GetPlayerNum()) -= Shipyard().GetPrice(construct_action.GetShipType());
 }

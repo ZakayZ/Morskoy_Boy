@@ -61,12 +61,16 @@ EndTurnAction::EndTurnAction(uint8_t player) {
   player_ = player;
 }
 
-ConstructShipAction::ConstructShipAction(ShipType ship_type, uint8_t player) {
+ConstructShipAction::ConstructShipAction(ShipType ship_type, uint8_t player, Coords cords) {
   action_type_ = ActionType::ConstructShip;
   player_ = player;
   ship_type_ = ship_type;
+  top_cords_ = cords;
 }
 
 ShipType ConstructShipAction::GetShipType() const {
   return ship_type_;
+}
+const Coords& ConstructShipAction::GetTopCords() const {
+  return top_cords_;
 }
