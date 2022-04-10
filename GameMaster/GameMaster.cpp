@@ -1,38 +1,49 @@
 #include "GameMaster.h"
 #include "Ships/Shipyard.h"
 
+GameMaster::GameMaster(size_t) {
+  Shipyard factory;
+
+  vector<Ship> fleet1;
+  fleet1.push_back(factory.MakeCruiser({1, 1}));
+  fleet1.push_back(factory.MakeFrigate({7, 7}));
+  player1_ = Player(3, {10, 10}, fleet1);
+
+  vector<Ship> fleet2;
+  fleet2.push_back(factory.MakeFighter({1, 1}));
+  fleet2.push_back(factory.MakeDestroyer({5, 5}));
+  player2_ = Player(3, {10, 10}, fleet2);
+}
 
 Error GameMaster::CheckAction(const Action& action) const {
   switch (action.GetActionType()) {
-    case ActionType::Move:
-      return CheckMove(action);
-    case ActionType::Fire:
-      return CheckFire(action);
-    case ActionType::RotateClockwise:
-      return CheckRotateClock(action);
-    case ActionType::RotateCounterClockwise:
-      return CheckRotateCounterClock(action);
-    case ActionType::ConstructShip:
-      return CheckConstructShip(action);
-    case ActionType::EndTurn:
-      break;
+    case ActionType::Move:return CheckMove(action);
+    case ActionType::Fire:return CheckFire(action);
+    case ActionType::RotateClockwise:return CheckRotateClock(action);
+    case ActionType::RotateCounterClockwise:return CheckRotateCounterClock(action);
+    case ActionType::ConstructShip:return CheckConstructShip(action);
+    case ActionType::EndTurn:break;
   }
 }
 
 void GameMaster::ManageAction(const Action& action) {
   switch (action.GetActionType()) {
-    case ActionType::Move:
-      Move(action);
-    case ActionType::Fire:
-      Fire(action);
+    case ActionType::Move:Move(action);
+      break;
+    case ActionType::Fire:Fire(action);
+      break;
     case ActionType::RotateClockwise:
       RotateClock(action);
+      break;
     case ActionType::RotateCounterClockwise:
       RotateCounterClock(action);
+      break;
     case ActionType::EndTurn:
       EndTurn(action);
+      break;
     case ActionType::ConstructShip:
       ConstructShip(action);
+      break;
   }
   if (is_turn_finished1_ and is_turn_finished2_) {
     player1_.EndTurn();
@@ -93,8 +104,8 @@ Error GameMaster::CheckMove(const Action& action) const {
 void GameMaster::Move(const Action& action) {
   auto move_action = dynamic_cast<const MoveAction&>(action);
   GetPlayer(action.GetPlayerNum()).Move(move_action.GetMovingShipCords(),
-                                               abs(move_action.GetDistance()),
-                                               move_action.GetDistance() > 0);
+                                        abs(move_action.GetDistance()),
+                                        move_action.GetDistance() > 0);
   if (GetPlayer(action.GetPlayerNum()).GetActionsLeft() == 0) {
     GetIsTurnFinished(action.GetPlayerNum()) = true;
   }
@@ -169,4 +180,3 @@ void GameMaster::ConstructShip(const Action& action) {
   GetPlayer(action.GetPlayerNum()).AddShip(new_ship);
   GetMoney(action.GetPlayerNum()) -= Shipyard().GetPrice(construct_action.GetShipType());
 }
-

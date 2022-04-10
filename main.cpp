@@ -1,9 +1,8 @@
 #include "Interface/Interface.h"
-#include <SFML/Graphics.hpp>
 
 int main() {
   Interface<InterfaceType::Graphical> interface(1000, 1000);
-  interface.Setup();
+//  interface.Setup();
   while (interface.Running()) {
     interface.GameCycle();
   }

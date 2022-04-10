@@ -10,6 +10,7 @@ using std::vector;
 class GameMaster {
  public:
   GameMaster() = default;
+  GameMaster(size_t);
   void MakeNewGame(std::string name1, std::string name2);
   [[nodiscard]] Error CheckAction(const Action& action) const;
   void ManageAction(const Action& action);

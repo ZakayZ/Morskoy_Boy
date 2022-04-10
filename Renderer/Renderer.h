@@ -8,7 +8,7 @@
 #include <SFML/Graphics.hpp>
 
 namespace render_data {
-static const size_t kTileSide = 50;
+static const size_t kTileSide = 40;
 }
 
 class Renderer {

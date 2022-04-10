@@ -14,7 +14,7 @@ class Player {
  public:
   Player() = default;
   Player(size_t, const Coords&, const vector<Ship>&);
-  Player& operator=(const Player&) = delete;
+  Player& operator=(const Player&) = default;
   ~Player() = default;
   [[nodiscard]] const vector<Ship>& GetFleet() const;
   [[nodiscard]] const Field& GetField() const;

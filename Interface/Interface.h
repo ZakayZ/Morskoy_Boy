@@ -43,7 +43,7 @@ class Interface<InterfaceType::Console> {
 
 Interface<InterfaceType::Graphical>::Interface(size_t width, size_t height)
     : active_(true),
-      game_(),
+      game_(3),
       window1_(std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), "Ships")),
       renderer1_(window1_),
       window2_(std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), "Ships")),
@@ -74,7 +74,7 @@ void Interface<InterfaceType::Graphical>::GameCycle() {
 }
 
 bool Interface<InterfaceType::Graphical>::Running() const {
-  return active_;
+  return window1_->isOpen() && window2_->isOpen();
 }
 
 void Interface<InterfaceType::Graphical>::Setup(uint8_t player_num) {
