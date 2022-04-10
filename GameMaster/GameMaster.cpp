@@ -14,6 +14,8 @@ Error GameMaster::CheckAction(const Action& action) const {
       return CheckRotateCounterClock(action);
     case ActionType::ConstructShip:
       return CheckConstructShip(action);
+    case ActionType::EndTurn:
+      break;
   }
 }
 

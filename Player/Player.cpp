@@ -86,8 +86,12 @@ bool Player::IsValidSetup() const {
     for (size_t j = i + 1; j < fleet_.size(); ++j) {
       auto box1 = fleet_[i].GetPosition();
       auto box2 = fleet_[j].GetPosition();
+      if (box1.IsIntersect(box2)) {
+        return false;
+      }
     }
   }
+  return true;
 }
 
 void Player::Move(const Coords& coords, size_t delta, bool forward) {

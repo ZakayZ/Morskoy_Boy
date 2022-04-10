@@ -13,10 +13,10 @@ class GameMaster {
   void MakeNewGame(std::string name1, std::string name2);
   [[nodiscard]] Error CheckAction(const Action& action) const;
   void ManageAction(const Action& action);
+  [[nodiscard]] const Player& GetPlayer(size_t num) const;
   ~GameMaster() = default;
  private:
   Player& GetPlayer(size_t num);
-  const Player& GetPlayer(size_t num) const;
   bool& GetIsTurnFinished(size_t player_num);
   size_t& GetMoney(size_t player_num);
   size_t GetMoney(size_t player_num) const;
