@@ -9,4 +9,5 @@ enum class Error {
   kIntersectsShip,
   kWeaponOnCooldown,
   kOutOfActions,
+  kOutOfMoney,
 };

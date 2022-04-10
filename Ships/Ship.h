@@ -4,6 +4,7 @@
 #include "../Weapons/Weapon.h"
 #include "../Weapons/Projectile.h"
 #include <vector>
+#include <memory>
 
 using std::vector;
 

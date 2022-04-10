@@ -1,4 +1,8 @@
 #include "Shipyard.h"
+#include <memory>
+#include <cassert>
+
+
 
 Ship Shipyard::Make(ShipType type) const {
   switch (type) {
@@ -7,6 +11,16 @@ Ship Shipyard::Make(ShipType type) const {
     case ShipType::Destroyer: { return MakeDestroyer(); }
     case ShipType::Cruiser: { return MakeCruiser(); }
     case ShipType::Mothership: { return MakeMothership(); }
+  }
+}
+
+size_t Shipyard::GetPrice(ShipType ship_type) const {
+  switch (ship_type) {
+    case ShipType::Fighter: { return Shipyard::kFighterPrice; }
+    case ShipType::Frigate: { return Shipyard::kFrigatePrice; }
+    case ShipType::Destroyer: { return Shipyard::kDestroyerPrice; }
+    case ShipType::Cruiser: { return Shipyard::kCruiserPrice; }
+    case ShipType::Mothership: { return Shipyard::kMothershipPrice; }
   }
 }
 

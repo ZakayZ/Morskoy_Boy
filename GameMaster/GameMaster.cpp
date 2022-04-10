@@ -1,5 +1,5 @@
 #include "GameMaster.h"
-
+#include "Ships/Shipyard.h"
 
 
 Error GameMaster::CheckAction(const Action& action) const {
@@ -12,23 +12,32 @@ Error GameMaster::CheckAction(const Action& action) const {
       return CheckRotateClock(action);
     case ActionType::RotateCounterClockwise:
       return CheckRotateCounterClock(action);
+    case ActionType::ConstructShip:
+      return CheckConstructShip(action);
   }
 }
 
 void GameMaster::ManageAction(const Action& action) {
   switch (action.GetActionType()) {
     case ActionType::Move:
-      return Move(action);
+      Move(action);
     case ActionType::Fire:
-      return Fire(action);
+      Fire(action);
     case ActionType::RotateClockwise:
-      return RotateClock(action);
+      RotateClock(action);
     case ActionType::RotateCounterClockwise:
-      return RotateCounterClock(action);
+      RotateCounterClock(action);
     case ActionType::EndTurn:
-      return EndTurn(action);
+      EndTurn(action);
     case ActionType::ConstructShip:
-      return ConstructShip(action);
+      ConstructShip(action);
+  }
+  if (is_turn_finished1_ and is_turn_finished2_) {
+    player1_.EndTurn();
+    player2_.EndTurn();
+    ++turns_passed_;
+    is_turn_finished1_ = false;
+    is_turn_finished2_ = false;
   }
 }
 
@@ -48,6 +57,30 @@ const Player& GameMaster::GetPlayer(size_t num) const {
   }
 }
 
+bool& GameMaster::GetIsTurnFinished(size_t player_num) {
+  if (player_num == 1) {
+    return is_turn_finished1_;
+  } else if (player_num == 2) {
+    return is_turn_finished2_;
+  }
+}
+
+size_t& GameMaster::GetMoney(size_t player_num) {
+  if (player_num == 1) {
+    return money1_;
+  } else if (player_num == 2) {
+    return money2_;
+  }
+}
+
+size_t GameMaster::GetMoney(size_t player_num) const {
+  if (player_num == 1) {
+    return money1_;
+  } else if (player_num == 2) {
+    return money2_;
+  }
+}
+
 Error GameMaster::CheckMove(const Action& action) const {
   auto move_action = dynamic_cast<const MoveAction&>(action);
   return GetPlayer(action.GetPlayerNum()).IsValidMove(move_action.GetMovingShipCords(),
@@ -60,6 +93,9 @@ void GameMaster::Move(const Action& action) {
   GetPlayer(action.GetPlayerNum()).Move(move_action.GetMovingShipCords(),
                                                abs(move_action.GetDistance()),
                                                move_action.GetDistance() > 0);
+  if (GetPlayer(action.GetPlayerNum()).GetActionsLeft() == 0) {
+    GetIsTurnFinished(action.GetPlayerNum()) = true;
+  }
 }
 
 Error GameMaster::CheckFire(const Action& action) const {
@@ -74,6 +110,9 @@ void GameMaster::Fire(const Action& action) {
                                                       fire_action.GetLandingCords());
   size_t another_player = action.GetPlayerNum() % 2 + 1;
   GetPlayer(another_player).ProcessHit(bullet);
+  if (GetPlayer(action.GetPlayerNum()).GetActionsLeft() == 0) {
+    GetIsTurnFinished(action.GetPlayerNum()) = true;
+  }
 }
 
 Error GameMaster::CheckRotateClock(const Action& action) const {
@@ -88,6 +127,9 @@ void GameMaster::RotateClock(const Action& action) {
   GetPlayer(action.GetPlayerNum()).Rotate(rotate_clock_action.GetPivot(),
                                           rotate_clock_action.GetPivot(),
                                           true);
+  if (GetPlayer(action.GetPlayerNum()).GetActionsLeft() == 0) {
+    GetIsTurnFinished(action.GetPlayerNum()) = true;
+  }
 }
 
 Error GameMaster::CheckRotateCounterClock(const Action& action) const {
@@ -102,14 +144,27 @@ void GameMaster::RotateCounterClock(const Action& action) {
   GetPlayer(action.GetPlayerNum()).Rotate(rotate_cclock_action.GetPivot(),
                                           rotate_cclock_action.GetPivot(),
                                           false);
+  if (GetPlayer(action.GetPlayerNum()).GetActionsLeft() == 0) {
+    GetIsTurnFinished(action.GetPlayerNum()) = true;
+  }
 }
 
 void GameMaster::EndTurn(const Action& action) {
-  auto end_turn_action = dynamic_cast<const EndTurnAction&>(action);
-  GetPlayer(action.GetPlayerNum()).EndTurn();
+  GetIsTurnFinished(action.GetPlayerNum()) = true;
 }
 
-void GameMaster::ConstructShip(const Action& action) {} // TODO Ship Construction
+Error GameMaster::CheckConstructShip(const Action& action) const {
+  auto construct_action = dynamic_cast<const ConstructShipAction&>(action);
+  if (GetMoney(action.GetPlayerNum()) < Shipyard().GetPrice(construct_action.GetShipType())) {
+    return Error::kOutOfMoney;
+  }
+  return Error::kNoError;
+}
 
-
+void GameMaster::ConstructShip(const Action& action) {
+  auto construct_action = dynamic_cast<const ConstructShipAction&>(action);
+  Ship new_ship = Shipyard().Make(construct_action.GetShipType());
+  GetPlayer(action.GetPlayerNum()).AddShip(new_ship);
+  GetMoney(action.GetPlayerNum()) -= Shipyard().GetPrice(construct_action.GetShipType());
+}
 
