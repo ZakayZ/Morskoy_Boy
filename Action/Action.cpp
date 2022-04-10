@@ -21,7 +21,7 @@ const Coords& FireAction::GetLandingCords() const {
   return landing_cords_;
 }
 
-MoveAction::MoveAction(Coords moving_ship, size_t distance) {
+MoveAction::MoveAction(Coords moving_ship, int distance) {
   moving_ship_cords_ = moving_ship;
   distance_ = distance;
 }

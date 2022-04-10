@@ -4,7 +4,7 @@
 #include "../Coords/Coords.h"
 #include "../Error.h"
 #include "../Weapons/Projectile.h"
-#include "../Field//Field.h"
+#include "../Field/Field.h"
 #include <vector>
 #include <memory>
 
