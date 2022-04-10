@@ -4,19 +4,21 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <optional>
+
 using std::string;
 using std::vector;
 using std::shared_ptr;
 
-#ifndef MORSKOY_BOY_MORSKOY_BOY_INTERFACE_ACTIONGENERATOR_H_
-#define MORSKOY_BOY_MORSKOY_BOY_INTERFACE_ACTIONGENERATOR_H_
 
 class ActionGenerator {
  public:
-  [[nodiscard]] bool IsValidValidString(const string&) const;
-  [[nodiscard]] shared_ptr<Action> GenerateFromString(uint8_t, const string&) const;
+  [[nodiscard]] static bool IsValidString(const string&) ;
+  [[nodiscard]] static shared_ptr<Action> GenerateFromString(uint8_t, const string&) ;
  private:
-  [[nodiscard]] vector<string> SplitIntoWords(const string&) const;
+  [[nodiscard]] static vector<string> SplitIntoWords(const string&) ;
+  static std::optional<shared_ptr<Action>> CreateAction(const string&);
+  static std::optional<shared_ptr<Action>> CreateRotateAction(const vector<string>&);
+  static std::optional<shared_ptr<Action>> CreateMoveAction(const vector<string>&);
+  static std::optional<shared_ptr<Action>> CreateFireAction(const vector<string>&);
 };
-
-#endif //MORSKOY_BOY_MORSKOY_BOY_INTERFACE_ACTIONGENERATOR_H_

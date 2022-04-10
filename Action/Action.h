@@ -35,7 +35,7 @@ class FireAction : public Action {
 
 class MoveAction : public Action {
  public:
-  MoveAction(Coords moving_ship, size_t distance);
+  MoveAction(Coords moving_ship, int distance);
   const Coords& GetMovingShipCords() const;
   int GetDistance() const;
  private:
