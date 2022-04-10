@@ -25,7 +25,7 @@ class Action {
 
 class FireAction : public Action {
  public:
-  FireAction(Coords firing_ship, Coords landing_cords, uint8_t player_);
+  FireAction(Coords firing_ship, Coords landing_cords, uint8_t player);
   const Coords& GetFiringShipCords() const;
   const Coords& GetLandingCords() const;
  private:
@@ -35,7 +35,7 @@ class FireAction : public Action {
 
 class MoveAction : public Action {
  public:
-  MoveAction(Coords moving_ship, int distance);
+  MoveAction(Coords moving_ship, int distance, uint8_t player);
   const Coords& GetMovingShipCords() const;
   int GetDistance() const;
  private:
@@ -45,7 +45,7 @@ class MoveAction : public Action {
 
 class RotateClockwiseAction : public Action {
  public:
-  explicit RotateClockwiseAction(Coords rotating_pivot);
+  explicit RotateClockwiseAction(Coords rotating_pivot, uint8_t player);
   const Coords& GetPivot() const;
  private:
   Coords pivot_;
@@ -53,7 +53,7 @@ class RotateClockwiseAction : public Action {
 
 class RotateCounterClockwiseAction : public Action {
  public:
-  explicit RotateCounterClockwiseAction(Coords rotating_pivot);
+  explicit RotateCounterClockwiseAction(Coords rotating_pivot, uint8_t player);
   const Coords& GetPivot() const;
  private:
   Coords pivot_;
@@ -61,13 +61,13 @@ class RotateCounterClockwiseAction : public Action {
 
 class EndTurnAction : public Action {
  public:
-  EndTurnAction() = default;
+  EndTurnAction(uint8_t player);
  private:
 };
 
 class ConstructShipAction : public Action {
  public:
-  ConstructShipAction(ShipType ship_type);
+  ConstructShipAction(ShipType ship_type, uint8_t player);
   ShipType GetShipType() const;
  private:
   ShipType ship_type_;

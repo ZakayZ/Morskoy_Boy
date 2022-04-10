@@ -82,7 +82,7 @@ void Interface<InterfaceType::Graphical>::Setup(uint8_t player_num) {
   std::string command;
   while (!player_finished) {
     cin >> command;
-    if (!ActionGenerator::IsValidString(command)) {
+    if (!ActionGenerator::IsValidString(command, player_num)) {
       continue;
     }
     auto action = ActionGenerator::GenerateFromString(player_num, command);
@@ -142,7 +142,7 @@ void Interface<InterfaceType::Graphical>::Turn(uint8_t player_num) {
   while (!player_finished) {
     Display(player_num);
     cin >> command;
-    if (!ActionGenerator::IsValidString(command)) {
+    if (!ActionGenerator::IsValidString(command, player_num)) {
       continue;
     }
     auto action = ActionGenerator::GenerateFromString(player_num, command);
@@ -155,7 +155,7 @@ void Interface<InterfaceType::Graphical>::Turn(uint8_t player_num) {
     switch (error) {
       case Error::kOutOfActions: {
         cout << "No Actions left, change! \n";
-        game_.ManageAction(EndTurnAction());
+        game_.ManageAction(EndTurnAction(player_num));
         player_finished = true;
         break;
       }
