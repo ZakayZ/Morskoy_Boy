@@ -123,6 +123,19 @@ void Player::GetHit(std::shared_ptr<Projectile>& projectile) {
   hit_by_.push_back(projectile);
 }
 
+size_t Player::GetActionsLeft() {
+  return actions_left_;
+}
+
+bool Player::IsDead() {
+  for (auto& ship : fleet_) {
+    if (!ship.IsDead()) {
+      return false;
+    }
+  }
+  return true;
+}
+
 void Player::EndTurn() {
   for (auto& ship : fleet_) {
     if (!ship.IsDead()) {

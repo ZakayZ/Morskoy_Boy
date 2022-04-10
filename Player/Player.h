@@ -6,6 +6,7 @@
 #include "../Weapons/Projectile.h"
 #include "../Field//Field.h"
 #include <vector>
+#include <memory>
 
 using std::vector;
 
@@ -25,6 +26,8 @@ class Player {
   void Move(const Coords&, size_t, bool);
   void Rotate(const Coords&, const Coords&, bool);
   void GetHit(std::shared_ptr<Projectile>&);
+  size_t GetActionsLeft();
+  bool IsDead();
   void EndTurn();
  private:
   struct ProjectileHandler;
