@@ -67,7 +67,8 @@ class EndTurnAction : public Action {
 
 class ConstructShipAction : public Action {
  public:
-  ConstructShipAction() = default;
+  ConstructShipAction(ShipType ship_type);
+  ShipType GetShipType() const;
  private:
   ShipType ship_type_;
 };

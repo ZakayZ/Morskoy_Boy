@@ -48,3 +48,13 @@ RotateClockwiseAction::RotateClockwiseAction(Coords rotating_pivot) {
 const Coords& RotateClockwiseAction::GetPivot() const {
   return pivot_;
 }
+
+ConstructShipAction::ConstructShipAction(ShipType ship_type) {
+  ship_type_ = ship_type;
+}
+
+ShipType ConstructShipAction::GetShipType() const {
+  return ship_type_;
+}
+
+
