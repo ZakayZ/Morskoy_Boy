@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../Ships/Ship.h"
-#include "../Coords/Coords.h"
-#include "../Error.h"
-#include "../Weapons/Projectile.h"
-#include "../Field/Field.h"
+#include "Ships/Ship.h"
+#include "Coords/Coords.h"
+#include "Error.h"
+#include "Weapons/Projectile.h"
+#include "Field/Field.h"
 #include <vector>
 #include <memory>
 
@@ -23,10 +23,12 @@ class Player {
   [[nodiscard]] std::shared_ptr<Projectile> Fire(const Coords&, const Coords&);
   [[nodiscard]] Error IsValidMove(const Coords&, size_t, bool) const;
   [[nodiscard]] Error IsValidRotate(const Coords&, const Coords&, bool) const;
+  bool IsValidSetup() const;
   void Move(const Coords&, size_t, bool);
+  void AddShip(const Ship&);
   void Rotate(const Coords&, const Coords&, bool);
-  void GetHit(std::shared_ptr<Projectile>&);
-  size_t GetActionsLeft();
+  void ProcessHit(std::shared_ptr<Projectile>&);
+  [[nodiscard]] size_t GetActionsLeft() const;
   bool IsDead();
   void EndTurn();
  private:

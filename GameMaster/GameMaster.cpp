@@ -73,7 +73,7 @@ void GameMaster::Fire(const Action& action) {
   auto bullet = GetPlayer(action.GetPlayerNum()).Fire(fire_action.GetFiringShipCords(),
                                                       fire_action.GetLandingCords());
   size_t another_player = action.GetPlayerNum() % 2 + 1;
-  GetPlayer(another_player).GetHit(bullet);
+  GetPlayer(another_player).ProcessHit(bullet);
 }
 
 Error GameMaster::CheckRotateClock(const Action& action) const {

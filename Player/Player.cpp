@@ -81,6 +81,15 @@ Error Player::IsValidMove(const Coords& coords, size_t delta, bool forward) cons
   return Error::kNoError;
 }
 
+bool Player::IsValidSetup() const {
+  for (size_t i = 0; i < fleet_.size(); ++i) {
+    for (size_t j = i + 1; j < fleet_.size(); ++j) {
+      auto box1 = fleet_[i].GetPosition();
+      auto box2 = fleet_[j].GetPosition();
+    }
+  }
+}
+
 void Player::Move(const Coords& coords, size_t delta, bool forward) {
   size_t index = GetShipId(coords);
   fleet_[index].Move(delta, forward);
@@ -119,11 +128,15 @@ void Player::Rotate(const Coords& coords, const Coords& pivot, bool clockwise) {
   --actions_left_;
 }
 
-void Player::GetHit(std::shared_ptr<Projectile>& projectile) {
+void Player::ProcessHit(std::shared_ptr<Projectile>& projectile) {
   hit_by_.push_back(projectile);
 }
 
-size_t Player::GetActionsLeft() {
+void Player::AddShip(const Ship& ship) {
+  fleet_.push_back(ship);
+}
+
+size_t Player::GetActionsLeft() const {
   return actions_left_;
 }
 

@@ -41,7 +41,7 @@ void Ship::Rotate(const Coords& pivot, bool clockwise) {
   ship_box_.RotateAround(pivot, clockwise);
 }
 
-void Ship::Mark(size_t marked_for) {
+void Ship::Mark(const Coords&, size_t marked_for) {
   marked_for_ = marked_for;
 }
 

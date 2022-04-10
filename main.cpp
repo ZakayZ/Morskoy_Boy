@@ -1,4 +1,6 @@
-
+#include "GameMaster/GameMaster.h"
+#include "Ships/Shipyard.h"
+#include "Renderer/Renderer.h"
 
 int main() {
   auto window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1000, 1000), "Morskoy Boy");

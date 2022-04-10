@@ -1,4 +1,3 @@
-#include "includes.h"
 #include "Renderer.h"
 
 Renderer::~Renderer() = default;
@@ -148,5 +147,14 @@ void SFMLRenderer::Render(const Player& player, const Coords& offset, bool my_vi
   auto& ships = player.GetFleet();
   for (const auto& ship : ships) {
     Render(ship, offset, my_view);
+  }
+}
+
+void SFMLRenderer::Render(std::shared_ptr<Weapon> weapon, const Coords& offset, bool my_view) const {
+  if (my_view) {
+    sf::CircleShape weapon(render_data::kTileSide / 2.);
+    weapon.setPosition(offset.x, offset.y);
+    weapon.setFillColor(sf::Color::Red);
+    window_->draw(weapon);
   }
 }

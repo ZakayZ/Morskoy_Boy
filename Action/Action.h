@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Coords/Coords.h"
 #include "Ships/ShipType.h"
+#include "Coords/Coords.h"
 #include <cstdint>
 
 enum class ActionType {
