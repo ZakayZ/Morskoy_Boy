@@ -8,13 +8,13 @@
 
 class Shipyard {
  public:
-  [[nodiscard]] Ship Make(ShipType) const;
+  [[nodiscard]] Ship Make(ShipType, Coords cords = {0, 0}) const;
   [[nodiscard]] size_t GetPrice(ShipType ship_type) const;
-  [[nodiscard]] Ship MakeFighter() const;
-  [[nodiscard]] Ship MakeFrigate() const;
-  [[nodiscard]] Ship MakeDestroyer() const;
-  [[nodiscard]] Ship MakeCruiser() const;
-  [[nodiscard]] Ship MakeMothership() const;
+  [[nodiscard]] Ship MakeFighter(Coords) const;
+  [[nodiscard]] Ship MakeFrigate(Coords) const;
+  [[nodiscard]] Ship MakeDestroyer(Coords) const;
+  [[nodiscard]] Ship MakeCruiser(Coords) const;
+  [[nodiscard]] Ship MakeMothership(Coords) const;
  private:
   static const size_t kFighterPrice = 100;
   static const size_t kFrigatePrice = 200;
