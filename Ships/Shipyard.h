@@ -3,9 +3,6 @@
 #include "Ship.h"
 #include "ShipType.h"
 
-#ifndef MORSKOY_BOY_MORSKOY_BOY_SHIPS_SHIPYARD_H_
-#define MORSKOY_BOY_MORSKOY_BOY_SHIPS_SHIPYARD_H_
-
 class Shipyard {
  public:
   [[nodiscard]] Ship Make(ShipType, Coords cords = {0, 0}) const;
@@ -22,5 +19,3 @@ class Shipyard {
   static const size_t kCruiserPrice = 100;
   static const size_t kMothershipPrice = 100;
 };
-
-#endif //MORSKOY_BOY_MORSKOY_BOY_SHIPS_SHIPYARD_H_

@@ -82,6 +82,7 @@ void Interface<InterfaceType::Graphical>::Setup(uint8_t player_num) {
   std::string command;
   while (!player_finished) {
     cin >> command;
+    Display(player_num);
     if (!ActionGenerator::IsValidString(command, player_num)) {
       continue;
     }

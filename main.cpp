@@ -1,4 +1,5 @@
 #include "Interface/Interface.h"
+#include <SFML/Graphics.hpp>
 
 int main() {
   Interface<InterfaceType::Graphical> interface(1000, 1000);
@@ -12,12 +13,9 @@ int main() {
 //  SFMLRenderer sfml_renderer(window);
 //  vector<Ship> fleet;
 //  Shipyard factory;
-//  fleet.push_back(factory.MakeFrigate());
-//  fleet.back().Translate({2, 2});
-//  fleet.push_back(factory.MakeFrigate());
-//  fleet.back().Translate({8, 8});
-//  fleet.push_back(factory.MakeMothership());
-//  fleet.back().Translate({4, 4});
+//  fleet.push_back(factory.MakeFrigate({2, 2}));
+//  fleet.push_back(factory.MakeFrigate({7, 7}));
+//  fleet.push_back(factory.MakeMothership(  {4, 4}));
 //  Player player(3, {10, 10}, fleet);
 //  while (window->isOpen()) {
 //    sf::Event event;
@@ -28,7 +26,7 @@ int main() {
 //    window->clear();
 //    sfml_renderer.Render(player, {0, 0}, true);
 //    player.Rotate({2, 2}, {2, 2}, false);
-//    player.Rotate({8, 8}, {8, 8}, true);
+//    player.Rotate({7, 7}, {7, 7}, true);
 //    player.Rotate({5, 5}, {5, 5}, false);
 //    window->display();
 //  }
