@@ -6,7 +6,6 @@
 
 using std::vector;
 
-
 enum class ProjectileTypes {
   kDefault,
   kFlare,

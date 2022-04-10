@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Coords//Coords.h"
-#include "../Ships/BoundaryBox.h"
+#include "Coords/Coords.h"
+#include "Ships/BoundaryBox.h"
 #include "Field.h"
 #include <vector>
 

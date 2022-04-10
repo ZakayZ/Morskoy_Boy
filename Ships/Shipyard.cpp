@@ -3,7 +3,6 @@
 #include <cassert>
 
 
-
 Ship Shipyard::Make(ShipType type, Coords cords) const {
   switch (type) {
     case ShipType::Fighter: { return MakeFighter(cords); }

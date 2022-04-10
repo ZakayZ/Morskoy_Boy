@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../Error.h"
-#include "../Action/Action.h"
-#include "../Player/Player.h"
+#include "Error.h"
+#include "Action/Action.h"
+#include "Player/Player.h"
 #include <vector>
 
 using std::vector;

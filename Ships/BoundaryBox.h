@@ -18,8 +18,8 @@ class BoundaryBox {
   BoundaryBox(const BoundaryBox&) = default;
   BoundaryBox(const Coords&, const Coords&);
   BoundaryBox& operator=(const BoundaryBox&) = default;
-  [[nodiscard]] std::pair<Coords, Coords> GetCoords() const;
-  [[nodiscard]] Coords GetLeftUpperCorner()const;
+  [[nodiscard]] pair<Coords, Coords> GetCoords() const;
+  [[nodiscard]] Coords GetLeftUpperCorner() const;
   [[nodiscard]] size_t GetLength() const;
   [[nodiscard]] size_t GetWidth() const;
   [[nodiscard]] FacingDirection GetFacingDirection() const;
