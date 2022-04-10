@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Coords/Coords.h"
+#include "Ships/ShipType.h"
 #include <cstdint>
 
 enum class ActionType {
@@ -62,4 +63,11 @@ class EndTurnAction : public Action {
  public:
   EndTurnAction() = default;
  private:
+};
+
+class ConstructShipAction : public Action {
+ public:
+  ConstructShipAction() = default;
+ private:
+  ShipType ship_type_;
 };
