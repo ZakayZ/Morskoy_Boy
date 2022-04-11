@@ -29,6 +29,7 @@ class ConsoleRenderer : public Renderer {
   void Render(const Field&, const Coords&, bool) const override;
   void Render(const Player&, const Coords&, bool) const override;
   ~ConsoleRenderer() override = default;
+
  private:
   std::shared_ptr<ConsoleWindow> window_;
 };
@@ -41,7 +42,7 @@ class SFMLRenderer : public Renderer {
   void Render(const Field&, const Coords&, bool) const override;
   void Render(const Player&, const Coords&, bool) const override;
   ~SFMLRenderer() override = default;
- private:
+
  private:
   std::shared_ptr<sf::RenderWindow> window_;
 };

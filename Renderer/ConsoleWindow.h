@@ -37,7 +37,7 @@ class RectangleShape : public Shape {
   void SetOutlineValue(uint8_t);
   void SetOutlineThickness(int);
   [[nodiscard]] uint8_t GetOutlineValue() const;
-  [[nodiscard]] uint8_t GetOutlineThickness() const;
+  [[nodiscard]] int GetOutlineThickness() const;
   [[nodiscard]] std::pair<int, int> GetSize() const;
   ~RectangleShape() override = default;
  private:
@@ -54,7 +54,7 @@ class CircleShape : public Shape {
   void SetOutlineValue(uint8_t);
   void SetOutlineThickness(int);
   [[nodiscard]] uint8_t GetOutlineValue() const;
-  [[nodiscard]] uint8_t GetOutlineThickness() const;
+  [[nodiscard]] int GetOutlineThickness() const;
   [[nodiscard]] int GetRadius() const;
   ~CircleShape() override = default;
  private:
@@ -75,5 +75,6 @@ class ConsoleWindow {
  private:
   char& operator[](const std::pair<int, int>&);
   [[nodiscard]] bool IsValid(int, int) const;
+
   vector<string> screen_;
 };
