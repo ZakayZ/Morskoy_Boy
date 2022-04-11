@@ -22,7 +22,7 @@ Error GameMaster::CheckAction(const Action& action) const {
     case ActionType::RotateClockwise:return CheckRotateClock(action);
     case ActionType::RotateCounterClockwise:return CheckRotateCounterClock(action);
     case ActionType::ConstructShip:return CheckConstructShip(action);
-    case ActionType::EndTurn:break;
+    case ActionType::EndTurn:return Error::kNoError;
   }
 }
 
@@ -32,17 +32,13 @@ void GameMaster::ManageAction(const Action& action) {
       break;
     case ActionType::Fire:Fire(action);
       break;
-    case ActionType::RotateClockwise:
-      RotateClock(action);
+    case ActionType::RotateClockwise:RotateClock(action);
       break;
-    case ActionType::RotateCounterClockwise:
-      RotateCounterClock(action);
+    case ActionType::RotateCounterClockwise:RotateCounterClock(action);
       break;
-    case ActionType::EndTurn:
-      EndTurn(action);
+    case ActionType::EndTurn:EndTurn(action);
       break;
-    case ActionType::ConstructShip:
-      ConstructShip(action);
+    case ActionType::ConstructShip:ConstructShip(action);
       break;
   }
   if (is_turn_finished1_ and is_turn_finished2_) {
@@ -62,7 +58,7 @@ Player& GameMaster::GetPlayer(size_t num) {
   }
 }
 
-const Player& GameMaster::GetPlayer(size_t num) const {
+const Player& GameMaster::GetConstPlayer(size_t num) const {
   if (num == 1) {
     return player1_;
   } else if (num == 2) {
@@ -96,9 +92,9 @@ size_t GameMaster::GetMoney(size_t player_num) const {
 
 Error GameMaster::CheckMove(const Action& action) const {
   auto move_action = dynamic_cast<const MoveAction&>(action);
-  return GetPlayer(action.GetPlayerNum()).IsValidMove(move_action.GetMovingShipCords(),
-                                                      abs(move_action.GetDistance()),
-                                                      move_action.GetDistance() > 0);
+  return GetConstPlayer(action.GetPlayerNum()).IsValidMove(move_action.GetMovingShipCords(),
+                                                           abs(move_action.GetDistance()),
+                                                           move_action.GetDistance() > 0);
 }
 
 void GameMaster::Move(const Action& action) {
@@ -113,8 +109,8 @@ void GameMaster::Move(const Action& action) {
 
 Error GameMaster::CheckFire(const Action& action) const {
   auto fire_action = dynamic_cast<const FireAction&>(action);
-  return GetPlayer(action.GetPlayerNum()).IsValidFire(fire_action.GetFiringShipCords(),
-                                                      fire_action.GetLandingCords());
+  return GetConstPlayer(action.GetPlayerNum()).IsValidFire(fire_action.GetFiringShipCords(),
+                                                           fire_action.GetLandingCords());
 }
 
 void GameMaster::Fire(const Action& action) {
@@ -130,9 +126,9 @@ void GameMaster::Fire(const Action& action) {
 
 Error GameMaster::CheckRotateClock(const Action& action) const {
   auto rotate_clock_action = dynamic_cast<const RotateClockwiseAction&>(action);
-  return GetPlayer(action.GetPlayerNum()).IsValidRotate(rotate_clock_action.GetPivot(),
-                                                        rotate_clock_action.GetPivot(),
-                                                        true);
+  return GetConstPlayer(action.GetPlayerNum()).IsValidRotate(rotate_clock_action.GetPivot(),
+                                                             rotate_clock_action.GetPivot(),
+                                                             true);
 }
 
 void GameMaster::RotateClock(const Action& action) {
@@ -147,9 +143,9 @@ void GameMaster::RotateClock(const Action& action) {
 
 Error GameMaster::CheckRotateCounterClock(const Action& action) const {
   auto rotate_cclock_action = dynamic_cast<const RotateClockwiseAction&>(action);
-  return GetPlayer(action.GetPlayerNum()).IsValidRotate(rotate_cclock_action.GetPivot(),
-                                                        rotate_cclock_action.GetPivot(),
-                                                        false);
+  return GetConstPlayer(action.GetPlayerNum()).IsValidRotate(rotate_cclock_action.GetPivot(),
+                                                             rotate_cclock_action.GetPivot(),
+                                                             false);
 }
 
 void GameMaster::RotateCounterClock(const Action& action) {

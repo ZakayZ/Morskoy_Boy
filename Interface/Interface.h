@@ -3,6 +3,7 @@
 #include "GameMaster/GameMaster.h"
 #include "Action/ActionGenerator.h"
 #include "Renderer/Renderer.h"
+#include <SFML/System.hpp>
 #include <iostream>
 #include <string>
 
@@ -20,12 +21,13 @@ class Interface<InterfaceType::Graphical> {
   Interface(size_t width, size_t height);
   ~Interface();
   void Setup();
+  void Game();
   void GameCycle();
+  void Display();
   [[nodiscard]] bool Running() const;
  private:
   void Setup(uint8_t player_num);
   void Turn(uint8_t player_num);
-  void Display(uint8_t player_num) const;
   bool active_;
   GameMaster game_;
   std::shared_ptr<sf::RenderWindow> window1_;
@@ -44,10 +46,13 @@ class Interface<InterfaceType::Console> {
 Interface<InterfaceType::Graphical>::Interface(size_t width, size_t height)
     : active_(true),
       game_(3),
-      window1_(std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), "Ships")),
+      window1_(std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), "Ships1")),
       renderer1_(window1_),
-      window2_(std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), "Ships")),
-      renderer2_(window2_) {}
+      window2_(std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), "Ships2")),
+      renderer2_(window2_) {
+  window1_->setFramerateLimit(15);
+  window2_->setFramerateLimit(15);
+}
 
 Interface<InterfaceType::Graphical>::~Interface() = default;
 
@@ -63,6 +68,13 @@ void Interface<InterfaceType::Graphical>::Setup() {
   Setup(1);
   cout << "Second player can setup his fleet:\n";
   Setup(2);
+}
+
+void Interface<InterfaceType::Graphical>::Game() {
+  //Setup();
+  while (Running()) {
+    GameCycle();
+  }
 }
 
 void Interface<InterfaceType::Graphical>::GameCycle() {
@@ -81,8 +93,7 @@ void Interface<InterfaceType::Graphical>::Setup(uint8_t player_num) {
   bool player_finished = false;
   std::string command;
   while (!player_finished) {
-    cin >> command;
-    Display(player_num);
+    std::getline(cin, command);
     if (!ActionGenerator::IsValidString(command, player_num)) {
       continue;
     }
@@ -141,8 +152,7 @@ void Interface<InterfaceType::Graphical>::Turn(uint8_t player_num) {
   bool player_finished = false;
   std::string command;
   while (!player_finished) {
-    Display(player_num);
-    cin >> command;
+    std::getline(cin, command);
     if (!ActionGenerator::IsValidString(command, player_num)) {
       continue;
     }
@@ -196,15 +206,28 @@ void Interface<InterfaceType::Graphical>::Turn(uint8_t player_num) {
   }
 }
 
-void Interface<InterfaceType::Graphical>::Display(uint8_t player_num) const {
-  auto player1 = game_.GetPlayer(1);
-  auto player2 = game_.GetPlayer(2);
-  if (player_num == 1) {
+void Interface<InterfaceType::Graphical>::Display() {
+  auto& player1 = game_.GetConstPlayer(1);
+  auto& player2 = game_.GetConstPlayer(2);
+  while (Running()) {
+    sf::Event event;
+    while (window1_->pollEvent(event)) {
+      if (event.type == sf::Event::Closed) {
+        window1_->close();
+        window2_->close();
+      }
+    }
     window1_->clear();
     renderer1_.Render(player1, {0, 0}, true);
     renderer1_.Render(player2, {500, 0}, false);
     window1_->display();
-  } else {
+
+    while (window2_->pollEvent(event)) {
+      if (event.type == sf::Event::Closed) {
+        window1_->close();
+        window2_->close();
+      }
+    }
     window2_->clear();
     renderer2_.Render(player2, {0, 0}, true);
     renderer2_.Render(player1, {500, 0}, false);
