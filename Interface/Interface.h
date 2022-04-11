@@ -28,8 +28,10 @@ class Interface<InterfaceType::Graphical> {
  private:
   void Setup(uint8_t player_num);
   void Turn(uint8_t player_num);
+
   bool active_;
   GameMaster game_;
+
   std::shared_ptr<sf::RenderWindow> window1_;
   SFMLRenderer renderer1_;
 

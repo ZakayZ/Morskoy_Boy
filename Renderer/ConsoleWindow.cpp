@@ -46,7 +46,7 @@ uint8_t RectangleShape::GetOutlineValue() const {
   return outline_value_;
 }
 
-uint8_t RectangleShape::GetOutlineThickness() const {
+int RectangleShape::GetOutlineThickness() const {
   return outline_thickness_;
 }
 
@@ -75,7 +75,7 @@ uint8_t CircleShape::GetOutlineValue() const {
   return outline_value_;
 }
 
-uint8_t CircleShape::GetOutlineThickness() const {
+int CircleShape::GetOutlineThickness() const {
   return outline_thickness_;
 }
 

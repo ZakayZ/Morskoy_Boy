@@ -148,21 +148,21 @@ void BoundaryBox::Move(size_t delta, bool forward) {
   switch (facing) {
     case FacingDirection::kUp: {
       if (forward) {
-        right_corner_.y += delta;
-        left_corner_.y += delta;
-      } else {
         right_corner_.y -= delta;
         left_corner_.y -= delta;
+      } else {
+        right_corner_.y += delta;
+        left_corner_.y += delta;
       }
       break;
     }
     case FacingDirection::kDown: {
       if (forward) {
-        right_corner_.y -= delta;
-        left_corner_.y -= delta;
-      } else {
         right_corner_.y += delta;
         left_corner_.y += delta;
+      } else {
+        right_corner_.y -= delta;
+        left_corner_.y -= delta;
       }
       break;
     }
