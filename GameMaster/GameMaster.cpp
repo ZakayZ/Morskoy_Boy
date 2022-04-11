@@ -53,41 +53,36 @@ void GameMaster::ManageAction(const Action& action) {
 Player& GameMaster::GetPlayer(size_t num) {
   if (num == 1) {
     return player1_;
-  } else if (num == 2) {
-    return player2_;
   }
+  return player2_;
 }
 
 const Player& GameMaster::GetConstPlayer(size_t num) const {
   if (num == 1) {
     return player1_;
-  } else if (num == 2) {
-    return player2_;
   }
+  return player2_;
 }
 
 bool& GameMaster::GetIsTurnFinished(size_t player_num) {
   if (player_num == 1) {
     return is_turn_finished1_;
-  } else if (player_num == 2) {
-    return is_turn_finished2_;
   }
+  return is_turn_finished2_;
 }
 
 size_t& GameMaster::GetMoney(size_t player_num) {
   if (player_num == 1) {
     return money1_;
-  } else if (player_num == 2) {
-    return money2_;
   }
+  return money2_;
 }
 
 size_t GameMaster::GetMoney(size_t player_num) const {
   if (player_num == 1) {
     return money1_;
-  } else if (player_num == 2) {
-    return money2_;
   }
+  return money2_;
 }
 
 Error GameMaster::CheckMove(const Action& action) const {
