@@ -1,12 +1,14 @@
 #include "Interface/Interface.h"
 
 int main() {
-  Interface<InterfaceType::Graphical> interface(1000, 1000);
+  const size_t width = 1000;
+  const size_t height = 1000;
+  Interface<InterfaceType::Graphical> interface(width, height);
 //  interface.Setup();
-  while (interface.Running()) {
-    interface.GameCycle();
-  }
-
+  sf::Thread thread(&Interface<InterfaceType::Graphical>::Game, &interface);
+  thread.launch();
+  interface.Display();
+  thread.terminate();
 //  auto window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1000, 1000), "Morskoy Boy");
 //  window->setFramerateLimit(3);
 //  SFMLRenderer sfml_renderer(window);
