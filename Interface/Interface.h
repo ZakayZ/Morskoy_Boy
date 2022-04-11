@@ -66,20 +66,24 @@ void Interface<InterfaceType::Graphical>::Setup() {
 //  game_.MakeNewGame(first_player_name, second_player_name);
   cout << "First player can setup his fleet:\n";
   Setup(1);
+  std::system("clear");
   cout << "Second player can setup his fleet:\n";
   Setup(2);
+  std::system("clear");
 }
 
 void Interface<InterfaceType::Graphical>::Game() {
-  //Setup();
+  Setup();
   while (Running()) {
     GameCycle();
   }
 }
 
 void Interface<InterfaceType::Graphical>::GameCycle() {
+  std::system("clear");
   cout << "First player's turn:\n";
   Turn(1);
+  std::system("clear");
   cout << "Second player's turn:\n";
   Turn(2);
   cout << "EndTurn!\n";
@@ -114,6 +118,7 @@ void Interface<InterfaceType::Graphical>::Setup(uint8_t player_num) {
       }
       case Error::kNoError: {
         game_.ManageAction(*action);
+        cout << "Success!\n";
         break;
       }
       case Error::kInvalidShip: {
@@ -172,6 +177,7 @@ void Interface<InterfaceType::Graphical>::Turn(uint8_t player_num) {
       }
       case Error::kNoError: {
         game_.ManageAction(*action);
+        cout << "Success!\n";
         break;
       }
       case Error::kInvalidShip: {

@@ -46,11 +46,15 @@ std::optional<shared_ptr<Action>> ActionGenerator::CreateAction(const string& in
     if (words[0] == "rt" || words[0] == "rotate") {
       result = CreateRotateAction(words, player_num);
     }
+    if (words[0] == "cs" || words[0] == "construct") {
+      result = CreateConstructAction(words, player_num);
+    }
   }
   return result;
 }
 
-std::optional<shared_ptr<Action>> ActionGenerator::CreateRotateAction(const vector<string>& command, uint8_t player_num) {
+std::optional<shared_ptr<Action>> ActionGenerator::CreateRotateAction(const vector<string>& command,
+                                                                      uint8_t player_num) {
   if (command.size() != 4) {
     return {};
   }
@@ -92,4 +96,30 @@ std::optional<shared_ptr<Action>> ActionGenerator::CreateFireAction(const vector
   land.y = stoul(command[4]);
 
   return std::make_shared<FireAction>(ship, land, player_num);
+}
+
+std::optional<shared_ptr<Action>> ActionGenerator::CreateConstructAction(const vector<string>& command,
+                                                                         uint8_t player_num) {
+  if (command.size() != 4) {
+    return {};
+  }
+  Coords ship_position{};
+  ship_position.x = stoul(command[1]);
+  ship_position.y = stoul(command[2]);
+  ShipType ship_type;
+  if (command[3] == "frigate") {
+    ship_type = ShipType::Frigate;
+  } else if (command[3] == "mothership") {
+    ship_type = ShipType::Mothership;
+  } else if (command[3] == "fighter") {
+    ship_type = ShipType::Fighter;
+  } else if (command[3] == "cruiser") {
+    ship_type = ShipType::Cruiser;
+  } else if (command[3] == "destroyer") {
+    ship_type = ShipType::Destroyer;
+  } else {
+    return {};
+  }
+
+  return std::make_shared<ConstructShipAction>(ship_type, player_num, ship_position);
 }

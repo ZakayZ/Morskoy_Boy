@@ -5,10 +5,10 @@ int main() {
   const size_t height = 1000;
   Interface<InterfaceType::Graphical> interface(width, height);
 //  interface.Setup();
-  sf::Thread thread(&Interface<InterfaceType::Graphical>::Game, &interface);
-  thread.launch();
+  sf::Thread visual_thread(&Interface<InterfaceType::Graphical>::Game, &interface);
+  visual_thread.launch();
   interface.Display();
-  thread.terminate();
+  visual_thread.terminate();
 //  auto window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1000, 1000), "Morskoy Boy");
 //  window->setFramerateLimit(3);
 //  SFMLRenderer sfml_renderer(window);

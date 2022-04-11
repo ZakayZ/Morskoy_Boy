@@ -1,7 +1,9 @@
 #include "Weapon.h"
 
 void Weapon::Reload() {
-  --reload_counter_;
+  if (reload_counter_ > 0) {
+    --reload_counter_;
+  }
 }
 
 bool Weapon::IsReadyToFire() const {

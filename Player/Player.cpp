@@ -42,7 +42,7 @@ Error Player::IsValidFire(const Coords& coords, const Coords& where) const {
     return Error::kWeaponOnCooldown;
   }
 
-  if (my_field_.IsValidCoord(where)) {
+  if (!my_field_.IsValidCoord(where)) {
     return Error::kInvalidTarget;
   }
 
@@ -178,6 +178,7 @@ void Player::EndTurn() {
       --projectile;
     }
   }
+
   actions_left_ = 2; /// Temporary
 }
 

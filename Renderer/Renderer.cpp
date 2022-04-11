@@ -81,7 +81,11 @@ void SFMLRenderer::Render(const Ship& ship, const Coords& offset, bool my_view) 
     auto width = ship_box.GetWidth();
     auto position = ship_box.GetLeftUpperCorner();
     sf::RectangleShape rect;
-    rect.setFillColor(sf::Color::Cyan);
+    if(ship.IsDead()) {
+      rect.setFillColor(sf::Color::Red);
+    }else{
+      rect.setFillColor(sf::Color::Cyan);
+    }
     rect.setOutlineThickness(1);
     rect.setOutlineColor(sf::Color::Black);
     rect.setPosition(offset.x + position.x * render_data::kTileSide, offset.y + position.y * render_data::kTileSide);

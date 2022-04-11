@@ -11,7 +11,6 @@ const vector<Ship::Hull>& Ship::GetHull() const {
   return hull_;
 }
 
-
 BoundaryBox Ship::GetPosition() const {
   return ship_box_;
 }
@@ -23,7 +22,6 @@ size_t Ship::GetMark() const {
 const std::shared_ptr<Weapon> Ship::GetWeapon() const {
   return weapon_;
 }
-
 
 bool Ship::IsReadyFire() const {
   return weapon_->IsReadyToFire();
@@ -62,7 +60,9 @@ void Ship::ReceiveDamage(const Coords& coords, size_t damage) {
 }
 
 void Ship::TickEffects() {
-  --marked_for_;
+  if (marked_for_ > 0) {
+    --marked_for_;
+  }
   weapon_->Reload();
 }
 
