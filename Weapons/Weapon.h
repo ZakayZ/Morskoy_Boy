@@ -25,7 +25,7 @@ class Mortar : public Weapon {
   std::shared_ptr<Projectile> Fire(Coords cord) override;
  private:
   static const size_t kTimeToFly_;
-  static const size_t kTimeToReload;
+  static const size_t kTimeToReload_;
 };
 
 class FlareGun : public Weapon {
