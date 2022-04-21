@@ -11,38 +11,18 @@ void ConsoleRenderer::Render(const Ship& ship, const Coords& offset, bool my_vie
     auto width = ship_box.GetWidth();
     auto position = ship_box.GetLeftUpperCorner();
     RectangleShape rect(offset.x + position.x, offset.y + position.y, 0, 0, '*');
-    switch (ship_box.GetFacingDirection()) {
-      case BoundaryBox::FacingDirection::kUp: {
-        rect.SetSize(width, 1);
-        for (const auto& tile : hull) {
-          window_->Draw(rect);
-          rect.Move(0, 1);
-        }
-        break;
-      }
-      case BoundaryBox::FacingDirection::kDown: {
-        rect.SetSize(width, 1);
-        for (const auto& tile : hull) {
-          window_->Draw(rect);
-          rect.Move(0, 1);
-        }
-        break;
-      }
-      case BoundaryBox::FacingDirection::kLeft: {
-        rect.SetSize(1, width);
-        for (const auto& tile : hull) {
-          window_->Draw(rect);
-          rect.Move(1, 0);
-        }
-        break;
-      }
-      case BoundaryBox::FacingDirection::kRight: {
-        rect.SetSize(1, width);
-        for (const auto& tile : hull) {
-          window_->Draw(rect);
-          rect.Move(1, 0);
-        }
-        break;
+    auto facing = ship_box.GetFacingDirection();
+    if (facing == BoundaryBox::FacingDirection::kDown || facing == BoundaryBox::FacingDirection::kUp) {
+      rect.SetSize(width, 1);
+    } else {
+      rect.SetSize(1, width);
+    }
+    for (const auto& tile : hull) {
+      window_->Draw(rect);
+      if (facing == BoundaryBox::FacingDirection::kDown || facing == BoundaryBox::FacingDirection::kUp) {
+        rect.Move(0, 1);
+      } else {
+        rect.Move(1, 0);
       }
     }
   }
@@ -81,48 +61,29 @@ void SFMLRenderer::Render(const Ship& ship, const Coords& offset, bool my_view) 
     auto width = ship_box.GetWidth();
     auto position = ship_box.GetLeftUpperCorner();
     sf::RectangleShape rect;
-    if(ship.IsDead()) {
+    if (ship.IsDead()) {
       rect.setFillColor(sf::Color::Red);
-    }else{
+    } else {
       rect.setFillColor(sf::Color::Cyan);
     }
     rect.setOutlineThickness(1);
     rect.setOutlineColor(sf::Color::Black);
     rect.setPosition(offset.x + position.x * render_data::kTileSide, offset.y + position.y * render_data::kTileSide);
-    switch (ship_box.GetFacingDirection()) {
-      case BoundaryBox::FacingDirection::kUp: {
-        rect.setSize(sf::Vector2f(render_data::kTileSide * width, render_data::kTileSide));
-        for (const auto& tile : hull) {
-          window_->draw(rect);
-          rect.move(0, render_data::kTileSide);
-        }
-        break;
-      }
-      case BoundaryBox::FacingDirection::kDown: {
-        rect.setSize(sf::Vector2f(render_data::kTileSide * width, render_data::kTileSide));
-        for (const auto& tile : hull) {
-          window_->draw(rect);
-          rect.move(0, render_data::kTileSide);
-        }
-        break;
-      }
-      case BoundaryBox::FacingDirection::kLeft: {
-        rect.setSize(sf::Vector2f(render_data::kTileSide, render_data::kTileSide * width));
-        for (const auto& tile : hull) {
-          window_->draw(rect);
-          rect.move(render_data::kTileSide, 0);
-        }
-        break;
-      }
-      case BoundaryBox::FacingDirection::kRight: {
-        rect.setSize(sf::Vector2f(render_data::kTileSide, render_data::kTileSide * width));
-        for (const auto& tile : hull) {
-          window_->draw(rect);
-          rect.move(render_data::kTileSide, 0);
-        }
-        break;
+    auto facing = ship_box.GetFacingDirection();
+    if (facing == BoundaryBox::FacingDirection::kDown || facing == BoundaryBox::FacingDirection::kUp) {
+      rect.setSize(sf::Vector2f(render_data::kTileSide * width, render_data::kTileSide));
+    } else {
+      rect.setSize(sf::Vector2f(render_data::kTileSide, render_data::kTileSide * width));
+    }
+    for (const auto& tile : hull) {
+      window_->draw(rect);
+      if (facing == BoundaryBox::FacingDirection::kDown || facing == BoundaryBox::FacingDirection::kUp) {
+        rect.move(0, render_data::kTileSide);
+      } else {
+        rect.move(render_data::kTileSide, 0);
       }
     }
+
   }
 }
 

@@ -72,5 +72,5 @@ class ConstructShipAction : public Action {
   const Coords& GetTopCords() const;
  private:
   ShipType ship_type_;
-  Coords top_cords_;_
+  Coords top_cords_;
 };

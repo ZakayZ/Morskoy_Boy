@@ -2,10 +2,7 @@
 
 bool ActionGenerator::IsValidString(const string& input, uint8_t player_num) {
   auto result = CreateAction(input, player_num);
-  if (result == std::nullopt) {
-    return false;
-  }
-  return true;
+  return result.has_value();
 }
 
 shared_ptr<Action> ActionGenerator::GenerateFromString(uint8_t player_num, const string& input) {
