@@ -21,6 +21,7 @@ set(INCLUDES
         Action/ActionGenerator.cpp
         Renderer/ConsoleWindow.cpp
         Renderer/Renderer.cpp
+        Interface/Interface.cpp
         main.cpp)
 
 add_executable(main.exe ${INCLUDES})

@@ -23,7 +23,7 @@ class Renderer {
 
 class ConsoleRenderer : public Renderer {
  public:
-  explicit ConsoleRenderer(std::shared_ptr<ConsoleWindow>&);
+   ConsoleRenderer(std::shared_ptr<ConsoleWindow>&);
   void Render(const std::shared_ptr<Weapon>, const Coords&, bool) const override {}
   void Render(const Ship&, const Coords&, bool) const override;
   void Render(const Field&, const Coords&, bool) const override;
@@ -36,7 +36,7 @@ class ConsoleRenderer : public Renderer {
 
 class SFMLRenderer : public Renderer {
  public:
-  explicit SFMLRenderer(std::shared_ptr<sf::RenderWindow>&);
+   SFMLRenderer(std::shared_ptr<sf::RenderWindow>&);
   void Render(std::shared_ptr<Weapon>, const Coords&, bool) const override;
   void Render(const Ship&, const Coords&, bool) const override;
   void Render(const Field&, const Coords&, bool) const override;
