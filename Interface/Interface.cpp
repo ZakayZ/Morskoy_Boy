@@ -212,7 +212,8 @@ void GraphicalInterface::Turn(uint8_t player_num) {
 }
 
 void GraphicalInterface::Display() {
-  std::array<const Player*, 2> players = {&game_.GetConstPlayer(1), &game_.GetConstPlayer(2)};
+  std::array<const Player*, 2> players = {&game_.GetPlayer(1), &game_.GetPlayer(
+      2)};
   while (Running()) {
     Display(players, 0);
 
