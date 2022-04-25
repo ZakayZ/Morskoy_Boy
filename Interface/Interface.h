@@ -10,7 +10,7 @@
 
 class Interface {
  public:
-  Interface(size_t actions);
+  explicit Interface(size_t actions);
   ~Interface() = default;
   virtual void Game() = 0;
   virtual void Display() = 0;
