@@ -2,76 +2,74 @@
 #include <memory>
 #include <cassert>
 
-
-
 Ship Shipyard::Make(ShipType type, Coords cords) const {
   switch (type) {
     case ShipType::Fighter: { return MakeFighter(cords); }
     case ShipType::Frigate: { return MakeFrigate(cords); }
-    case ShipType::Destroyer: { return MakeDestroyer(cords); }
+    case ShipType::Submarine: { return MakeSubmarine(cords); }
     case ShipType::Cruiser: { return MakeCruiser(cords); }
-    case ShipType::Mothership: { return MakeMothership(cords); }
+    case ShipType::Carrier: { return MakeCarrier(cords); }
   }
 }
 
 size_t Shipyard::GetPrice(ShipType ship_type) const {
   switch (ship_type) {
-    case ShipType::Fighter: { return Shipyard::kFighterPrice; }
-    case ShipType::Frigate: { return Shipyard::kFrigatePrice; }
-    case ShipType::Destroyer: { return Shipyard::kDestroyerPrice; }
-    case ShipType::Cruiser: { return Shipyard::kCruiserPrice; }
-    case ShipType::Mothership: { return Shipyard::kMothershipPrice; }
+    case ShipType::Fighter: { return kFighterInfo.price; }
+    case ShipType::Frigate: { return kFrigateInfo.price; }
+    case ShipType::Submarine: { return kSubmarineInfo.price; }
+    case ShipType::Cruiser: { return kCruiserInfo.price; }
+    case ShipType::Carrier: { return kCarrierInfo.price; }
   }
 }
 
 Ship Shipyard::MakeFighter(Coords cords) const {
   auto gun = std::make_shared<Gun>();
-  static size_t length = 1;
-  static size_t width = 1;
+  static size_t length = kFighterInfo.length;
+  static size_t width = kFighterInfo.width;
   BoundaryBox box({width + cords.x, length + cords.y}, cords);
   static vector<size_t> hp = {5};
   assert(hp.size() == length);
-  return Ship(box, hp, gun);
+  return {ShipType::Fighter, box, hp, gun};
 }
 
 Ship Shipyard::MakeFrigate(Coords cords) const {
   auto gun = std::make_shared<FlareGun>();
-  static size_t length = 2;
-  static size_t width = 1;
+  static size_t length = kFrigateInfo.length;
+  static size_t width = kFrigateInfo.width;
   BoundaryBox box({width + cords.x, length + cords.y}, cords);
   static vector<size_t> hp = {6, 6};
   assert(hp.size() == length);
-  return Ship(box, hp, gun);
+  return {ShipType::Frigate, box, hp, gun};
 }
 
-Ship Shipyard::MakeDestroyer(Coords cords) const {
+Ship Shipyard::MakeSubmarine(Coords cords) const {
   auto gun = std::make_shared<Mortar>();
-  static size_t length = 3;
-  static size_t width = 1;
+  static size_t length = kSubmarineInfo.length;
+  static size_t width = kSubmarineInfo.width;
   BoundaryBox box({width + cords.x, length + cords.y}, cords);
   static vector<size_t> hp = {8, 9, 8};
   assert(hp.size() == length);
-  return Ship(box, hp, gun);
+  return {ShipType::Submarine, box, hp, gun};
 }
 
 Ship Shipyard::MakeCruiser(Coords cords) const {
-  //TODO WIP
+  //TODO
   auto gun = std::make_shared<Mortar>();
-  static size_t length = 4;
-  static size_t width = 1;
+  static size_t length = kCruiserInfo.length;
+  static size_t width = kCruiserInfo.width;
   BoundaryBox box({width + cords.x, length + cords.y}, cords);
   static vector<size_t> hp = {10, 12, 12, 10};
   assert(hp.size() == length);
-  return Ship(box, hp, gun);
+  return {ShipType::Cruiser, box, hp, gun};
 }
 
-Ship Shipyard::MakeMothership(Coords cords) const {
-  //TODO WIP
+Ship Shipyard::MakeCarrier(Coords cords) const {
+  //TODO
   auto gun = std::make_shared<Mortar>();
-  static size_t length = 3;
-  static size_t width = 3;
+  static size_t length = kCarrierInfo.length;
+  static size_t width = kCarrierInfo.width;
   BoundaryBox box({width + cords.x, length + cords.y}, cords);
-  static vector<size_t> hp = {5, 100, 5};
+  static vector<size_t> hp = {5, 100, 100, 5};
   assert(hp.size() == length);
-  return Ship(box, hp, gun);
+  return {ShipType::Carrier, box, hp, gun};
 }

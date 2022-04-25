@@ -16,6 +16,10 @@ Coords BoundaryBox::GetLeftUpperCorner() const {
   }
 }
 
+sf::Vector2f BoundaryBox::GetCenter() const {
+  return {float(left_corner_.x + right_corner_.x) / 2.f, float(left_corner_.y + right_corner_.y) / 2.f};
+}
+
 size_t BoundaryBox::GetLength() const {
   switch (GetFacingDirection()) {
     case FacingDirection::kUp: { return right_corner_.y - left_corner_.y; }

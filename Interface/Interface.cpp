@@ -122,18 +122,19 @@ void Interface::TurnMessage(Error error) {
   }
 }
 
-GraphicalInterface::GraphicalInterface(size_t width, size_t height, size_t actions)
+GraphicalInterface::GraphicalInterface(
+    size_t width, size_t height, size_t actions, std::shared_ptr<ImageStorage>& storage)
     : Interface(actions),
       windows_({std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), "Ships1"),
                 std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), "Ships2")}),
-      renderers_({SFMLRenderer(windows_[0]), SFMLRenderer(windows_[1])}) {
+      renderers_({SFMLRenderer(windows_[0], storage), SFMLRenderer(windows_[1], storage)}) {
   windows_[0]->setFramerateLimit(15);
   windows_[1]->setFramerateLimit(15);
 }
 
 GraphicalInterface::~GraphicalInterface() = default;
 
-void GraphicalInterface::Setup()  {
+void GraphicalInterface::Setup() {
 //  cout << "Enter first player name: ";
 //  std::string first_player_name;
 //  cin >> first_player_name;
@@ -156,7 +157,7 @@ void GraphicalInterface::Game() {
   }
 }
 
-void GraphicalInterface::Display(const std::array<const Player*, 2>& players, uint8_t player)  {
+void GraphicalInterface::Display(const std::array<const Player*, 2>& players, uint8_t player) {
   sf::Event event;
   while (windows_[player]->pollEvent(event)) {
     if (event.type == sf::Event::Closed) {
@@ -166,7 +167,7 @@ void GraphicalInterface::Display(const std::array<const Player*, 2>& players, ui
   }
   windows_[player]->clear();
   renderers_[player].Render(*players[player], {0, 0}, true);
-  renderers_[player].Render(*players[(player + 1) % 2], {500, 0}, false);
+  renderers_[player].Render(*players[(player + 1) % 2], {900, 0}, false);
   windows_[player]->display();
 }
 

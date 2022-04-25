@@ -2,6 +2,7 @@
 
 #include "GameMaster/GameMaster.h"
 #include "Action/ActionGenerator.h"
+#include "Renderer/ImageStorage.h"
 #include "Renderer/Renderer.h"
 #include <SFML/System.hpp>
 #include <iostream>
@@ -27,7 +28,7 @@ class Interface {
 
 class GraphicalInterface : public Interface {
  public:
-  GraphicalInterface(size_t width, size_t height, size_t actions);
+  GraphicalInterface(size_t width, size_t height, size_t actions, std::shared_ptr<ImageStorage>& storage);
   ~GraphicalInterface();
   void Game() override;
   void Display() override;

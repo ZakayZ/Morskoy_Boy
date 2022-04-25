@@ -11,7 +11,8 @@ GameMaster::GameMaster(size_t) {
 
   vector<Ship> fleet2;
   fleet2.push_back(factory.MakeFighter({1, 1}));
-  fleet2.push_back(factory.MakeDestroyer({5, 5}));
+  fleet2.push_back(factory.MakeSubmarine({3, 3}));
+  fleet2.push_back(factory.MakeCarrier({6, 6}));
   player2_ = Player(3, {10, 10}, fleet2);
 }
 

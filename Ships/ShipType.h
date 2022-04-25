@@ -3,7 +3,7 @@
 enum class ShipType{
   Fighter,
   Frigate,
-  Destroyer,
+  Submarine,
   Cruiser,
-  Mothership,
+  Carrier,
 };

@@ -19,6 +19,7 @@ set(INCLUDES
         GameMaster/GameMaster.cpp
         Action/Action.cpp
         Action/ActionGenerator.cpp
+        Renderer/ImageStorage.cpp
         Renderer/ConsoleWindow.cpp
         Renderer/Renderer.cpp
         Interface/Interface.cpp

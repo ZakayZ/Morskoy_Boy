@@ -107,13 +107,13 @@ std::optional<shared_ptr<Action>> ActionGenerator::CreateConstructAction(const v
   if (command[3] == "frigate") {
     ship_type = ShipType::Frigate;
   } else if (command[3] == "mothership") {
-    ship_type = ShipType::Mothership;
+    ship_type = ShipType::Carrier;
   } else if (command[3] == "fighter") {
     ship_type = ShipType::Fighter;
   } else if (command[3] == "cruiser") {
     ship_type = ShipType::Cruiser;
   } else if (command[3] == "destroyer") {
-    ship_type = ShipType::Destroyer;
+    ship_type = ShipType::Submarine;
   } else {
     return {};
   }

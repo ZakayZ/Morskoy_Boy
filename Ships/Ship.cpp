@@ -1,7 +1,10 @@
 #include "Ship.h"
 
-Ship::Ship(const BoundaryBox& box, const vector<size_t>& hull_health, const std::shared_ptr<Weapon>&& weapon)
-    : ship_box_(box), hull_(), weapon_(weapon), marked_for_(0), is_dead_(false) {
+Ship::Ship(ShipType type,
+           const BoundaryBox& box,
+           const vector<size_t>& hull_health,
+           const std::shared_ptr<Weapon>&& weapon)
+    : type_(type), ship_box_(box), hull_(), weapon_(weapon), marked_for_(0), is_dead_(false) {
   for (auto health : hull_health) {
     hull_.emplace_back(Hull(health));
   }
@@ -17,6 +20,10 @@ BoundaryBox Ship::GetPosition() const {
 
 size_t Ship::GetMark() const {
   return marked_for_;
+}
+
+ShipType Ship::GetType() const {
+  return type_;
 }
 
 const std::shared_ptr<Weapon> Ship::GetWeapon() const {

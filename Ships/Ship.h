@@ -1,8 +1,9 @@
 #pragma once
 
 #include "BoundaryBox.h"
-#include "../Weapons/Weapon.h"
-#include "../Weapons/Projectile.h"
+#include "ShipType.h"
+#include "Weapons/Weapon.h"
+#include "Weapons/Projectile.h"
 #include <vector>
 #include <memory>
 
@@ -12,10 +13,11 @@ class Ship {
  public:
   class Hull;
   Ship() = delete;
-  Ship(const BoundaryBox&, const vector<size_t>&, const std::shared_ptr<Weapon>&&);
+  Ship(ShipType type, const BoundaryBox&, const vector<size_t>&, const std::shared_ptr<Weapon>&&);
   [[nodiscard]] BoundaryBox GetPosition() const;
   [[nodiscard]] size_t GetMark() const;
   [[nodiscard]] const vector<Hull>& GetHull() const;
+  [[nodiscard]] ShipType GetType() const;
   [[nodiscard]] const std::shared_ptr<Weapon> GetWeapon() const;
   [[nodiscard]] bool IsReadyFire() const;
   [[nodiscard]] bool IsHit(const Coords&) const;
@@ -32,6 +34,7 @@ class Ship {
  private:
   void Reload();
 
+  ShipType type_;
   BoundaryBox ship_box_;
   vector<Hull> hull_;
   std::shared_ptr<Weapon> weapon_;
