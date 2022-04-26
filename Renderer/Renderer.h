@@ -12,7 +12,7 @@
 class Renderer {
  public:
   Renderer() = default;
-  virtual void Render(const std::shared_ptr<Weapon>, const Coords&, bool) = 0;
+  virtual void Render(std::shared_ptr<Weapon>, const Coords&, bool) = 0;
   virtual void Render(const Ship&, const Coords&, bool) = 0;
   virtual void Render(const Field&, const Coords&, bool) = 0;
   virtual void Render(const Player&, const Coords&, bool) = 0;
@@ -21,8 +21,8 @@ class Renderer {
 
 class ConsoleRenderer : public Renderer {
  public:
-  ConsoleRenderer(std::shared_ptr<ConsoleWindow>&);
-  void Render(const std::shared_ptr<Weapon>, const Coords&, bool) override {}
+  explicit ConsoleRenderer(std::shared_ptr<ConsoleWindow>&);
+  void Render(std::shared_ptr<Weapon>, const Coords&, bool) override {}
   void Render(const Ship&, const Coords&, bool) override;
   void Render(const Field&, const Coords&, bool) override;
   void Render(const Player&, const Coords&, bool) override;
@@ -36,6 +36,7 @@ class SFMLRenderer : public Renderer {
  public:
   SFMLRenderer(std::shared_ptr<sf::RenderWindow>& window, std::shared_ptr<ImageStorage>& images);
   void Render(std::shared_ptr<Weapon>, const Coords&, bool) override;
+  void Render(std::shared_ptr<Weapon>, const sf::Vector2f& center, bool visible, BoundaryBox::FacingDirection facing);
   void Render(const Ship&, const Coords&, bool) override;
   void Render(const Field&, const Coords&, bool) override;
   void Render(const Player&, const Coords&, bool) override;
@@ -48,12 +49,22 @@ class SFMLRenderer : public Renderer {
     sf::Sprite submarine_sprite;
     sf::Sprite cruiser_sprite;
     sf::Sprite carrier_sprite;
+
+    sf::Sprite gun_sprite_;
+    sf::Sprite flare_gun_sprite;
+    sf::Sprite mortar_sprite;
+    sf::Sprite bang_sprite;
+
     sf::Sprite water_sprite;
   };
 
-  static void SetCenter(sf::Sprite& sprite);
   sf::Sprite& ShipSprite(ShipType type);
-  static void ShipRotation(sf::Sprite& sprite, BoundaryBox::FacingDirection facing);
+  sf::Sprite& WeaponSprite(WeaponType type);
+  void AssignShips(std::shared_ptr<ImageStorage>& images);
+  void AssignWeapons(std::shared_ptr<ImageStorage>& images);
+  void AssignField(std::shared_ptr<ImageStorage>& images);
+  static void SetCenter(sf::Sprite& sprite);
+  static void SetRotation(sf::Sprite& sprite, BoundaryBox::FacingDirection facing);
 
   std::shared_ptr<sf::RenderWindow> window_;
   SpriteHolder sprites_;
