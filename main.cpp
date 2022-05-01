@@ -1,4 +1,3 @@
-#include "Renderer/ImageStorage.h"
 #include "Interface/Interface.h"
 
 int main() {

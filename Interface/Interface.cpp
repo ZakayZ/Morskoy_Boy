@@ -1,7 +1,3 @@
-//
-// Created by Artem Novikov on 21.04.2022.
-//
-
 #include "Interface.h"
 
 Interface::Interface(size_t actions) : active_(true), game_(actions) {}
@@ -127,7 +123,8 @@ GraphicalInterface::GraphicalInterface(
     : Interface(actions),
       windows_({std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), "Ships1"),
                 std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), "Ships2")}),
-      renderers_({SFMLRenderer(windows_[0], storage), SFMLRenderer(windows_[1], storage)}) {
+      renderers_({SFMLRenderer(windows_[0], storage), SFMLRenderer(windows_[1], storage)}),
+      animations_() {
   windows_[0]->setFramerateLimit(15);
   windows_[1]->setFramerateLimit(15);
 }
@@ -165,9 +162,28 @@ void GraphicalInterface::Display(const std::array<const Player*, 2>& players, ui
       windows_[(player + 1) % 2]->close();
     }
   }
+
   windows_[player]->clear();
   renderers_[player].Render(*players[player], {0, 0}, true);
   renderers_[player].Render(*players[(player + 1) % 2], {900, 0}, false);
+  for (size_t i = 0; i < animations_[player].size(); ++i) {
+    if (animations_[player][i].IsExpired()) {
+      animations_[player].erase(animations_[player].begin() + i);
+      --i;
+    } else {
+      renderers_[player].Render(animations_[player][i], {0, 0}, true);
+      animations_[player][i].AdvanceFrame();
+    }
+  }
+  for (size_t i = 0; i < animations_[(player + 1) % 2].size(); ++i) {
+    if (animations_[(player + 1) % 2][i].IsExpired()) {
+      animations_[(player + 1) % 2].erase(animations_[(player + 1) % 2].begin() + i);
+      --i;
+    } else {
+      renderers_[(player + 1) % 2].Render(animations_[(player + 1) % 2][i], {900, 0}, true);
+      animations_[(player + 1) % 2][i].AdvanceFrame();
+    }
+  }
   windows_[player]->display();
 }
 
@@ -178,6 +194,13 @@ void GraphicalInterface::GameCycle() {
   std::system("clear");
   cout << "Second player's turn:\n";
   Turn(2);
+
+  game_.NextTurn();
+  auto projectiles = game_.GetLanding();
+  for (const auto&[center, player_num] : projectiles) {
+    animations_[player_num % 2].emplace_back(AnimationFactory::MakeBoomAnimation(center));
+  }
+
   cout << "EndTurn!\n";
 }
 
@@ -213,8 +236,7 @@ void GraphicalInterface::Turn(uint8_t player_num) {
 }
 
 void GraphicalInterface::Display() {
-  std::array<const Player*, 2> players = {&game_.GetPlayer(1), &game_.GetPlayer(
-      2)};
+  std::array<const Player*, 2> players = {&game_.GetPlayer(1), &game_.GetPlayer(2)};
   while (Running()) {
     Display(players, 0);
 

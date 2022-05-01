@@ -3,6 +3,7 @@
 #include "GameMaster/GameMaster.h"
 #include "Action/ActionGenerator.h"
 #include "Renderer/ImageStorage.h"
+#include "Renderer/AnimationFactory.h"
 #include "Renderer/Renderer.h"
 #include <SFML/System.hpp>
 #include <iostream>
@@ -42,6 +43,7 @@ class GraphicalInterface : public Interface {
 
   std::array<std::shared_ptr<sf::RenderWindow>, 2> windows_;
   std::array<SFMLRenderer, 2> renderers_;
+  std::array<std::vector<Animation>, 2> animations_;
 };
 
 //class ConsoleInterface : public Interface {

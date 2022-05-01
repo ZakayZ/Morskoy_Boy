@@ -16,6 +16,8 @@ static const char* kMortarImage = "../Images/Weapons/Mortar.png";
 static const char* kBangImage = "../Images/Weapons/Bang.png";
 
 static const char* kWaterTile = "../Images/Field/Water.png";
+
+static const char* kBoomAnimation = "../Images/Effects/Boom0.png";
 }
 
 class ImageStorage {
@@ -34,10 +36,13 @@ class ImageStorage {
 
   sf::Texture& GetWater();
 
+  std::vector<sf::Texture>& GetBoomAnimation();
+
  private:
   void LoadShips();
   void LoadWeapons();
   void LoadField();
+  void LoadAnimation();
 
   sf::Texture fighter_texture_;
   sf::Texture frigate_texture_;
@@ -51,4 +56,6 @@ class ImageStorage {
   sf::Texture bang_texture_;
 
   sf::Texture water_texture_;
+
+  std::vector<sf::Texture> boom_textures_;
 };

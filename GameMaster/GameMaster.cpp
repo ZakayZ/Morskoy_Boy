@@ -42,7 +42,22 @@ void GameMaster::ManageAction(const Action& action) {
     case ActionType::ConstructShip:ConstructShip(action);
       break;
   }
-  if (is_turn_finished1_ and is_turn_finished2_) {
+}
+
+std::vector<std::pair<Coords, uint8_t>> GameMaster::GetLanding() {
+  std::vector<std::pair<Coords, uint8_t>> landing;
+  for (size_t i = 0; i < projectiles_.size(); ++i) {
+    if (projectiles_[i].first->IsReadyToLand()) {
+      landing.emplace_back(projectiles_[i].first->GetLandingCords(), projectiles_[i].second);
+      projectiles_.erase(projectiles_.begin() + i);
+      --i;
+    }
+  }
+  return landing;
+}
+
+void GameMaster::NextTurn() {
+  if (is_turn_finished1_ && is_turn_finished2_) {
     player1_.EndTurn();
     player2_.EndTurn();
     ++turns_passed_;
@@ -98,6 +113,7 @@ void GameMaster::Fire(const Action& action) {
   auto fire_action = dynamic_cast<const FireAction&>(action);
   auto bullet = GetPlayerByReference(action.GetPlayerNum()).Fire(fire_action.GetFiringShipCords(),
                                                                  fire_action.GetLandingCords());
+  projectiles_.emplace_back(bullet, action.GetPlayerNum());
   size_t another_player = action.GetPlayerNum() % 2 + 1;
   GetPlayerByReference(another_player).ProcessHit(bullet);
   if (GetPlayerByReference(action.GetPlayerNum()).GetActionsLeft() == 0) {
@@ -123,14 +139,14 @@ void GameMaster::RotateClock(const Action& action) {
 }
 
 Error GameMaster::CheckRotateCounterClock(const Action& action) const {
-  auto rotate_cclock_action = dynamic_cast<const RotateClockwiseAction&>(action);
+  auto rotate_cclock_action = dynamic_cast<const RotateCounterClockwiseAction&>(action);
   return GetPlayer(action.GetPlayerNum()).IsValidRotate(rotate_cclock_action.GetPivot(),
                                                         rotate_cclock_action.GetPivot(),
                                                         false);
 }
 
 void GameMaster::RotateCounterClock(const Action& action) {
-  auto rotate_cclock_action = dynamic_cast<const RotateClockwiseAction&>(action);
+  auto rotate_cclock_action = dynamic_cast<const RotateCounterClockwiseAction&>(action);
   GetPlayerByReference(action.GetPlayerNum()).Rotate(rotate_cclock_action.GetPivot(),
                                                      rotate_cclock_action.GetPivot(),
                                                      false);

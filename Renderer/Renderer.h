@@ -7,6 +7,7 @@
 #include "Field/Field.h"
 #include "Player/Player.h"
 #include "ImageStorage.h"
+#include "Animation.h"
 #include <SFML/Graphics.hpp>
 
 class Renderer {
@@ -40,6 +41,7 @@ class SFMLRenderer : public Renderer {
   void Render(const Ship&, const Coords&, bool) override;
   void Render(const Field&, const Coords&, bool) override;
   void Render(const Player&, const Coords&, bool) override;
+  void Render(const Animation&, const Coords&, bool);
   ~SFMLRenderer() override = default;
 
  private:
@@ -56,6 +58,8 @@ class SFMLRenderer : public Renderer {
     sf::Sprite bang_sprite;
 
     sf::Sprite water_sprite;
+
+    std::vector<sf::Sprite> boom_animation_sprite_;
   };
 
   sf::Sprite& ShipSprite(ShipType type);
@@ -63,6 +67,7 @@ class SFMLRenderer : public Renderer {
   void AssignShips(std::shared_ptr<ImageStorage>& images);
   void AssignWeapons(std::shared_ptr<ImageStorage>& images);
   void AssignField(std::shared_ptr<ImageStorage>& images);
+  void AssignAnimations(std::shared_ptr<ImageStorage>& images);
   static void SetCenter(sf::Sprite& sprite);
   static void SetRotation(sf::Sprite& sprite, BoundaryBox::FacingDirection facing);
 

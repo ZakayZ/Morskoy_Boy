@@ -14,6 +14,8 @@ class GameMaster {
   void MakeNewGame(std::string name1, std::string name2);
   [[nodiscard]] Error CheckAction(const Action& action) const;
   void ManageAction(const Action& action);
+  [[nodiscard]] std::vector<std::pair<Coords, uint8_t>> GetLanding();
+  void NextTurn();
   [[nodiscard]] const Player& GetPlayer(size_t num) const;
   ~GameMaster() = default;
  private:
@@ -39,5 +41,6 @@ class GameMaster {
   Player player1_;
   Player player2_;
   size_t turns_passed_ = 0;
+  std::vector<std::pair<std::shared_ptr<Projectile>, uint8_t>> projectiles_;
   static const size_t kInitialMoney = 1000;
 };

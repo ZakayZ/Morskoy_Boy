@@ -57,6 +57,7 @@ SFMLRenderer::SFMLRenderer(std::shared_ptr<sf::RenderWindow>& window, std::share
   AssignShips(images);
   AssignWeapons(images);
   AssignField(images);
+  AssignAnimations(images);
 }
 
 void SFMLRenderer::Render(const Ship& ship, const Coords& offset, bool my_view) {
@@ -107,6 +108,21 @@ void SFMLRenderer::Render(
     weapon_sprite.setPosition(center.x * render_data::kTileSide, center.y * render_data::kTileSide);
     SetRotation(weapon_sprite, facing);
     window_->draw(weapon_sprite);
+  }
+}
+
+void SFMLRenderer::Render(const Animation& animation, const Coords& offset, bool visible) {
+  if (visible) {
+    size_t frame = animation.GetFrameIndex();
+    auto center = animation.GetCenter();
+    switch (animation.GetType()) {
+      case AnimationType::kBoom: {
+        sprites_.boom_animation_sprite_[frame].setPosition(offset.x + render_data::kTileSide * (0.5f + center.x),
+                                                           offset.y + render_data::kTileSide * (0.5f + center.y));
+        window_->draw(sprites_.boom_animation_sprite_[frame]);
+        break;
+      }
+    }
   }
 }
 
@@ -194,19 +210,29 @@ void SFMLRenderer::AssignField(std::shared_ptr<ImageStorage>& images) {
   SetCenter(sprites_.water_sprite);
 }
 
+void SFMLRenderer::AssignAnimations(std::shared_ptr<ImageStorage>& images) {
+  sprites_.boom_animation_sprite_.resize(images->GetBoomAnimation().size());
+  for (size_t i = 0; i < images->GetBoomAnimation().size(); ++i) {
+    sprites_.boom_animation_sprite_[i].setTexture(images->GetBoomAnimation()[i]);
+    sprites_.boom_animation_sprite_[i].setScale(
+        float(render_data::kTileSide) / float(images->GetBoomAnimation()[i].getSize().x),
+        float(render_data::kTileSide) / float(images->GetBoomAnimation()[i].getSize().y));
+    SetCenter(sprites_.boom_animation_sprite_[i]);
+  }
+}
+
 void SFMLRenderer::SetCenter(sf::Sprite& sprite) {
-  sprite.setOrigin(sprite.getPosition().x + float(sprite.getTexture()->getSize().x) / 2.f,
-                   sprite.getPosition().y + float(sprite.getTexture()->getSize().y) / 2.f);
+  sprite.setOrigin(float(sprite.getTexture()->getSize().x) / 2.f, float(sprite.getTexture()->getSize().y) / 2.f);
 }
 
 void SFMLRenderer::SetRotation(sf::Sprite& sprite, BoundaryBox::FacingDirection facing) {
   switch (facing) {
     case BoundaryBox::FacingDirection::kUp : {
-      sprite.setRotation(90);
+      sprite.setRotation(270);
       break;
     }
     case BoundaryBox::FacingDirection::kDown: {
-      sprite.setRotation(270);
+      sprite.setRotation(90);
       break;
     }
     case BoundaryBox::FacingDirection::kLeft: {

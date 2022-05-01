@@ -179,7 +179,7 @@ void Player::EndTurn() {
     }
   }
 
-  actions_left_ = 2; /// Temporary
+  actions_left_ = 2; /// TODO Temporary
 }
 
 template <class Handler, typename T>
