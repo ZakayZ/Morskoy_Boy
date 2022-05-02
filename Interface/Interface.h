@@ -42,6 +42,7 @@ class GraphicalInterface : public Interface {
   void Display(const std::array<const Player*, 2>&, uint8_t player);
   void AdvanceAnimations();
 
+  bool running_ = true;
   std::array<std::shared_ptr<sf::RenderWindow>, 2> windows_;
   std::array<SFMLRenderer, 2> renderers_;
   std::array<std::vector<Animation>, 2> animations_;

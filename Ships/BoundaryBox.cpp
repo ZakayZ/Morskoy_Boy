@@ -47,16 +47,16 @@ size_t BoundaryBox::WhereHit(const Coords& coords) const {
   FacingDirection facing = GetFacingDirection();
   switch (facing) {
     case FacingDirection::kUp: {
-      return coords.y - left_corner_.y;
+      return left_corner_.y - coords.y - 1;
     }
     case FacingDirection::kDown: {
-      return left_corner_.y - coords.y;
+      return coords.y - left_corner_.y;
     }
     case FacingDirection::kLeft: {
-      return coords.x - left_corner_.x;
+      return left_corner_.x - coords.x - 1;
     }
     case FacingDirection::kRight: {
-      return left_corner_.x - coords.x;
+      return coords.x - left_corner_.x;
     }
   }
 }

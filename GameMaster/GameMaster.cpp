@@ -18,45 +18,31 @@ GameMaster::GameMaster(size_t) {
 
 Error GameMaster::CheckAction(const Action& action) const {
   switch (action.GetActionType()) {
-    case ActionType::Move:
-      return CheckMove(action);
-    case ActionType::Fire:
-      return CheckFire(action);
-    case ActionType::RotateClockwise:
-      return CheckRotateClock(action);
-    case ActionType::RotateCounterClockwise:
-      return CheckRotateCounterClock(action);
-    case ActionType::ConstructShip:
-      return CheckConstructShip(action);
-    case ActionType::EndTurn:
-      return Error::kNoError;
-    case ActionType::Translate:
-      return CheckTranslate(action);
+    case ActionType::Move:return CheckMove(action);
+    case ActionType::Fire:return CheckFire(action);
+    case ActionType::RotateClockwise:return CheckRotateClock(action);
+    case ActionType::RotateCounterClockwise:return CheckRotateCounterClock(action);
+    case ActionType::ConstructShip:return CheckConstructShip(action);
+    case ActionType::EndTurn:return Error::kNoError;
+    case ActionType::Translate:return CheckTranslate(action);
   }
 }
 
 void GameMaster::ManageAction(const Action& action) {
   switch (action.GetActionType()) {
-    case ActionType::Move:
-      Move(action);
+    case ActionType::Move:Move(action);
       break;
-    case ActionType::Fire:
-      Fire(action);
+    case ActionType::Fire:Fire(action);
       break;
-    case ActionType::RotateClockwise:
-      RotateClock(action);
+    case ActionType::RotateClockwise:RotateClock(action);
       break;
-    case ActionType::RotateCounterClockwise:
-      RotateCounterClock(action);
+    case ActionType::RotateCounterClockwise:RotateCounterClock(action);
       break;
-    case ActionType::EndTurn:
-      EndTurn(action);
+    case ActionType::EndTurn:EndTurn(action);
       break;
-    case ActionType::ConstructShip:
-      ConstructShip(action);
+    case ActionType::ConstructShip:ConstructShip(action);
       break;
-    case ActionType::Translate:
-      Translate(action);
+    case ActionType::Translate:Translate(action);
       break;
   }
 }
@@ -78,13 +64,11 @@ size_t GameMaster::GetPlayerActions(size_t player_num) const {
 }
 
 void GameMaster::NextTurn() {
-  if (is_turn_finished1_ && is_turn_finished2_) {
-    player1_.EndTurn();
-    player2_.EndTurn();
-    ++turns_passed_;
-    is_turn_finished1_ = false;
-    is_turn_finished2_ = false;
-  }
+  player1_.EndTurn();
+  player2_.EndTurn();
+  ++turns_passed_;
+  is_turn_finished1_ = false;
+  is_turn_finished2_ = false;
 }
 
 Player& GameMaster::GetPlayerByReference(size_t num) {
@@ -197,13 +181,13 @@ void GameMaster::ConstructShip(const Action& action) {
 
 Error GameMaster::CheckTranslate(const Action& action) const {
   auto translate_action = dynamic_cast<const TranslateAction&>(action);
-  auto [dx, dy] = translate_action.GetDelta();
+  auto[dx, dy] = translate_action.GetDelta();
   return GetPlayer(translate_action.GetPlayerNum()).IsValidTranslate(translate_action.GetShipCords(), dx, dy);
 }
 
 void GameMaster::Translate(const Action& action) {
   auto translate_action = dynamic_cast<const TranslateAction&>(action);
-  auto [dx, dy] = translate_action.GetDelta();
+  auto[dx, dy] = translate_action.GetDelta();
   GetPlayerByReference(translate_action.GetPlayerNum()).Translate(translate_action.GetShipCords(), dx, dy);
 }
 

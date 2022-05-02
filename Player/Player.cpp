@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player(size_t actions, const Coords& field_size, const vector<Ship>& fleet)
-    : actions_left_(actions), my_field_(field_size.x, field_size.y), fleet_(fleet) {}
+    : max_actions_(actions), actions_left_(50), my_field_(field_size.x, field_size.y), fleet_(fleet) {}
 
 const vector<Ship>& Player::GetFleet() const {
   return fleet_;
@@ -179,7 +179,7 @@ void Player::EndTurn() {
     }
   }
 
-  actions_left_ = 2; /// TODO Temporary
+  actions_left_ = max_actions_;
 }
 
 template <class Handler, typename T>

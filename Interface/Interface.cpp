@@ -147,6 +147,8 @@ void GraphicalInterface::Setup() {
   cout << "Second player can setup his fleet:\n";
   Setup(2);
   std::system("clear");
+
+  game_.NextTurn();
 }
 
 void GraphicalInterface::Game() {
@@ -200,12 +202,30 @@ void GraphicalInterface::GameCycle() {
   for (const auto&[center, player_num] : projectiles) {
     animations_[player_num % 2].emplace_back(AnimationFactory::MakeBoomAnimation(center));
   }
-
-  cout << "EndTurn!\n";
+  auto game_result = game_.CheckGameEnd();
+  if (game_result.has_value()) {
+    switch (game_result.value()) {
+      case 1: {
+        cout << "First player won\n";
+        break;
+      }
+      case 2: {
+        cout << "Second player won\n";
+        break;
+      }
+      case 3: {
+        cout << "Tie\n";
+        break;
+      }
+    }
+    running_ = false;
+  } else {
+    cout << "EndTurn!\n";
+  }
 }
 
 bool GraphicalInterface::Running() const {
-  return windows_[0]->isOpen() && windows_[1]->isOpen();
+  return windows_[0]->isOpen() && windows_[1]->isOpen() && running_;
 }
 
 void GraphicalInterface::Setup(uint8_t player_num) {

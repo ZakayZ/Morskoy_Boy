@@ -42,6 +42,8 @@ class Player {
   void ApplyHandler(const Coords&, const vector<vector<T>>&);
   void HandleDefaultProjectile(const std::shared_ptr<DefaultProjectile>&);
   void HandleFlareProjectile(const std::shared_ptr<Flare>&);
+
+  size_t max_actions_;
   size_t actions_left_;
   Field my_field_;
   vector<Ship> fleet_;
