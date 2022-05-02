@@ -75,8 +75,9 @@ const Coords& ConstructShipAction::GetTopCords() const {
   return top_cords_;
 }
 
-TranslateAction::TranslateAction(Coords ship_cords, int x_delta, int y_delta) {
+TranslateAction::TranslateAction(Coords ship_cords, int x_delta, int y_delta, size_t player) {
   action_type_ = ActionType::Translate;
+  player_ = player;
   ship_cords_ = ship_cords;
   x_delta_ = x_delta;
   y_delta_ = y_delta;
