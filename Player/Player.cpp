@@ -144,8 +144,8 @@ size_t Player::GetActionsLeft() const {
   return actions_left_;
 }
 
-bool Player::IsDead() {
-  for (auto& ship : fleet_) {
+bool Player::IsDead() const {
+  for (const auto& ship : fleet_) {
     if (!ship.IsDead()) {
       return false;
     }

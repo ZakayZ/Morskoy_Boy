@@ -206,3 +206,16 @@ void GameMaster::Translate(const Action& action) {
   auto [dx, dy] = translate_action.GetDelta();
   GetPlayerByReference(translate_action.GetPlayerNum()).Translate(translate_action.GetShipCords(), dx, dy);
 }
+
+std::optional<size_t> GameMaster::CheckGameEnd() const {
+  if (GetPlayer(1).IsDead() && GetPlayer(2).IsDead()) {
+    return {3};
+  }
+  if (GetPlayer(1).IsDead()) {
+    return {2};
+  }
+  if (GetPlayer(2).IsDead()) {
+    return {1};
+  }
+  return {};
+}
