@@ -103,7 +103,7 @@ size_t& GameMaster::GetMoney(size_t player_num) {
   return (player_num == 1) ? money1_ : money2_;
 }
 
-size_t GameMaster::GetMoney(size_t player_num) const {
+size_t GameMaster::GetPlayerMoney(size_t player_num) const {
   return (player_num == 1) ? money1_ : money2_;
 }
 
@@ -182,7 +182,7 @@ void GameMaster::EndTurn(const Action& action) {
 
 Error GameMaster::CheckConstructShip(const Action& action) const {
   auto construct_action = dynamic_cast<const ConstructShipAction&>(action);
-  if (GetMoney(action.GetPlayerNum()) < Shipyard().GetPrice(construct_action.GetShipType())) {
+  if (GetPlayerMoney(action.GetPlayerNum()) < Shipyard().GetPrice(construct_action.GetShipType())) {
     return Error::kOutOfMoney;
   }
   return Error::kNoError;

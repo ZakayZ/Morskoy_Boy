@@ -36,7 +36,8 @@ Error Interface::ProcessTurnAction(const string& command, uint8_t player_num, bo
   return error;
 }
 
-void Interface::SetupMessage(Error error) {
+void Interface::SetupMessage(Error error, uint8_t player_num) {
+  cout << "Money left: " << game_.GetPlayerMoney(player_num) << '\n';
   switch (error) {
     case Error::kOutOfActions: {
       cout << "How I ended up here! \n";
@@ -77,7 +78,8 @@ void Interface::SetupMessage(Error error) {
   }
 }
 
-void Interface::TurnMessage(Error error) {
+void Interface::TurnMessage(Error error, uint8_t player_num) {
+  cout << "Actions left: " << game_.GetPlayerActions(player_num) << '\n';
   switch (error) {
     case Error::kOutOfActions: {
       cout << "No Actions left, change! \n";
@@ -216,7 +218,7 @@ void GraphicalInterface::Setup(uint8_t player_num) {
       continue;
     }
     auto error = ProcessSetupAction(command, player_num, player_finished);
-    SetupMessage(error);
+    SetupMessage(error, player_num);
   }
 }
 
@@ -229,7 +231,7 @@ void GraphicalInterface::Turn(uint8_t player_num) {
       continue;
     }
     auto error = ProcessTurnAction(command, player_num, player_finished);
-    TurnMessage(error);
+    TurnMessage(error, player_num);
   }
 }
 

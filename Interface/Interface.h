@@ -20,8 +20,8 @@ class Interface {
  protected:
   Error ProcessSetupAction(const string& command, uint8_t player_num, bool& player_finished);
   Error ProcessTurnAction(const string& command, uint8_t player_num, bool& player_finished);
-  void SetupMessage(Error error);
-  void TurnMessage(Error error);
+  void SetupMessage(Error error, uint8_t player_num);
+  void TurnMessage(Error error, uint8_t player_num);
 
   bool active_;
   GameMaster game_;

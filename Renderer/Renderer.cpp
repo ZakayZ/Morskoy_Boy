@@ -220,8 +220,8 @@ void SFMLRenderer::AssignAnimations(std::shared_ptr<ImageStorage>& images) {
   for (size_t i = 0; i < images->GetBoomAnimation().size(); ++i) {
     sprites_.boom_animation_sprite_[i].setTexture(images->GetBoomAnimation()[i]);
     sprites_.boom_animation_sprite_[i].setScale(
-        float(render_data::kTileSide) / float(images->GetBoomAnimation()[i].getSize().x),
-        float(render_data::kTileSide) / float(images->GetBoomAnimation()[i].getSize().y));
+        5.f * float(render_data::kTileSide) / float(images->GetBoomAnimation()[i].getSize().x),
+        5.f * float(render_data::kTileSide) / float(images->GetBoomAnimation()[i].getSize().y));
     SetCenter(sprites_.boom_animation_sprite_[i]);
   }
 }

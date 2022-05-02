@@ -16,7 +16,7 @@ class GameMaster {
   void ManageAction(const Action& action);
   [[nodiscard]] std::vector<std::pair<Coords, uint8_t>> GetLanding();
   size_t GetPlayerActions(size_t player_num) const;
-  size_t GetMoney(size_t player_num) const;
+  size_t GetPlayerMoney(size_t player_num) const;
   void NextTurn();
   [[nodiscard]] const Player& GetPlayer(size_t num) const;
   ~GameMaster() = default;
