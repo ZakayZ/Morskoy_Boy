@@ -79,7 +79,7 @@ class ConstructShipAction : public Action {
 
 class TranslateAction : public Action {
  public:
-  TranslateAction(Coords ship_cords, int x_delta, int y_delta);
+  TranslateAction(Coords ship_cords, int x_delta, int y_delta, size_t player);
   std::pair<int, int> GetDelta();
   Coords GetShipCords();
  private:

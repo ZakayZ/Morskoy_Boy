@@ -132,5 +132,5 @@ std::optional<shared_ptr<Action>> ActionGenerator::CreateTranslateAction(const v
   Coords ship_cords = {stoul(command[1]), stoul(command[2])};
   int dx = stoi(command[3]);
   int dy = stoi(command[4]);
-  return std::make_shared<TranslateAction>(ship_cords, dx, dy);
+  return std::make_shared<TranslateAction>(ship_cords, dx, dy, player_num);
 }
