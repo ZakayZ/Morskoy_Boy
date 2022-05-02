@@ -30,7 +30,7 @@ class Player {
   void Rotate(const Coords&, const Coords&, bool);
   void ProcessHit(std::shared_ptr<Projectile>&);
   [[nodiscard]] size_t GetActionsLeft() const;
-  bool IsDead();
+  bool IsDead() const;
   void EndTurn();
   void Translate(const Coords& ship_cords, int delta_x, int delta_y);
  private:

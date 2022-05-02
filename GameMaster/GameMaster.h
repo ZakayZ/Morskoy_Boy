@@ -4,6 +4,7 @@
 #include "../Action/Action.h"
 #include "../Player/Player.h"
 #include <vector>
+#include <optional>
 
 using std::vector;
 
@@ -18,6 +19,7 @@ class GameMaster {
   size_t GetPlayerActions(size_t player_num) const;
   size_t GetPlayerMoney(size_t player_num) const;
   void NextTurn();
+  std::optional<size_t> CheckGameEnd() const;
   [[nodiscard]] const Player& GetPlayer(size_t num) const;
   ~GameMaster() = default;
  private:
