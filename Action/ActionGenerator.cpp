@@ -46,7 +46,7 @@ std::optional<shared_ptr<Action>> ActionGenerator::CreateAction(const string& in
     if (words[0] == "cs" || words[0] == "construct") {
       result = CreateConstructAction(words, player_num);
     }
-    if (words[0] == "translate") {
+    if (words[0] == "tr" || words[0] == "translate") {
       result = CreateTranslateAction(words, player_num);
     }
   }
@@ -124,7 +124,8 @@ std::optional<shared_ptr<Action>> ActionGenerator::CreateConstructAction(const v
   return std::make_shared<ConstructShipAction>(ship_type, player_num, ship_position);
 }
 
-std::optional<shared_ptr<Action>> ActionGenerator::CreateTranslateAction(const vector<string>& command, uint8_t player_num) {
+std::optional<shared_ptr<Action>> ActionGenerator::CreateTranslateAction(const vector<string>& command,
+                                                                         uint8_t player_num) {
   if (command.size() != 5) {
     return {};
   }

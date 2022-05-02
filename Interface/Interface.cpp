@@ -5,7 +5,7 @@ Interface::Interface(size_t actions) : active_(true), game_(actions) {}
 Error Interface::ProcessSetupAction(const string& command, uint8_t player_num, bool& player_finished) {
   auto action = ActionGenerator::GenerateFromString(player_num, command);
   auto error = game_.CheckAction(*action);
-  if (action->GetActionType() == ActionType::EndTurn || Error::kOutOfActions == error) {
+  if (action->GetActionType() == ActionType::EndTurn || Error::kOutOfMoney == error) {
     player_finished = true;
     return error;
   }
@@ -30,14 +30,13 @@ Error Interface::ProcessTurnAction(const string& command, uint8_t player_num, bo
     game_.ManageAction(EndTurnAction(player_num));
     player_finished = true;
   }
-  if (error == Error::kNoError) {
+  if (error == Error::kNoError && action->GetActionType() != ActionType::Translate) {
     game_.ManageAction(*action);
   }
   return error;
 }
 
 void Interface::SetupMessage(Error error, uint8_t player_num) {
-  cout << "Money left: " << game_.GetPlayerMoney(player_num) << '\n';
   switch (error) {
     case Error::kOutOfActions: {
       cout << "How I ended up here! \n";
@@ -76,10 +75,10 @@ void Interface::SetupMessage(Error error, uint8_t player_num) {
       break;
     }
   }
+  cout << "Money left: " << game_.GetPlayerMoney(player_num) << '\n';
 }
 
 void Interface::TurnMessage(Error error, uint8_t player_num) {
-  cout << "Actions left: " << game_.GetPlayerActions(player_num) << '\n';
   switch (error) {
     case Error::kOutOfActions: {
       cout << "No Actions left, change! \n";
@@ -118,6 +117,7 @@ void Interface::TurnMessage(Error error, uint8_t player_num) {
       break;
     }
   }
+  cout << "Actions left: " << game_.GetPlayerActions(player_num) << '\n';
 }
 
 GraphicalInterface::GraphicalInterface(

@@ -63,10 +63,9 @@ size_t BoundaryBox::WhereHit(const Coords& coords) const {
 
 bool BoundaryBox::IsIntersect(const BoundaryBox& other) const {
   return (std::max(std::min(left_corner_.x, right_corner_.x), std::min(other.left_corner_.x, other.right_corner_.x))
-      <= std::min(std::max(left_corner_.x, right_corner_.x), std::max(other.left_corner_.x, other.right_corner_.x)))
+      < std::min(std::max(left_corner_.x, right_corner_.x), std::max(other.left_corner_.x, other.right_corner_.x)))
       && (std::max(std::min(left_corner_.y, right_corner_.y), std::min(other.left_corner_.y, other.right_corner_.y))
-          <= std::min(std::max(left_corner_.y, right_corner_.y),
-                      std::max(other.left_corner_.y, other.right_corner_.y)));
+          < std::min(std::max(left_corner_.y, right_corner_.y), std::max(other.left_corner_.y, other.right_corner_.y)));
 }
 
 void BoundaryBox::RotateAround(const Coords& pivot, bool clockwise) {

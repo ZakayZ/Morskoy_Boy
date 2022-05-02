@@ -76,6 +76,7 @@ const Coords& ConstructShipAction::GetTopCords() const {
 }
 
 TranslateAction::TranslateAction(Coords ship_cords, int x_delta, int y_delta) {
+  action_type_ = ActionType::Translate;
   ship_cords_ = ship_cords;
   x_delta_ = x_delta;
   y_delta_ = y_delta;

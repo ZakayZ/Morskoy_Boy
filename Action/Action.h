@@ -85,5 +85,5 @@ class TranslateAction : public Action {
  private:
   int x_delta_;
   int y_delta_;
-  Coords ship_cords_{};
+  Coords ship_cords_;
 };
