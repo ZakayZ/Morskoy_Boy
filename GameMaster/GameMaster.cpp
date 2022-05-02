@@ -18,28 +18,45 @@ GameMaster::GameMaster(size_t) {
 
 Error GameMaster::CheckAction(const Action& action) const {
   switch (action.GetActionType()) {
-    case ActionType::Move:return CheckMove(action);
-    case ActionType::Fire:return CheckFire(action);
-    case ActionType::RotateClockwise:return CheckRotateClock(action);
-    case ActionType::RotateCounterClockwise:return CheckRotateCounterClock(action);
-    case ActionType::ConstructShip:return CheckConstructShip(action);
-    case ActionType::EndTurn:return Error::kNoError;
+    case ActionType::Move:
+      return CheckMove(action);
+    case ActionType::Fire:
+      return CheckFire(action);
+    case ActionType::RotateClockwise:
+      return CheckRotateClock(action);
+    case ActionType::RotateCounterClockwise:
+      return CheckRotateCounterClock(action);
+    case ActionType::ConstructShip:
+      return CheckConstructShip(action);
+    case ActionType::EndTurn:
+      return Error::kNoError;
+    case ActionType::Translate:
+      return CheckTranslate(action);
   }
 }
 
 void GameMaster::ManageAction(const Action& action) {
   switch (action.GetActionType()) {
-    case ActionType::Move:Move(action);
+    case ActionType::Move:
+      Move(action);
       break;
-    case ActionType::Fire:Fire(action);
+    case ActionType::Fire:
+      Fire(action);
       break;
-    case ActionType::RotateClockwise:RotateClock(action);
+    case ActionType::RotateClockwise:
+      RotateClock(action);
       break;
-    case ActionType::RotateCounterClockwise:RotateCounterClock(action);
+    case ActionType::RotateCounterClockwise:
+      RotateCounterClock(action);
       break;
-    case ActionType::EndTurn:EndTurn(action);
+    case ActionType::EndTurn:
+      EndTurn(action);
       break;
-    case ActionType::ConstructShip:ConstructShip(action);
+    case ActionType::ConstructShip:
+      ConstructShip(action);
+      break;
+    case ActionType::Translate:
+      Translate(action);
       break;
   }
 }
@@ -54,6 +71,10 @@ std::vector<std::pair<Coords, uint8_t>> GameMaster::GetLanding() {
     }
   }
   return landing;
+}
+
+size_t GameMaster::GetPlayerActions(size_t player_num) const {
+  return GetPlayer(player_num).GetActionsLeft();
 }
 
 void GameMaster::NextTurn() {
@@ -172,4 +193,13 @@ void GameMaster::ConstructShip(const Action& action) {
   Ship new_ship = Shipyard().Make(construct_action.GetShipType(), construct_action.GetTopCords());
   GetPlayerByReference(action.GetPlayerNum()).AddShip(new_ship);
   GetMoney(action.GetPlayerNum()) -= Shipyard().GetPrice(construct_action.GetShipType());
+}
+
+Error GameMaster::CheckTranslate(const Action& action) const {
+  auto translate_action = dynamic_cast<const TranslateAction&>(action);
+  if ()
+}
+
+void GameMaster::Translate(const Action& action) {
+
 }

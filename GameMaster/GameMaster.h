@@ -15,6 +15,7 @@ class GameMaster {
   [[nodiscard]] Error CheckAction(const Action& action) const;
   void ManageAction(const Action& action);
   [[nodiscard]] std::vector<std::pair<Coords, uint8_t>> GetLanding();
+  size_t GetPlayerActions(size_t player_num) const;
   void NextTurn();
   [[nodiscard]] const Player& GetPlayer(size_t num) const;
   ~GameMaster() = default;
@@ -29,11 +30,13 @@ class GameMaster {
   void RotateCounterClock(const Action& action);
   void EndTurn(const Action& action);
   void ConstructShip(const Action& action);
+  void Translate(const Action& action);
   Error CheckFire(const Action& action) const;
   Error CheckMove(const Action& action) const;
   Error CheckRotateClock(const Action& action) const;
   Error CheckRotateCounterClock(const Action& action) const;
   Error CheckConstructShip(const Action& action) const;
+  Error CheckTranslate(const Action& action) const;
   size_t money1_ = kInitialMoney;
   size_t money2_ = kInitialMoney;
   bool is_turn_finished1_ = false;
