@@ -222,3 +222,30 @@ void Player::DefaultHandler::operator()(Ship& ship, const Coords& hit, size_t da
 void Player::FlareHandler::operator()(Ship& ship, const Coords& hit, size_t duration) {
   ship.Mark(hit, duration);
 }
+
+Error Player::IsValidTranslate(const Coords& ship_cords, int delta_x, int delta_y) const {
+  size_t index = GetShipId(ship_cords);
+  Error error = IsValidCoords(ship_cords);
+  if (error != Error::kNoError) {
+    return error;
+  }
+
+  auto box = fleet_[index].GetPosition();
+  box.Translate(delta_x, delta_y);
+  if (!my_field_.IsValidBox(box)) {
+    return Error::kIntersectsFieldBoundary;
+  }
+
+  for (size_t i = 0; i < fleet_.size(); ++i) {
+    if (i != index && fleet_[i].IsIntersect(box)) {
+      return Error::kIntersectsShip;
+    }
+  }
+
+  return Error::kNoError;
+}
+
+void Player::Translate(const Coords& ship_cords, int delta_x, int delta_y) {
+  size_t index = GetShipId(ship_cords);
+  fleet_[index].Translate(delta_x, delta_y);
+}

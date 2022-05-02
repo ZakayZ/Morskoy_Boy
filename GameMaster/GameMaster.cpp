@@ -197,8 +197,12 @@ void GameMaster::ConstructShip(const Action& action) {
 
 Error GameMaster::CheckTranslate(const Action& action) const {
   auto translate_action = dynamic_cast<const TranslateAction&>(action);
+  auto [dx, dy] = translate_action.GetDelta();
+  return GetPlayer(translate_action.GetPlayerNum()).IsValidTranslate(translate_action.GetShipCords(), dx, dy);
 }
 
 void GameMaster::Translate(const Action& action) {
-
+  auto translate_action = dynamic_cast<const TranslateAction&>(action);
+  auto [dx, dy] = translate_action.GetDelta();
+  GetPlayerByReference(translate_action.GetPlayerNum()).Translate(translate_action.GetShipCords(), dx, dy);
 }

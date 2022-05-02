@@ -24,6 +24,7 @@ class Player {
   [[nodiscard]] Error IsValidMove(const Coords&, size_t, bool) const;
   [[nodiscard]] Error IsValidRotate(const Coords&, const Coords&, bool) const;
   bool IsValidSetup() const;
+  Error IsValidTranslate(const Coords& ship_cords, int delta_x, int delta_y) const;
   void Move(const Coords&, size_t, bool);
   void AddShip(const Ship&);
   void Rotate(const Coords&, const Coords&, bool);
@@ -31,6 +32,7 @@ class Player {
   [[nodiscard]] size_t GetActionsLeft() const;
   bool IsDead();
   void EndTurn();
+  void Translate(const Coords& ship_cords, int delta_x, int delta_y);
  private:
   struct ProjectileHandler;
   struct DefaultHandler;
