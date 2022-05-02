@@ -74,3 +74,17 @@ ShipType ConstructShipAction::GetShipType() const {
 const Coords& ConstructShipAction::GetTopCords() const {
   return top_cords_;
 }
+
+TranslateAction::TranslateAction(Coords ship_cords, int x_delta, int y_delta) {
+  ship_cords_ = ship_cords;
+  x_delta_ = x_delta;
+  y_delta_ = y_delta;
+}
+
+std::pair<int, int> TranslateAction::GetDelta() {
+  return {x_delta_, y_delta_};
+}
+
+Coords TranslateAction::GetShipCords() {
+  return ship_cords_;
+}

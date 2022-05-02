@@ -21,4 +21,5 @@ class ActionGenerator {
   static std::optional<shared_ptr<Action>> CreateMoveAction(const vector<string>& command, uint8_t player_num);
   static std::optional<shared_ptr<Action>> CreateFireAction(const vector<string>& command, uint8_t player_num);
   static std::optional<shared_ptr<Action>> CreateConstructAction(const vector<string>& command, uint8_t player_num);
+  static std::optional<shared_ptr<Action>> CreateTranslateAction(const vector<string>& command, uint8_t player_num);
 };
