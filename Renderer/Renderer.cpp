@@ -70,9 +70,9 @@ void SFMLRenderer::Render(const Ship& ship, const Coords& offset, bool my_view) 
     if (ship.IsDead()) {
       ship_sprite.setColor(sf::Color::Red);
     }
-    ship_sprite.setPosition(center.x * render_data::kTileSide, center.y * render_data::kTileSide);
+    ship_sprite.setPosition(offset.x + center.x * render_data::kTileSide, offset.y + center.y * render_data::kTileSide);
     window_->draw(ship_sprite);
-    Render(ship.GetWeapon(), center, true, facing);
+    Render(ship.GetWeapon(), center, offset, true, facing);
   }
 }
 
@@ -102,10 +102,15 @@ void SFMLRenderer::Render(const Player& player, const Coords& offset, bool my_vi
 void SFMLRenderer::Render(std::shared_ptr<Weapon> weapon, const Coords& offset, bool visible) {}
 
 void SFMLRenderer::Render(
-    std::shared_ptr<Weapon> weapon, const sf::Vector2f& center, bool visible, BoundaryBox::FacingDirection facing) {
+    std::shared_ptr<Weapon> weapon,
+    const sf::Vector2f& center,
+    const Coords& offset,
+    bool visible,
+    BoundaryBox::FacingDirection facing) {
   if (visible) {
     auto& weapon_sprite = WeaponSprite(weapon->GetType());
-    weapon_sprite.setPosition(center.x * render_data::kTileSide, center.y * render_data::kTileSide);
+    weapon_sprite.setPosition(center.x * render_data::kTileSide + offset.x,
+                              center.y * render_data::kTileSide + offset.y);
     SetRotation(weapon_sprite, facing);
     window_->draw(weapon_sprite);
   }

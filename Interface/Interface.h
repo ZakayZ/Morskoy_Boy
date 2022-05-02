@@ -40,6 +40,7 @@ class GraphicalInterface : public Interface {
   void Setup(uint8_t player_num);
   void Turn(uint8_t player_num);
   void Display(const std::array<const Player*, 2>&, uint8_t player);
+  void AdvanceAnimations();
 
   std::array<std::shared_ptr<sf::RenderWindow>, 2> windows_;
   std::array<SFMLRenderer, 2> renderers_;

@@ -185,12 +185,13 @@ void Player::EndTurn() {
 template <class Handler, typename T>
 void Player::ApplyHandler(const Coords& epicenter, const vector<vector<T>>& kernel) {
   Handler handler;
-  for (int i = -int(kernel.size()) / 2; i <= kernel.size() / 2; ++i) {
-    for (int j = -int(kernel.size()) / 2; j <= kernel.size() / 2; ++j) {
+  int kernel_size = kernel.size() / 2;
+  for (int i = -kernel_size; i <= kernel_size; ++i) {
+    for (int j = -kernel_size; j <= kernel_size; ++j) {
       Coords hit{epicenter.x + i, epicenter.y + j};
       for (auto& ship : fleet_) {
         if (ship.IsHit(hit)) {
-          handler(ship, hit, kernel[i + kernel.size() / 2][j + kernel.size() / 2]);
+          handler(ship, hit, kernel[i + kernel_size][j + kernel_size]);
         }
       }
     }

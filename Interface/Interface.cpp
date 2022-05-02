@@ -172,7 +172,6 @@ void GraphicalInterface::Display(const std::array<const Player*, 2>& players, ui
       --i;
     } else {
       renderers_[player].Render(animations_[player][i], {0, 0}, true);
-      animations_[player][i].AdvanceFrame();
     }
   }
   for (size_t i = 0; i < animations_[(player + 1) % 2].size(); ++i) {
@@ -181,7 +180,6 @@ void GraphicalInterface::Display(const std::array<const Player*, 2>& players, ui
       --i;
     } else {
       renderers_[(player + 1) % 2].Render(animations_[(player + 1) % 2][i], {900, 0}, true);
-      animations_[(player + 1) % 2][i].AdvanceFrame();
     }
   }
   windows_[player]->display();
@@ -241,5 +239,16 @@ void GraphicalInterface::Display() {
     Display(players, 0);
 
     Display(players, 1);
+    
+    AdvanceAnimations();
+  }
+}
+
+void GraphicalInterface::AdvanceAnimations() {
+  for (auto& animation : animations_[0]) {
+    animation.AdvanceFrame();
+  }
+  for (auto& animation : animations_[1]) {
+    animation.AdvanceFrame();
   }
 }

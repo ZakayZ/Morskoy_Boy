@@ -37,7 +37,11 @@ class SFMLRenderer : public Renderer {
  public:
   SFMLRenderer(std::shared_ptr<sf::RenderWindow>& window, std::shared_ptr<ImageStorage>& images);
   void Render(std::shared_ptr<Weapon>, const Coords&, bool) override;
-  void Render(std::shared_ptr<Weapon>, const sf::Vector2f& center, bool visible, BoundaryBox::FacingDirection facing);
+  void Render(std::shared_ptr<Weapon>,
+              const sf::Vector2f& center,
+              const Coords& offset,
+              bool visible,
+              BoundaryBox::FacingDirection facing);
   void Render(const Ship&, const Coords&, bool) override;
   void Render(const Field&, const Coords&, bool) override;
   void Render(const Player&, const Coords&, bool) override;

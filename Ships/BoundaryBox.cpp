@@ -39,8 +39,8 @@ size_t BoundaryBox::GetWidth() const {
 }
 
 bool BoundaryBox::IsHit(const Coords& coords) const {
-  return coords.x >= std::min(left_corner_.x, right_corner_.x) && coords.x <= std::max(left_corner_.x, right_corner_.x)
-      && coords.y >= std::min(left_corner_.y, right_corner_.y) && coords.y <= std::max(left_corner_.y, right_corner_.y);
+  return coords.x >= std::min(left_corner_.x, right_corner_.x) && coords.x < std::max(left_corner_.x, right_corner_.x)
+      && coords.y >= std::min(left_corner_.y, right_corner_.y) && coords.y < std::max(left_corner_.y, right_corner_.y);
 }
 
 size_t BoundaryBox::WhereHit(const Coords& coords) const {
