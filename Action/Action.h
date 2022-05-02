@@ -3,6 +3,7 @@
 #include "Ships/ShipType.h"
 #include "Coords/Coords.h"
 #include <cstdint>
+#include <utility>
 
 enum class ActionType {
   Move,
@@ -11,6 +12,7 @@ enum class ActionType {
   RotateCounterClockwise,
   EndTurn,
   ConstructShip,
+  Translate,
 };
 
 class Action {
@@ -73,4 +75,15 @@ class ConstructShipAction : public Action {
  private:
   ShipType ship_type_;
   Coords top_cords_;
+};
+
+class TranslateAction : public Action {
+ public:
+  TranslateAction(Coords ship_cords, int x_delta, int y_delta);
+  std::pair<int, int> GetDelta();
+  Coords GetShipCords();
+ private:
+  int x_delta_;
+  int y_delta_;
+  Coords ship_cords_{};
 };
