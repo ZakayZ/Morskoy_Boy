@@ -23,7 +23,7 @@ class Ship {
   [[nodiscard]] bool IsHit(const Coords&) const;
   [[nodiscard]] bool IsIntersect(const BoundaryBox&) const;
   [[nodiscard]] std::shared_ptr<Projectile> Fire(const Coords&);
-  void Translate(const Coords&);
+  void Translate(int deltax, int deltay);
   void Move(size_t, bool);
   void Rotate(const Coords&, bool);
   void Mark(const Coords&, size_t);

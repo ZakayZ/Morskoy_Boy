@@ -209,9 +209,9 @@ BoundaryBox::FacingDirection BoundaryBox::GetFacingDirection() const {
   }
 }
 
-void BoundaryBox::Translate(const Coords& delta) {
-  left_corner_.x += delta.x;
-  left_corner_.y += delta.y;
-  right_corner_.x += delta.x;
-  right_corner_.y += delta.y;
+void BoundaryBox::Translate(int deltax, int deltay) {
+  left_corner_.x += deltax;
+  left_corner_.y += deltay;
+  right_corner_.x += deltax;
+  right_corner_.y += deltay;
 }

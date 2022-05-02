@@ -28,7 +28,7 @@ class BoundaryBox {
   [[nodiscard]] bool IsHit(const Coords&) const;
   [[nodiscard]] size_t WhereHit(const Coords&) const;
   [[nodiscard]] bool IsIntersect(const BoundaryBox&) const;
-  void Translate(const Coords&);
+  void Translate(int deltax, int deltay);
   void RotateAround(const Coords&, bool);
   void Move(size_t, bool);
   ~BoundaryBox() = default;

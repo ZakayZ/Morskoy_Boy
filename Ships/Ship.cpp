@@ -96,6 +96,6 @@ void Ship::Reload() {
   }
 }
 
-void Ship::Translate(const Coords& delta) {
-  ship_box_.Translate(delta);
+void Ship::Translate(int deltax, int deltay) {
+  ship_box_.Translate(deltax, deltay);
 }

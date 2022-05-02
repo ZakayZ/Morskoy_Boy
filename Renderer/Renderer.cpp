@@ -61,7 +61,7 @@ SFMLRenderer::SFMLRenderer(std::shared_ptr<sf::RenderWindow>& window, std::share
 }
 
 void SFMLRenderer::Render(const Ship& ship, const Coords& offset, bool my_view) {
-  if (my_view || ship.GetMark() > 0) {
+  if (my_view || ship.GetMark() > 0 || ship.IsDead()) {
     auto ship_box = ship.GetPosition();
     auto center = ship_box.GetCenter();
     auto facing = ship_box.GetFacingDirection();

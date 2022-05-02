@@ -185,14 +185,12 @@ void Player::EndTurn() {
 template <class Handler, typename T>
 void Player::ApplyHandler(const Coords& epicenter, const vector<vector<T>>& kernel) {
   Handler handler;
-  for (size_t i = epicenter.x < kernel.size() / 2 ? 0 : epicenter.x - kernel.size() / 2;
-       i <= epicenter.x + kernel.size() / 2; ++i) {
-    for (size_t j = epicenter.y < kernel.size() / 2 ? 0 : epicenter.y - kernel.size() / 2;
-         j <= epicenter.y + kernel.size() / 2; ++j) {
-      Coords hit{i, j};
+  for (int i = -int(kernel.size()) / 2; i <= kernel.size() / 2; ++i) {
+    for (int j = -int(kernel.size()) / 2; j <= kernel.size() / 2; ++j) {
+      Coords hit{epicenter.x + i, epicenter.y + j};
       for (auto& ship : fleet_) {
         if (ship.IsHit(hit)) {
-          handler(ship, hit, kernel[i][j]);
+          handler(ship, hit, kernel[i + kernel.size() / 2][j + kernel.size() / 2]);
         }
       }
     }
@@ -217,6 +215,7 @@ const Field& Player::GetField() const {
 
 void Player::DefaultHandler::operator()(Ship& ship, const Coords& hit, size_t damage) {
   ship.ReceiveDamage(hit, damage);
+  ship.Mark(hit, 1);
 }
 
 void Player::FlareHandler::operator()(Ship& ship, const Coords& hit, size_t duration) {

@@ -46,7 +46,7 @@ void GameMaster::ManageAction(const Action& action) {
 
 std::vector<std::pair<Coords, uint8_t>> GameMaster::GetLanding() {
   std::vector<std::pair<Coords, uint8_t>> landing;
-  for (size_t i = 0; i < projectiles_.size(); ++i) {
+  for (ssize_t i = 0; i < projectiles_.size(); ++i) {
     if (projectiles_[i].first->IsReadyToLand()) {
       landing.emplace_back(projectiles_[i].first->GetLandingCords(), projectiles_[i].second);
       projectiles_.erase(projectiles_.begin() + i);
