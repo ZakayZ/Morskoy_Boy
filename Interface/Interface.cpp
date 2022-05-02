@@ -179,7 +179,7 @@ void GraphicalInterface::Display(const std::array<const Player*, 2>& players, ui
       animations_[(player + 1) % 2].erase(animations_[(player + 1) % 2].begin() + i);
       --i;
     } else {
-      renderers_[(player + 1) % 2].Render(animations_[(player + 1) % 2][i], {900, 0}, true);
+      renderers_[player].Render(animations_[(player + 1) % 2][i], {900, 0}, true);
     }
   }
   windows_[player]->display();
@@ -239,7 +239,7 @@ void GraphicalInterface::Display() {
     Display(players, 0);
 
     Display(players, 1);
-    
+
     AdvanceAnimations();
   }
 }

@@ -197,7 +197,6 @@ void GameMaster::ConstructShip(const Action& action) {
 
 Error GameMaster::CheckTranslate(const Action& action) const {
   auto translate_action = dynamic_cast<const TranslateAction&>(action);
-  if ()
 }
 
 void GameMaster::Translate(const Action& action) {
